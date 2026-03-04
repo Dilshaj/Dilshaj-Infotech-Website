@@ -1,0 +1,95 @@
+"use client";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import aboutImage from "../images/about.png";
+
+export default function AboutSection() {
+    return (
+        <section className="w-full bg-white py-16 md:py-24 px-6 md:px-12 xl:px-24">
+            <div className="max-w-[1500px] mx-auto flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
+
+                {/* Image Side (Bottom on mobile, Left on desktop) */}
+                {/* Image Side (Bottom on mobile, Left on desktop) */}
+                <motion.div
+                    initial={{ opacity: 0, x: -80 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ willChange: "transform, opacity" }}
+                    className="w-full lg:w-1/2 flex justify-center mt-6 lg:mt-0"
+                >
+                    <div className="relative w-full aspect-[4/3] max-w-[550px] lg:max-w-none rounded-[24px] md:rounded-[32px] overflow-hidden shadow-lg">
+                        <Image
+                            src={aboutImage}
+                            alt="About the upcoming app"
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
+                </motion.div>
+
+                {/* Content Side (Top on mobile, Right on desktop) */}
+                <motion.div
+                    initial={{ opacity: 0, x: 80 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                    style={{ willChange: "transform, opacity" }}
+                    className="w-full lg:w-1/2 flex flex-col items-center text-center lg:items-start lg:text-left"
+                >
+
+                    {/* Subtitle */}
+                    <h3
+                        className="font-semibold mb-3 md:mb-4 uppercase"
+                        style={{
+                            backgroundImage: "linear-gradient(90deg, #20B5F9 0%, #A851ED 100%)",
+                            WebkitBackgroundClip: "text",
+                            backgroundClip: "text",
+                            color: "transparent",
+                            fontSize: "clamp(16px, 2vw, 24px)",
+                            letterSpacing: "0%",
+                            lineHeight: "100%",
+                        }}
+                    >
+                        ABOUT THE UPCOMING APP
+                    </h3>
+
+                    {/* Title */}
+                    <h2
+                        className="text-black font-semibold mb-6 md:mb-8"
+                        style={{
+                            fontSize: "clamp(36px, 4vw, 52px)",
+                            lineHeight: "126%",
+                        }}
+                    >
+                        A Smarter Way to Stay<br className="hidden md:block" /> Informed
+                    </h2>
+
+                    {/* Paragraph */}
+                    <p
+                        className="font-normal mb-8 lg:mb-10 max-w-[600px]"
+                        style={{
+                            color: "#000000A6",
+                            fontSize: "clamp(16px, 2vw, 20px)",
+                            lineHeight: "160%",
+                        }}
+                    >
+                        Our Digital News Channel app is designed for the fast-moving world. From breaking headlines to in-depth reports, we bring trusted journalism into a modern digital experience.
+                        <br /><br />
+                        The platform will cover national, international, business, technology, politics, entertainment, and local news — all curated for clarity and credibility.
+                    </p>
+
+                    {/* Button */}
+                    <button className="flex items-center group relative h-12 w-fit cursor-pointer">
+                        <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105 border border-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-0.5"><polyline points="9 18 15 12 9 6" /></svg>
+                        </div>
+                        <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
+                            Stay Tuned
+                        </div>
+                    </button>
+                </motion.div>
+            </div>
+        </section>
+    );
+}
