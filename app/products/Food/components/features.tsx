@@ -1,12 +1,7 @@
 "use client";
 
 import { Poppins } from 'next/font/google';
-import f1Icon from '../images/f1.png';
-import f2Icon from '../images/f2.png';
-import f3Icon from '../images/f3.png';
-import f4Icon from '../images/f4.png';
-import f5Icon from '../images/f5.png';
-import f6Icon from '../images/f6.png';
+import { FaRoute, FaWallet, FaChartPie, FaTag, FaMotorcycle, FaStar } from 'react-icons/fa6';
 import { useRef } from 'react';
 import { ParticleCard, GlobalSpotlight, useMobileDetection } from './magic-bento-utils';
 
@@ -20,44 +15,32 @@ const featuresData = [
     {
         title: "Real-Time Order Tracking",
         desc: "Track your order live from kitchen preparation to doorstep delivery with accurate status updates and estimated arrival times for a stress-free experience.",
-        icon: (
-            <img src={f1Icon.src} alt="Tracking" className="w-[39px] h-auto object-contain" />
-        )
+        icon: <FaRoute className="w-5 h-5 text-[#2653B3]" />
     },
     {
         title: "Multiple Payment Options",
         desc: "Pay securely using cards, digital wallets, UPI, or cash on delivery with fast processing and encrypted transactions for complete peace of mind.",
-        icon: (
-            <img src={f2Icon.src} alt="Payment" className="w-[39px] h-auto object-contain" />
-        )
+        icon: <FaWallet className="w-5 h-5 text-[#2653B3]" />
     },
     {
         title: "Restaurant Partner Dashboard",
         desc: "Restaurants can easily manage menus, update pricing, monitor incoming orders, and track performance through a simple and intuitive admin panel.",
-        icon: (
-            <img src={f3Icon.src} alt="Dashboard" className="w-[39px] h-auto object-contain" />
-        )
+        icon: <FaChartPie className="w-5 h-5 text-[#2653B3]" />
     },
     {
         title: "Exclusive Offers & Discounts",
         desc: "Access personalized deals, seasonal promotions, and special discounts designed to enhance customer engagement and boost order frequency.",
-        icon: (
-            <img src={f4Icon.src} alt="Offers" className="w-[39px] h-auto object-contain" />
-        )
+        icon: <FaTag className="w-5 h-5 text-[#2653B3]" />
     },
     {
         title: "Smart Delivery Allocation",
         desc: "Our intelligent system assigns delivery partners efficiently to ensure faster pickups, optimized routes, and timely deliveries.",
-        icon: (
-            <img src={f5Icon.src} alt="Delivery Allocation" className="w-[39px] h-auto object-contain" />
-        )
+        icon: <FaMotorcycle className="w-5 h-5 text-[#2653B3]" />
     },
     {
         title: "Ratings & Reviews For Improve",
         desc: "Customers can rate meals, share feedback, and discover highly recommended restaurants based on real user experiences.",
-        icon: (
-            <img src={f6Icon.src} alt="Reviews" className="w-[39px] h-auto object-contain" />
-        )
+        icon: <FaStar className="w-5 h-5 text-[#2653B3]" />
     }
 ];
 
