@@ -1,5 +1,9 @@
 "use client";
 
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
     SiTensorflow, SiPytorch, SiOpencv,
     SiAmazonwebservices, SiGooglecloud, SiDocker,
@@ -10,6 +14,10 @@ import {
 } from "react-icons/si";
 import { FaMicrosoft, FaPython, FaAws, FaDocker, FaDatabase } from "react-icons/fa";
 import { Cpu, Cloud, Sparkles, Layout, Database, Rocket, Zap, Brain, Hexagon } from "lucide-react";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 const techStack = [
     {
@@ -75,10 +83,67 @@ const techStack = [
 ];
 
 export default function TechStack() {
+    const container = useRef(null);
+
+    useGSAP(() => {
+        // Header animation
+        gsap.fromTo(".tech-header",
+            { y: 40, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 85%",
+                },
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out"
+            }
+        );
+
+        // Left Categories animation
+        gsap.fromTo(".tech-category-item",
+            { x: -30, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 85%",
+                },
+                x: 0,
+                opacity: 1,
+                stagger: 0.1,
+                duration: 0.8,
+                ease: "power2.out",
+                immediateRender: false
+            }
+        );
+
+        // Right Tech Icons animation
+        gsap.fromTo(".tech-icon-item",
+            { scale: 0.8, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 85%",
+                },
+                scale: 1,
+                opacity: 1,
+                stagger: {
+                    each: 0.05,
+                    grid: "auto",
+                    from: "start"
+                },
+                duration: 0.6,
+                ease: "back.out(1.7)",
+                immediateRender: false
+            }
+        );
+    }, { scope: container });
+
     return (
-        <section className="bg-white py-24 px-6 md:px-12 lg:px-20 border-t border-gray-100">
+        <section ref={container} className="bg-white py-24 px-6 md:px-12 lg:px-20 border-t border-gray-100">
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-20 space-y-4">
+                <div className="tech-header text-center mb-20 space-y-4">
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
                         Built on a Modern, Scalable Technology Stack
                     </h2>
@@ -94,7 +159,7 @@ export default function TechStack() {
                             {techStack.map((category, idx) => (
                                 <div
                                     key={idx}
-                                    className="flex items-center gap-4 bg-white border border-gray-100 px-5 py-4 rounded-2xl shadow-sm group hover:border-blue-500/30 transition-all duration-300 cursor-default h-[72px] shrink-0"
+                                    className="tech-category-item flex items-center gap-4 bg-white border border-gray-100 px-5 py-4 rounded-2xl shadow-sm group hover:border-blue-500/30 transition-all duration-300 cursor-default h-[72px] shrink-0"
                                 >
                                     <div className="w-10 h-10 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center shrink-0 group-hover:bg-blue-50 transition-colors">
                                         <category.icon className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors" />
@@ -114,7 +179,7 @@ export default function TechStack() {
                                         {category.items.map((tech, techIdx) => (
                                             <div
                                                 key={techIdx}
-                                                className="flex flex-col items-center justify-center gap-2 group cursor-default transition-all duration-300 hover:scale-105"
+                                                className="tech-icon-item flex flex-col items-center justify-center gap-2 group cursor-default transition-all duration-300 hover:scale-105"
                                             >
                                                 <div className="w-12 h-12 flex items-center justify-center transition-all duration-500">
                                                     <tech.icon className={`w-8 h-8 md:w-10 md:h-10 ${tech.color} group-hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.1)] group-hover:brightness-110 transition-all`} />

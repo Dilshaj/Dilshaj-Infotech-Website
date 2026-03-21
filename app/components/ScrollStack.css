@@ -1,0 +1,27 @@
+.scroll-stack-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.scroll-stack-inner-wrapper {
+    perspective: 1000px;
+}
+
+.scroll-stack-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+    overflow: hidden;
+    will-change: transform, opacity, filter;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+/* Optional card hover effect */
+.scroll-stack-card:hover {
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}

@@ -14,7 +14,7 @@ const poppins = Poppins({
 export default function Hero() {
     return (
         <section
-            className={`${poppins.className} relative w-full overflow-hidden bg-[#060d1f]`}
+            className={`${poppins.className} relative w-full overflow-hidden bg-[#060d1f] mt-24 md:mt-0`}
         >
             {/*
              * ── WRAPPER ──────────────────────────────────────────────
@@ -26,7 +26,7 @@ export default function Hero() {
 
                 {/* ── Background image ── */}
                 <Image
-                    src="/products/security/herobg.png"
+                    src="/products-images/S&N (2).png"
                     alt="Security Hero Background"
                     fill
                     /*
@@ -84,29 +84,13 @@ export default function Hero() {
                     </p>
 
                     {/* ── CTA Button ── */}
-                    <button
-                        className="
-                            flex items-center gap-1.5
-                            bg-gradient-to-r from-[#60a5fa] to-[#a855f7]
-                            text-white rounded-full w-fit font-[600]
-                            hover:shadow-[0_0_24px_rgba(168,85,247,0.4)] transition-all duration-300
-                            h-[clamp(22px,3.5vw,48px)] pl-[2px] pr-[clamp(8px,1.2vw,22px)]
-                            text-[clamp(7px,1.3vw,13px)]
-                            lg:h-[clamp(42px,4vw,56px)] lg:pl-[5px] lg:pr-[clamp(16px,1.8vw,26px)]
-                            lg:text-[clamp(12px,1.1vw,15px)]
-                        "
-                    >
-                        <div
-                            className="
-                                bg-white rounded-full flex items-center justify-center
-                                shadow-[0_4px_12px_rgba(0,0,0,0.3)]
-                                w-[clamp(16px,2.8vw,36px)] h-[clamp(16px,2.8vw,36px)]
-                                lg:w-[clamp(28px,2.6vw,40px)] lg:h-[clamp(28px,2.6vw,40px)]
-                            "
-                        >
-                            <ChevronRight size={12} strokeWidth={3} className="text-black" />
+                    <button className="flex items-center group relative h-12 w-fit cursor-pointer mt-4">
+                        <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                         </div>
-                        <span className="tracking-wide">Coming Soon</span>
+                        <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
+                            Coming Soon
+                        </div>
                     </button>
                 </div>
             </div>

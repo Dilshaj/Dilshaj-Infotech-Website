@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         // Send email to company
         await transporter.sendMail({
             from: `"${firstName} ${lastName}" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
-            to: "dilshajinfotech.it@gmail.com",
+            to: "info@dilshajinfotech.tech",
             subject: subject,
             html: emailBody,
         });

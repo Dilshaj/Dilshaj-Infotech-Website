@@ -121,26 +121,13 @@ export default function Launch() {
 
                 {/* ── Button below card ── */}
                 <div className="flex justify-center pt-6 sm:pt-8">
-                    <button
-                        className="
-                            flex items-center gap-2
-                            bg-gradient-to-r from-[#60a5fa] to-[#a855f7]
-                            text-white rounded-full font-[600]
-                            hover:shadow-[0_0_24px_rgba(168,85,247,0.45)]
-                            transition-all duration-300
-                            h-[clamp(38px,4vw,52px)]
-                            pl-[4px] pr-[clamp(16px,2vw,26px)]
-                            text-[clamp(12px,1.2vw,15px)]
-                        "
-                    >
-                        <div className="
-                            bg-white rounded-full flex items-center justify-center
-                            shadow-[0_2px_8px_rgba(0,0,0,0.15)]
-                            w-[clamp(28px,3vw,40px)] h-[clamp(28px,3vw,40px)]
-                        ">
-                            <ChevronRight size={13} strokeWidth={3} className="text-[#7c3aed]" />
+                    <button className="flex items-center group relative h-12 w-fit cursor-pointer">
+                        <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                         </div>
-                        <span className="tracking-wide whitespace-nowrap">Notify Me When Live</span>
+                        <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
+                            Notify Me When Live
+                        </div>
                     </button>
                 </div>
 

@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { ChevronRight, ChevronsRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Poppins } from "next/font/google";
 
 const poppins = Poppins({
@@ -17,11 +17,17 @@ export default function About() {
             {/* About Ribbon */}
             <div className="absolute left-0 top-[30px] lg:top-[40px] z-20">
                 <div
-                    className="bg-[#0284c7] text-white font-[600] text-[13px] sm:text-[15px] pl-4 sm:pl-8 pr-10 sm:pr-14 py-[8px] sm:py-[10px] flex items-center gap-2 shadow-sm"
-                    style={{ clipPath: "polygon(0 0, 100% 0, 85% 50%, 100% 100%, 0 100%)", letterSpacing: "0.5px" }}
+                    className="relative flex items-center gap-2 pl-4 pr-10 py-2.5 w-fit"
+                    style={{
+                        background: 'linear-gradient(to right, #029EFA, #0E4E8B)',
+                        clipPath: 'polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%)'
+                    }}
                 >
-                    <ChevronsRight size={18} strokeWidth={3} />
-                    <span>About</span>
+                    <div className="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white -ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                    </div>
+                    <span className="text-white font-bold text-[18px] tracking-wider pr-4">About</span>
                 </div>
             </div>
 
@@ -48,11 +54,13 @@ export default function About() {
                             Built using modern technologies and real-time data processing, the platform delivers accurate directions, instant alerts, and seamless communication during travel.
                         </p>
 
-                        <button className="flex items-center gap-3 bg-gradient-to-r from-[#60a5fa] to-[#a855f7] text-white rounded-full w-fit h-[44px] sm:h-[48px] pl-[6px] pr-6 font-[600] text-[14px] hover:shadow-[0_0_24px_rgba(168,85,247,0.4)] transition-all duration-300">
-                            <div className="bg-white rounded-full w-[32px] sm:w-[36px] h-[32px] sm:h-[36px] flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.2)]">
-                                <ChevronRight size={17} strokeWidth={3} className="text-black" />
+                        <button className="flex items-center group relative h-12 w-fit cursor-pointer">
+                            <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                             </div>
-                            <span className="tracking-wide">Get Early Access</span>
+                            <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
+                                Get Early Access
+                            </div>
                         </button>
                     </div>
 

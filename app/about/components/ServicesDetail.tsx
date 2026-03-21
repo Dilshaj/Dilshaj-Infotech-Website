@@ -1,7 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 import {
     Layout,
     Smartphone,
@@ -11,6 +18,7 @@ import {
     CheckCircle2,
     ChevronRight,
 } from "lucide-react";
+import { FaChevronRight } from "react-icons/fa6";
 
 const services = [
     {
@@ -113,12 +121,79 @@ const services = [
 export default function ServicesDetail() {
     const [activeId, setActiveId] = useState(1);
     const active = services.find((s) => s.id === activeId)!;
+    const container = useRef(null);
+
+    useGSAP(() => {
+        // Heading Animation
+        gsap.fromTo(".services-heading",
+            { y: 50, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 85%",
+                },
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out"
+            }
+        );
+
+        // Left: Service List Items animation
+        gsap.fromTo(".service-list-item",
+            { x: -50, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 80%",
+                },
+                x: 0,
+                opacity: 1,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: "power2.out",
+                immediateRender: false
+            }
+        );
+
+        // Right Content animation
+        gsap.fromTo(".service-detail-card",
+            { scale: 0.95, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 75%",
+                },
+                scale: 1,
+                opacity: 1,
+                duration: 1.2,
+                ease: "expo.out",
+                immediateRender: false
+            }
+        );
+
+        // Bottom Banner animation
+        gsap.fromTo(".service-growth-banner",
+            { y: 60, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 90%",
+                },
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out",
+                immediateRender: false
+            }
+        );
+    }, { scope: container });
 
     return (
-        <section className="bg-[#f3f4f6] py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-20 overflow-hidden">
+        <section ref={container} className="bg-[#f3f4f6] py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-20 overflow-hidden">
 
             {/* Heading Area */}
-            <div className="max-w-7xl mx-auto text-center mb-16 md:mb-20">
+            <div className="services-heading max-w-7xl mx-auto text-center mb-16 md:mb-20">
                 <h2 className="text-3xl sm:text-4xl md:text-[44px] font-bold text-gray-900 leading-tight">
                     Full-Stack Digital Development <br className="md:hidden" /> Services to Drive Innovation
                 </h2>
@@ -139,7 +214,7 @@ export default function ServicesDetail() {
                             <div
                                 key={service.id}
                                 onClick={() => setActiveId(service.id)}
-                                className={`flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5 rounded-2xl p-6 cursor-pointer transition-all duration-300 ${activeId === service.id
+                                className={`service-list-item flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5 rounded-2xl p-6 cursor-pointer transition-all duration-300 ${activeId === service.id
                                     ? "bg-black text-white shadow-2xl"
                                     : "bg-white text-gray-900 border border-gray-100 hover:shadow-md"
                                     }`}
@@ -167,7 +242,7 @@ export default function ServicesDetail() {
                     </div>
 
                     {/* RIGHT: Detail Card (updates based on active service) */}
-                    <div className="flex flex-col">
+                    <div className="service-detail-card flex flex-col">
 
                         {/* Gradient Dark Card */}
                         <div className="relative overflow-hidden rounded-[27px] bg-[#1a1c2e] p-8 sm:p-12 text-white shadow-2xl w-[923px] max-w-[1923px] min-h-[418px] md:h-auto lg:h-[418px] flex flex-col justify-between">
@@ -200,11 +275,16 @@ export default function ServicesDetail() {
 
                             {/* CTA Button */}
                             <div className="relative z-10 mt-12 md:mt-0 mb-2">
-                                <button suppressHydrationWarning className="group flex items-center gap-4 sm:gap-6 bg-gradient-to-r from-[#5a67fb] to-[#9b6efd] pl-2 pr-6 sm:pr-8 py-2 rounded-full font-semibold hover:scale-105 transition shadow-2xl w-full sm:w-auto">
-                                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center text-black shrink-0">
-                                        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                                <button
+                                    suppressHydrationWarning
+                                    className="flex items-center group relative h-12 w-fit cursor-pointer transition-transform hover:scale-105"
+                                >
+                                    <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
+                                        <FaChevronRight className="w-4 h-4 text-[#3799FA]" />
                                     </div>
-                                    <span className="text-base sm:text-lg text-center flex-1">Start Your Project</span>
+                                    <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
+                                        Start Your Project
+                                    </div>
                                 </button>
                             </div>
 
@@ -234,7 +314,7 @@ export default function ServicesDetail() {
             </div>
 
             {/* AI Growth Banner */}
-            <div className="mt-20 md:mt-24 w-full flex justify-center">
+            <div className="service-growth-banner mt-20 md:mt-24 w-full flex justify-center">
                 <div className="relative overflow-hidden rounded-[27px] bg-[#1a1c2e] px-8 sm:px-10 lg:px-14 py-12 lg:py-0 text-white shadow-2xl w-full max-w-[1379px] h-auto lg:h-[249px] flex flex-col lg:flex-row items-center justify-between gap-10">
 
                     {/* Innovation background image */}
@@ -251,11 +331,16 @@ export default function ServicesDetail() {
                         Turn Your Business Into an AI-Powered <br className="hidden sm:block lg:hidden" /> Growth Engine
                     </h3>
                     <div className="relative z-10 w-full lg:w-auto">
-                        <button suppressHydrationWarning className="group flex items-center gap-6 bg-gradient-to-r from-[#5a67fb] to-[#9b6efd] pl-2 pr-8 py-2 rounded-full font-semibold hover:scale-105 transition shadow-2xl w-full sm:w-auto justify-center sm:justify-start">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center text-black shrink-0">
-                                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                        <button
+                            suppressHydrationWarning
+                            className="flex items-center group relative h-12 w-fit cursor-pointer mx-auto lg:mx-0 transition-transform hover:scale-105"
+                        >
+                            <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
+                                <FaChevronRight className="w-4 h-4 text-[#3799FA]" />
                             </div>
-                            <span className="text-lg whitespace-nowrap">Unlock AI Potential</span>
+                            <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
+                                Unlock AI Potential
+                            </div>
                         </button>
                     </div>
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(90,103,251,0.15)_0%,_transparent_50%),radial-gradient(circle_at_bottom_left,_rgba(155,110,253,0.15)_0%,_transparent_50%)] pointer-events-none opacity-50" />

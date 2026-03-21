@@ -66,9 +66,13 @@ export default function Footer() {
                             {[
                                 { label: 'Eduprova', href: '/products/edu-det' },
                                 { label: 'Digital News', href: '/products/digital-news' },
+                                { label: 'Urban Clap', href: '/products/urban-clap' },
                                 { label: 'Bike & Car Rider', href: '/products/bike-rider' },
                                 { label: 'E-Commerce', href: '/products/commerce' },
                                 { label: 'Interior Design', href: '/products/interior' },
+                                { label: 'Food Delivery', href: '/products/Food' },
+                                { label: 'Doctor on Click', href: '/products/doctor' },
+                                { label: 'Security App', href: '/products/security' },
                             ].map((item) => (
                                 <li key={item.label}>
                                     <Link href={item.href} className="text-gray-600 hover:text-black transition-colors text-[16px] md:text-[18px] font-medium">
@@ -87,15 +91,17 @@ export default function Footer() {
                                 <FaPhone className="w-5 h-5 text-gray-800" />
                                 <span className="text-gray-700 group-hover:text-black transition-colors text-[16px] md:text-[18px] font-medium">+91 8977272783</span>
                             </li>
-                            <li className="flex items-center gap-4 group justify-center md:justify-start">
-                                <FaEnvelope className="w-5 h-5 text-gray-800 shrink-0" />
-                                <span className="text-gray-700 group-hover:text-black transition-colors text-[16px] md:text-[18px] font-medium break-all">dilshajinfotech.it@gmail.com</span>
+                            <li className="flex items-start gap-4 group justify-center md:justify-start">
+                                <FaEnvelope className="w-5 h-5 text-gray-800 shrink-0 mt-1" />
+                                <div className="flex flex-col gap-1 text-left">
+                                    <span className="text-gray-700 group-hover:text-black transition-colors text-[16px] md:text-[18px] font-medium break-all">info@dilshajinfotech.tech</span>
+                                    <span className="text-gray-700 group-hover:text-black transition-colors text-[16px] md:text-[18px] font-medium break-all">careers@dilshajinfotech.tech</span>
+                                </div>
                             </li>
                             <li className="flex items-start gap-4 group justify-center md:justify-start text-center md:text-left">
                                 <FaLocationDot className="w-5 h-5 text-gray-800 mt-1 flex-shrink-0" />
                                 <span className="text-gray-700 group-hover:text-black transition-colors text-[16px] md:text-[18px] leading-relaxed font-medium">
-                                    Rolugunta, Narsipatnam,<br />
-                                    Visakhapatnam, Andhra Pradesh
+                                    Visakhapatnam, India.
                                 </span>
                             </li>
                         </ul>
@@ -177,16 +183,14 @@ export default function Footer() {
                                     </div>
                                 </div>
                                 <div className="w-full sm:w-fit">
-                                    <button suppressHydrationWarning className="flex items-center group relative h-12 md:h-14 w-full sm:w-[140px] cursor-pointer">
-                                        {/* LEFT ICON CIRCLE */}
-                                        <div className="absolute left-1.5 w-9 h-9 md:w-11 md:h-11 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
-                                            <FaChevronRight className="w-3 md:w-3.5 h-3 md:h-3.5 text-[#3799FA]" />
+                                    <button suppressHydrationWarning className="flex items-center group relative h-12 w-full sm:w-[140px] cursor-pointer">
+                                        <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
+                                            <FaChevronRight className="w-4 h-4 text-[#3799FA]" />
                                         </div>
 
                                         {/* MAIN BUTTON BODY */}
                                         <div
-                                            className="pl-12 md:pl-14 pr-6 h-full flex items-center justify-center text-white font-bold text-[16px] md:text-[18px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] w-full"
-                                            style={{ borderRadius: '34px 34px 0px 34px' }}
+                                            className="pl-14 pr-6 h-full flex items-center justify-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] w-full rounded-[34px_34px_0px_34px]"
                                         >
                                             Submit
                                         </div>

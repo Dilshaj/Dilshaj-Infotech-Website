@@ -1,12 +1,16 @@
 "use client";
-
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { FaPhone, FaEnvelope, FaLocationDot, FaChevronRight } from "react-icons/fa6";
 import CountryCodeSelector from "./CountryCodeSelector";
 import { countries, Country } from "../data/countries";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactSection() {
+    const sectionRef = useRef<HTMLElement>(null);
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -17,6 +21,37 @@ export default function ContactSection() {
 
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
     const [selectedCountry, setSelectedCountry] = useState<Country>(countries.find(c => c.code === "IN") || countries[0]);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Left Content Animations
+            gsap.from(".gsap-contact-left-item", {
+                x: -50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 75%",
+                }
+            });
+
+            // Form Animation
+            gsap.from(".gsap-contact-form", {
+                x: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".gsap-contact-form",
+                    start: "top 80%",
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -75,7 +110,7 @@ export default function ContactSection() {
     };
 
     return (
-        <section id="contact" className="w-full bg-black pt-12 md:pt-22 pb-16 md:pb-24 relative overflow-hidden">
+        <section ref={sectionRef} id="contact" className="w-full bg-black pt-12 md:pt-22 pb-16 md:pb-24 relative overflow-hidden">
             {/* Background Glows */}
             <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
@@ -97,7 +132,7 @@ export default function ContactSection() {
                     {/* LEFT SIDE CONTENT */}
                     <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
                         {/* Ribbon Badge */}
-                        <div className="mb-10 w-full flex justify-center lg:justify-start">
+                        <div className="gsap-contact-left-item mb-10 w-full flex justify-center lg:justify-start">
                             <div
                                 className="relative flex items-center gap-2 lg:gap-4 pl-4 pr-10 lg:px-10 py-2.5 lg:py-3 w-fit ml-[-24px] md:ml-[-48px] lg:ml-[-105px]"
                                 style={{
@@ -114,7 +149,7 @@ export default function ContactSection() {
                             </div>
                         </div>
 
-                        <h2 className="text-[32px] sm:text-[40px] md:text-[56px] lg:text-[50px] font-semibold text-white leading-[1.3] lg:leading-[1.1] mb-8 md:mb-12 max-w-2xl px-2 lg:px-0">
+                        <h2 className="gsap-contact-left-item text-[32px] sm:text-[40px] md:text-[56px] lg:text-[50px] font-semibold text-white leading-[1.3] lg:leading-[1.1] mb-8 md:mb-12 max-w-2xl px-2 lg:px-0">
                             We help transform your ideas into{" "}
                             <span className="bg-gradient-to-r from-[#3799FA] to-[#9961FB] bg-clip-text text-transparent">
                                 successful digital solutions.
@@ -122,7 +157,7 @@ export default function ContactSection() {
                         </h2>
 
                         {/* Contact Info */}
-                        <div className="space-y-8 w-full max-w-md">
+                        <div className="gsap-contact-left-item space-y-8 w-full max-w-md">
                             <div className="flex items-center gap-6 group">
                                 <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center transition-all group-hover:bg-[#3799FA]/20 group-hover:border-[#3799FA]/30">
                                     <FaPhone className="w-5 h-5 text-white" />
@@ -130,11 +165,14 @@ export default function ContactSection() {
                                 <span className="text-white/80 text-[18px] font-medium tracking-tight">089772 72783</span>
                             </div>
 
-                            <div className="flex items-center gap-6 group">
-                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center transition-all group-hover:bg-[#3799FA]/20 group-hover:border-[#3799FA]/30">
+                            <div className="flex items-start gap-6 group">
+                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 transition-all group-hover:bg-[#3799FA]/20 group-hover:border-[#3799FA]/30 mt-1">
                                     <FaEnvelope className="w-5 h-5 text-white" />
                                 </div>
-                                <span className="text-white/80 text-[18px] font-medium tracking-tight">dilshajinfotech.it@gmail.com</span>
+                                <div className="flex flex-col gap-1">
+                                    <span className="text-white/80 text-[18px] font-medium tracking-tight">info@dilshajinfotech.tech</span>
+                                    <span className="text-white/80 text-[18px] font-medium tracking-tight">careers@dilshajinfotech.tech</span>
+                                </div>
                             </div>
 
                             <div className="flex items-start gap-6 group">
@@ -142,9 +180,7 @@ export default function ContactSection() {
                                     <FaLocationDot className="w-5 h-5 text-white" />
                                 </div>
                                 <span className="text-white/80 text-[18px] font-medium tracking-tight leading-relaxed text-left">
-                                    225-2A, Narsipatnam,<br />
-                                    Rolugunta, Visakhapatnam,<br />
-                                    Andhra Pradesh 531114
+                                    Visakhapatnam, India.
                                 </span>
                             </div>
                         </div>
@@ -154,7 +190,7 @@ export default function ContactSection() {
                     <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-br from-[#3799FA]/20 to-[#9961FB]/20 blur-[100px] -z-10" />
 
-                        <div className="bg-white/[0.08] backdrop-blur-2xl border border-white/20 rounded-[24px] md:rounded-[40px] p-6 md:p-10 shadow-2xl relative overflow-hidden">
+                        <div className="gsap-contact-form bg-white/[0.08] backdrop-blur-2xl border border-white/20 rounded-[24px] md:rounded-[40px] p-6 md:p-10 shadow-2xl relative overflow-hidden">
                             <h3 className="text-white text-[18px] md:text-[22px] font-medium mb-8 md:mb-10 leading-relaxed text-center lg:text-left">
                                 Partner With Experts Who Leverage AI & Tech To Transform Ideas Into Market-Leading Solutions.
                             </h3>
@@ -229,18 +265,13 @@ export default function ContactSection() {
                                     suppressHydrationWarning
                                     type="submit"
                                     disabled={status === "loading"}
-                                    className="flex items-center group relative h-16 w-full cursor-pointer overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(55,153,250,0.3)]"
+                                    className="flex items-center group relative h-12 w-full cursor-pointer transition-all"
                                 >
-                                    {/* LEFT ICON CIRCLE */}
-                                    <div className="absolute left-2 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
+                                    <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                                         <FaChevronRight className="w-4 h-4 text-[#3799FA]" />
                                     </div>
 
-                                    {/* MAIN BUTTON BODY */}
-                                    <div
-                                        className="pl-16 pr-8 h-full w-full flex items-center justify-center text-white font-bold text-[18px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB]"
-                                        style={{ borderRadius: '34px 34px 0px 34px' }}
-                                    >
+                                    <div className="pl-14 pr-8 h-full w-full flex items-center justify-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
                                         {status === "loading" ? "Sending..." : "Lets Connect"}
                                     </div>
                                 </button>

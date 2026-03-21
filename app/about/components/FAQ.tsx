@@ -1,8 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaPhone, FaPlus, FaMinus, FaWhatsapp } from "react-icons/fa6";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 const faqData = [
     {
@@ -33,9 +40,60 @@ const faqData = [
 
 export default function FAQ() {
     const [activeFaqIdx, setActiveFaqIdx] = useState(0);
+    const container = useRef(null);
+
+    useGSAP(() => {
+        // Header animation
+        gsap.fromTo(".faq-header",
+            { y: 40, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 85%",
+                },
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out"
+            }
+        );
+
+        // FAQ Items animation
+        gsap.fromTo(".faq-item",
+            { y: 30, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 85%",
+                },
+                y: 0,
+                opacity: 1,
+                stagger: 0.1,
+                duration: 0.8,
+                ease: "power2.out",
+                immediateRender: false
+            }
+        );
+
+        // Contact Card animation
+        gsap.fromTo(".faq-contact-card",
+            { x: 50, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 80%",
+                },
+                x: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out",
+                immediateRender: false
+            }
+        );
+    }, { scope: container });
 
     return (
-        <section id="faq" className="w-full bg-[#f8fafc] py-24 flex flex-col items-center relative overflow-hidden">
+        <section ref={container} id="faq" className="w-full bg-[#f8fafc] py-24 flex flex-col items-center relative overflow-hidden">
             <div className="w-full flex justify-start mb-10 px-8 md:px-[104px] relative z-10">
                 <div
                     className="relative flex items-center gap-4 px-10 py-3 w-fit ml-[-32px] md:ml-[-104px]"
@@ -52,7 +110,7 @@ export default function FAQ() {
             </div>
 
             <div className="w-full max-w-[1700px] px-8 md:px-[104px] flex flex-col relative z-20">
-                <h2 className="text-[32px] md:text-[44px] font-bold text-[#1a1c1e] leading-tight mb-16">
+                <h2 className="faq-header text-[32px] md:text-[44px] font-bold text-[#1a1c1e] leading-tight mb-16">
                     Frequently Asked Questions
                 </h2>
 
@@ -62,7 +120,7 @@ export default function FAQ() {
                         {faqData.map((faq, idx) => (
                             <div
                                 key={idx}
-                                className={`bg-white rounded-[20px] transition-all duration-300 border ${activeFaqIdx === idx ? 'border-blue-500 shadow-xl' : 'border-black/5'}`}
+                                className={`faq-item bg-white rounded-[20px] transition-all duration-300 border ${activeFaqIdx === idx ? 'border-blue-500 shadow-xl' : 'border-black/5'}`}
                             >
                                 <button
                                     suppressHydrationWarning
@@ -93,7 +151,7 @@ export default function FAQ() {
                     </div>
 
                     {/* Contact Card Column */}
-                    <div className="w-full lg:w-[399px] flex-shrink-0 sticky top-24">
+                    <div className="faq-contact-card w-full lg:w-[399px] flex-shrink-0 sticky top-24">
                         <div
                             className="rounded-[32px] p-8 relative overflow-hidden flex flex-col items-center justify-center text-center shadow-2xl h-full"
                             style={{

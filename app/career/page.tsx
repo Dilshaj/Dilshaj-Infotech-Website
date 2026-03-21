@@ -3,16 +3,16 @@
 import Image from "next/image";
 import { Poppins } from "next/font/google";
 import { useState } from "react";
-import { FaPhone, FaWhatsapp } from "react-icons/fa6";
+import { FaPhone, FaWhatsapp, FaChevronRight } from "react-icons/fa6";
 import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer";
 import backgroundImage from "./image copy.png";
-import img1 from "./image.png";
+import img1 from "./republi.png";
 import img2 from "./image copy 2.png";
 import img3 from "./image copy 3.png";
 import img4 from "./image copy 4.png";
-import img5 from "./image copy 5.png";
-import img6 from "./image copy 6.png";
+import img5 from "./DSC_0939.jpg";
+import img6 from "./image copy.png";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -201,12 +201,20 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Email ID Row */}
-            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-center">
-              <span className="opacity-90">Email ID :</span>
-              <a href="mailto:dilshajinfotech.it@gmail.com" className="hover:text-blue-200 transition-colors tracking-wide break-all sm:break-normal">
-                dilshajinfotech.it@gmail.com
-              </a>
+            {/* Email ID Rows */}
+            <div className="flex flex-col items-center gap-3 text-[16px] sm:text-[18px] md:text-[20px] font-bold text-white drop-shadow-md">
+              <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-center">
+                <span className="opacity-90">Info Mail ID :</span>
+                <a href="mailto:info@dilshajinfotech.tech" className="hover:text-blue-200 transition-colors tracking-wide break-all sm:break-normal">
+                  info@dilshajinfotech.tech
+                </a>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-3 text-center">
+                <span className="opacity-90">Careers Mail ID :</span>
+                <a href="mailto:careers@dilshajinfotech.tech" className="hover:text-blue-200 transition-colors tracking-wide break-all sm:break-normal">
+                  careers@dilshajinfotech.tech
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -319,7 +327,7 @@ export default function Home() {
           </div>
 
           {/* Image 5 (Conference Table) */}
-          <div className="col-span-1 lg:col-span-1 row-span-1 relative overflow-hidden group">
+          <div className="col-span-2 lg:col-span-1 row-span-1 relative overflow-hidden group">
             <Image src={img5} alt="Team at table" fill className="object-cover object-center group-hover:scale-105 transition-transform duration-700" />
           </div>
 
@@ -375,14 +383,19 @@ function JobCard({ job, isDesktop }: { job: any; isDesktop: boolean }) {
           </div>
         </div>
 
-        {/* Apply Gradient Button */}
-        <button suppressHydrationWarning className="flex items-center gap-3 bg-gradient-to-r from-[#20B5F9] to-[#A851ED] text-white rounded-full py-2 px-6 md:py-2.5 hover:shadow-lg transition-all shrink-0 w-full sm:w-auto justify-center sm:justify-start">
-          <span className="bg-white text-blue-500 rounded-full w-[22px] h-[22px] md:w-6 md:h-6 flex items-center justify-center shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="ml-[1px]">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </span>
-          <span className="font-semibold text-[13px] md:text-[14px]">Apply Today</span>
+        {/* Updated Apply Gradient Button matching Get In Touch design */}
+        <button 
+          suppressHydrationWarning 
+          className="group relative h-11 w-full sm:w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[28px_28px_0px_28px] hover:rounded-[28px_28px_28px_0px] shadow-lg flex items-center"
+        >
+          {/* Animated circle toggle */}
+          <div className="absolute left-0 w-11 h-11 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out group-hover:left-[calc(100%-44px)] group-hover:bg-gradient-to-r group-hover:from-[#3799FA] group-hover:to-[#9961FB] group-hover:scale-105">
+            <FaChevronRight className="w-3.5 h-3.5 text-[#3799FA] transition-all duration-700 ease-in-out group-hover:text-white" />
+          </div>
+          {/* Button text body */}
+          <div className="pl-13 pr-7 h-full flex items-center text-white font-bold text-[14px] transition-all duration-700 ease-in-out bg-gradient-to-r from-[#3799FA] to-[#9961FB] group-hover:from-white group-hover:to-white group-hover:text-black group-hover:pl-6 group-hover:pr-13 rounded-[28px_28px_0px_28px] group-hover:rounded-[28px_28px_28px_0px] min-h-[44px]">
+            Apply Today
+          </div>
         </button>
 
       </div>

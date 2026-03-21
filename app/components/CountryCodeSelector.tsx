@@ -69,7 +69,10 @@ export default function CountryCodeSelector({ selectedCountry, onSelect }: Count
                     </div>
 
                     {/* List */}
-                    <div className="overflow-y-auto flex-1 custom-scrollbar">
+                    <div
+                        className="overflow-y-auto flex-1 scrollbar-none overscroll-contain"
+                        data-lenis-prevent
+                    >
                         {filteredCountries.length > 0 ? (
                             filteredCountries.map((country) => (
                                 <button

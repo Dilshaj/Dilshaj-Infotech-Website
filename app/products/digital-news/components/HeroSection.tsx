@@ -2,7 +2,6 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import heroImage from "../images/hero-bg.png";
 
 export default function HeroSection() {
     const ref = useRef(null);
@@ -13,7 +12,7 @@ export default function HeroSection() {
     const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
     return (
-        <section ref={ref} className="relative w-full min-h-screen flex flex-col lg:flex-row bg-black shrink-0 lg:items-center overflow-hidden">
+        <section ref={ref} className="relative w-full min-h-screen flex flex-col lg:flex-row shrink-0 lg:items-center overflow-hidden" style={{ background: "linear-gradient(to bottom, #A00000 0%, #000063 100%)" }}>
 
             {/* ====== CONTENT ====== */}
             <motion.div
@@ -117,7 +116,7 @@ export default function HeroSection() {
             >
                 <div className="relative w-full h-[45vh] min-h-[350px] md:min-h-[500px] lg:min-h-0 lg:h-[80%] lg:w-full lg:mt-[10vh]">
                     <Image
-                        src={heroImage}
+                        src="/products-images/digital-news.png"
                         alt="Digital News Channel App"
                         fill
                         className="object-contain object-top lg:object-right"

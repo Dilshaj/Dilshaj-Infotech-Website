@@ -1,22 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaReact, FaNodeJs, FaAws, FaFigma, FaFlutter, FaChartBar, FaJava, FaPython, FaDocker, FaHtml5, FaCss3Alt, FaGraduationCap, FaBriefcase, FaUsers, FaMobileScreenButton, FaAward, FaChalkboardUser, FaLightbulb, FaShieldHalved, FaClock, FaCirclePlay, FaStar, FaPhone, FaWhatsapp, FaPlus, FaMinus, FaCar, FaMotorcycle, FaMapLocationDot, FaCreditCard, FaStore, FaBox, FaCartShopping, FaUserDoctor, FaFileMedical, FaVideo, FaNewspaper, FaBell, FaGear, FaMagnifyingGlassChart } from "react-icons/fa6";
+import { FaReact, FaNodeJs, FaAws, FaFigma, FaFlutter, FaChartBar, FaJava, FaPython, FaDocker, FaHtml5, FaCss3Alt, FaGraduationCap, FaBriefcase, FaUsers, FaMobileScreenButton, FaAward, FaChalkboardUser, FaLightbulb, FaShieldHalved, FaClock, FaCirclePlay, FaStar, FaPhone, FaWhatsapp, FaPlus, FaMinus, FaCar, FaMotorcycle, FaMapLocationDot, FaCreditCard, FaStore, FaBox, FaCartShopping, FaUserDoctor, FaFileMedical, FaVideo, FaNewspaper, FaBell, FaGear, FaMagnifyingGlassChart, FaChevronRight } from "react-icons/fa6";
 import { SiMongodb, SiNextdotjs } from "react-icons/si";
 import { IoMdArrowForward, IoMdArrowBack } from "react-icons/io";
 import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
-
-const badges = [
-  { role: "Manager", x: "4.5%", y: "60%", labelPos: "bottom", img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop", delay: "0.2s" },
-  { role: "Designer", x: "27%", y: "12%", labelPos: "top", img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop", delay: "0s" },
-  { role: "Developer", x: "41%", y: "62%", labelPos: "bottom", img: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&h=300&fit=crop", delay: "0.6s" },
-  { role: "Marketer", x: "62%", y: "15%", labelPos: "top", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop", delay: "0.4s" },
-  { role: "Investor", x: "83%", y: "64%", labelPos: "bottom", img: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=200&q=80", delay: "0.3s" },
-  { role: "Analyst", x: "92%", y: "20%", labelPos: "top", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80", delay: "0.5s" }
-];
+import HomeScrollAnimations from "./components/HomeScrollAnimations";
+import HeroSection from "./components/HeroSection";
+import ScrollStack, { ScrollStackItem } from "./components/ScrollStack";
+import Carousel from "./components/Carousel";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const products = [
   {
@@ -112,9 +108,9 @@ const services = [
   {
     name: "App & Web Development",
     desc: "Modern and secure app & web development solutions built to help businesses grow with confidence.",
-    bannerTitle: "Scale Your Vision with Our Tech Solutions",
+    bannerTitle: "Scale Your Vision with Our Tech Solutions.",
     bannerTag: "Ready to scale faster and smarter?",
-    image: "/services/app.png",
+    image: "/service.png",
     color: "#20B5F9"
   },
   {
@@ -122,7 +118,7 @@ const services = [
     desc: "Driven by research, creativity, and strategic design thinking to deliver seamless interactions across web and mobile platforms.",
     bannerTitle: "Designing Seamless Digital Experiences",
     bannerTag: "User-centric design that converts.",
-    image: "/services/UI/UX.png",
+    image: "/service.png",
     color: "#A851ED"
   },
   {
@@ -130,7 +126,7 @@ const services = [
     desc: "Combining creative strategy, performance marketing, and analytics to deliver impactful results across all digital platforms.",
     bannerTitle: "Data-Driven Marketing for Growth",
     bannerTag: "Boost your presence effectively.",
-    image: "/services/Digital-marketing.png",
+    image: "/service.png",
     color: "#20B5F9"
   },
   {
@@ -138,7 +134,7 @@ const services = [
     desc: "Built with scalable architecture, strong security, and user-focused design to meet the evolving needs of financial institutions",
     bannerTitle: "Secure and Scalable Fintech Solutions",
     bannerTag: "Powering the future of finance.",
-    image: "/services/banking.png",
+    image: "/service.png",
     color: "#A851ED"
   },
   {
@@ -146,7 +142,7 @@ const services = [
     desc: "Using advanced analytics and visualization tools to uncover insights, improve performance, and drive smarter decisions.",
     bannerTitle: "Insightful Data for Smarter Decisions",
     bannerTag: "Turn data into your strongest asset.",
-    image: "/services/data-analyst.png",
+    image: "/service.png",
     color: "#20B5F9"
   },
   {
@@ -154,7 +150,7 @@ const services = [
     desc: "Built with scalable systems and secure communication to deliver fast responses and seamless customer experiences.",
     bannerTitle: "Seamless Customer Communication",
     bannerTag: "Fast, secure, and reliable support.",
-    image: "/services/chat-process.png",
+    image: "/service.png",
     color: "#A851ED"
   }
 ];
@@ -166,7 +162,7 @@ const technologies = [
     title: "AI & MACHINE LEARNING",
     content: "We build intelligent solutions that automate workflows, enhance decision-making, and create personalized user experiences using advanced AI capabilities.",
     features: ["Predictive Intelligence", "Natural Language Processing", "Computer Vision Solutions"],
-    image: "/Home/Bot.png"
+    image: "/Home/technologies/aiml.png"
   },
   {
     name: "Cloud & DevOps",
@@ -174,7 +170,7 @@ const technologies = [
     title: "CLOUD & DEVOPS",
     content: "We design and manage cloud-native systems with seamless deployment pipelines, ensuring high performance, scalability, and reliability.",
     features: ["Auto Scaling Systems", "Continuous Integration & Delivery", "High Availability Architecture"],
-    image: "/Home/technologies/cloud&devops.png"
+    image: "/Home/technologies/devops.png"
   },
   {
     name: "Web Technologies",
@@ -182,7 +178,7 @@ const technologies = [
     title: "WEB TECHNOLOGIES",
     content: "We create responsive, fast, and scalable web applications using modern frameworks tailored to deliver seamless user experiences.",
     features: ["Responsive UI Systems", "Fast Load Performance", "Scalable Architecture"],
-    image: "/Home/technologies/Webtech.png"
+    image: "/Home/technologies/web.png"
   },
   {
     name: "Mobile Technologies",
@@ -190,7 +186,7 @@ const technologies = [
     title: "MOBILE TECHNOLOGIES",
     content: "We develop intuitive and high-performance mobile applications focused on usability, speed, and engaging user experiences.",
     features: ["Cross-Platform Apps", "Smooth Performance", "User-Centric Design"],
-    image: "/Home/technologies/MobileTech.png"
+    image: "/Home/technologies/mobile.png"
   },
   {
     name: "Data & Analytics",
@@ -198,7 +194,7 @@ const technologies = [
     title: "DATA & ANALYTICS",
     content: "We transform raw data into meaningful insights with powerful analytics solutions that help businesses make smarter decisions.",
     features: ["Real-Time Data Processing", "Insightful Dashboards", "Predictive Analytics"],
-    image: "/Home/technologies/DataAnalytics.png"
+    image: "/Home/technologies/data&analytics.png"
   },
   {
     name: "UI/UX Design",
@@ -206,7 +202,7 @@ const technologies = [
     title: "UI/UX DESIGN",
     content: "We design user-focused interfaces that combine aesthetics and functionality, delivering seamless and engaging experiences that enhance usability and strengthen your brand.",
     features: ["User-Centered Design", "Consistent Design Systems", "Intuitive User Journeys"],
-    image: "/Home/technologies/UIUX.png"
+    image: "/Home/technologies/uiux.png"
   }
 ];
 
@@ -453,12 +449,25 @@ const careerJobs = [
 ];
 
 export default function Home() {
-  const [activeIndex, setActiveIndex] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [activeServiceIdx, setActiveServiceIdx] = useState(0);
+
+  const handleServiceIndexChange = useCallback((idx: number) => {
+    setActiveServiceIdx(idx);
+  }, []);
   const [activeProductIdx, setActiveProductIdx] = useState(0);
+  const handleProductIndexChange = useCallback((idx: number) => {
+    setActiveProductIdx(idx);
+  }, []);
   const [activeTechIdx, setActiveTechIdx] = useState(0);
+  const handleTechIndexChange = useCallback((idx: number) => {
+    setActiveTechIdx(idx);
+  }, []);
   const [activeFaqIdx, setActiveFaqIdx] = useState(0);
+  const handleFaqIndexChange = useCallback((idx: number) => {
+    setActiveFaqIdx(idx);
+  }, []);
+  const [hoveredServiceIdx, setHoveredServiceIdx] = useState<number | null>(null);
   const [isContactActive, setIsContactActive] = useState(false);
 
   useEffect(() => {
@@ -466,236 +475,21 @@ export default function Home() {
       setHasScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % badges.length);
-    }, 3000);
-    return () => clearInterval(interval);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
-    <div className="min-h-screen selection:bg-blue-100 relative overflow-hidden font-sans bg-gradient-to-br from-[#CAD0FF] to-[#E3E3E3]">
+    <div className="min-h-screen selection:bg-blue-100 relative overflow-x-clip font-sans bg-gradient-to-br from-[#CAD0FF] to-[#E3E3E3]">
 
+      <HeroSection />
 
-      {/* Floating Side Icons */}
-      <div className="fixed right-0 lg:right-1 top-[44%] lg:top-1/2 -translate-y-1/2 z-50 flex flex-col gap-0 lg:gap-5">
-        <a href="tel:+91" className="w-[44px] h-[44px] bg-[#00A3FF] flex items-center justify-center text-white shadow-md hover:scale-110 transition-transform">
-          <FaPhone className="w-4 h-4" />
-        </a>
-        <a href="https://wa.me/" className="w-[44px] h-[44px] bg-[#3BCF52] flex items-center justify-center text-white shadow-md hover:scale-110 transition-transform">
-          <FaWhatsapp className="w-6 h-6" />
-        </a>
-      </div>
-
-      <main className="w-full flex flex-col items-center pt-2 relative">
-        {/* Decorative Background Glows for Hero */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#31B5FE]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
-        <div className="absolute top-[20vh] left-0 w-[500px] h-[500px] bg-[#AC52F2]/5 rounded-full blur-[100px] -translate-x-1/4 pointer-events-none" />
-
-        {/* HERO SECTION WRAPPER - Centered Content */}
-        <div className="w-full max-w-[1700px] px-6 md:px-20 flex flex-col items-center">
-          {/* DOMINANT HEADLINE ZONE - 40% vertical height (Moved to bottom in mobile view) */}
-          <div className="relative w-full h-auto lg:h-[40vh] flex flex-col items-center justify-center mt-12 sm:mt-16 lg:mt-25 order-last lg:order-1 pt-0 lg:pt-0 py-4 lg:py-0">
-            <h1 className="text-[100px] sm:text-[110px] lg:text-[12vw] 2xl:text-[220px] font-bold lg:font-semibold text-[rgb(191,191,191)] lg:text-black tracking-[-0.05em] z-10 animate-fade-in-up text-center lg:opacity-100 w-[430px] lg:w-full max-w-[100vw] lg:h-auto whitespace-normal lg:whitespace-nowrap drop-shadow-none lg:drop-shadow-sm flex flex-col lg:flex-row justify-center lg:items-center gap-[65px] sm:gap-[75px] lg:gap-[3vw] select-none">
-              <span className="block lg:inline leading-[0.75] lg:leading-none">Dilshaj</span>
-              <span className="block lg:inline leading-[0.75] lg:leading-none">Infotech</span>
-            </h1>
-
-            {/* DESKTOP MICRO BADGES LAYER */}
-            <div className="hidden lg:block absolute inset-0 pointer-events-none">
-              {badges.map((badge, i) => {
-                const isActive = i === activeIndex;
-                return (
-                  <div
-                    key={i}
-                    className={`absolute flex flex-col items-center animate-float-slow transition-all duration-500 ${isActive ? "scale-110 z-30" : "scale-100 z-20 opacity-80"}`}
-                    style={{ left: badge.x, top: badge.y, animationDelay: badge.delay }}
-                  >
-                    {badge.labelPos === "top" && (
-                      <div className="relative mb-3">
-                        <div className="absolute -left-10 -top-4 w-7 h-7 z-30 drop-shadow-md">
-                          <Image
-                            src="/home/arrow.svg"
-                            alt="cursor"
-                            width={28}
-                            height={28}
-                            className="object-contain"
-                          />
-                        </div>
-                        <div className={`px-5 py-2 rounded-[8px] border flex items-center justify-center transition-all duration-500 shadow-lg ${isActive
-                          ? "bg-gradient-to-r from-[#31B5FE] to-[#AC52F2] text-white border-transparent"
-                          : "bg-white text-gray-800 border-black/[0.03]"
-                          }`}>
-                          <span className="text-[16px] font-medium tracking-tight">{badge.role}</span>
-                        </div>
-                      </div>
-                    )}
-                    <div className="relative group/avatar">
-                      <div className={`rounded-full bg-gradient-to-br from-[#31B5FE] to-[#AC52F2] shadow-xl p-[3px] transition-all duration-500 ${isActive ? "w-16 h-16" : "w-12 h-12"} ${isActive ? "ring-4 ring-[#31B5FE]/20" : ""}`}>
-                        <img src={badge.img} alt={badge.role} className="w-full h-full object-cover rounded-full" />
-                      </div>
-                    </div>
-
-                    {badge.labelPos === "bottom" && (
-                      <div className="relative mt-3">
-                        <div className="absolute -left-10 -top-4 w-7 h-7 z-30 drop-shadow-md">
-                          <Image
-                            src="/home/arrow.svg"
-                            alt="cursor"
-                            width={28}
-                            height={28}
-                            className="object-contain"
-                          />
-                        </div>
-                        <div className={`px-5 py-2 rounded-[8px] shadow-lg border-0 flex items-center justify-center transition-all duration-500 ${isActive
-                          ? "bg-gradient-to-r from-[#31B5FE] to-[#AC52F2] text-white"
-                          : "bg-white text-gray-800 border-black/[0.03]"
-                          }`}>
-                          <span className="text-[16px] font-medium tracking-tight">{badge.role}</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* MOBILE MICRO BADGES LAYER - TOP ROW (Dilshaj) */}
-            <div className="lg:hidden absolute top-[55px] sm:top-[60px] left-0 w-full z-20 flex justify-center pointer-events-none px-0 sm:px-4">
-              <div className="grid grid-cols-3 gap-x-[65px] sm:gap-x-[75px] w-auto max-w-full">
-                {badges.slice(0, 3).map((badge, i) => {
-                  const isActive = i === activeIndex;
-                  return (
-                    <div key={i} className={`flex flex-col items-center relative gap-2 transition-all duration-500 ${isActive ? "scale-110 z-30" : "scale-100 z-20 opacity-80"}`}>
-                      <div className={`w-[44px] h-[44px] sm:w-[48px] sm:h-[48px] rounded-full bg-gradient-to-br from-[#31B5FE] to-[#AC52F2] p-[2px] shadow-md transition-all duration-500 ${isActive ? "ring-4 ring-[#31B5FE]/30" : ""}`}>
-                        <img src={badge.img} alt={badge.role} className="w-full h-full object-cover rounded-full border-[2px] border-white bg-white" />
-                      </div>
-                      <div className="relative flex justify-center w-full">
-                        <div className="absolute -left-1 sm:-left-0 -top-[8px] w-[14px] h-[14px] z-30 drop-shadow-md">
-                          <Image src="/home/arrow.svg" alt="cursor" width={14} height={14} className="object-contain" />
-                        </div>
-                        <div className={`px-2 py-[4px] sm:py-[5px] rounded-[4px] text-[10px] sm:text-[11px] font-bold text-center whitespace-nowrap shadow-md transition-all duration-500 border ${isActive ? 'bg-gradient-to-r from-[#31B5FE] to-[#AC52F2] text-white border-transparent' : 'bg-white text-gray-800 border-gray-100'}`}>
-                          {badge.role}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* MOBILE MICRO BADGES LAYER - BOTTOM ROW (Infotech) */}
-            <div className="lg:hidden absolute top-[190px] sm:top-[200px] left-0 w-full z-20 flex justify-center pointer-events-none px-0 sm:px-4">
-              <div className="grid grid-cols-3 gap-x-[65px] sm:gap-x-[75px] w-auto max-w-full">
-                {badges.slice(3, 6).map((badge, loopI) => {
-                  const i = loopI + 3;
-                  const isActive = i === activeIndex;
-                  return (
-                    <div key={i} className={`flex flex-col items-center relative gap-2 transition-all duration-500 ${isActive ? "scale-110 z-30" : "scale-100 z-20 opacity-80"}`}>
-                      <div className={`w-[44px] h-[44px] sm:w-[48px] sm:h-[48px] rounded-full bg-gradient-to-br from-[#31B5FE] to-[#AC52F2] p-[2px] shadow-md transition-all duration-500 ${isActive ? "ring-4 ring-[#31B5FE]/30" : ""}`}>
-                        <img src={badge.img} alt={badge.role} className="w-full h-full object-cover rounded-full border-[2px] border-white bg-white" />
-                      </div>
-                      <div className="relative flex justify-center w-full">
-                        <div className="absolute -left-1 sm:-left-0 -top-[8px] w-[14px] h-[14px] z-30 drop-shadow-md">
-                          <Image src="/home/arrow.svg" alt="cursor" width={14} height={14} className="object-contain" />
-                        </div>
-                        <div className={`px-2 py-[4px] sm:py-[5px] rounded-[4px] text-[10px] sm:text-[11px] font-bold text-center whitespace-nowrap shadow-md transition-all duration-500 border ${isActive ? 'bg-gradient-to-r from-[#31B5FE] to-[#AC52F2] text-white border-transparent' : 'bg-white text-gray-800 border-gray-100'}`}>
-                          {badge.role}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* LOCKED THREE-COLUMN GRID */}
-          <div className="w-full flex flex-col lg:flex-row gap-4 lg:gap-12 items-center justify-between mt-24 lg:mt-2 order-first lg:order-2">
-
-            {/* ZONE 1 (40%): Left Text */}
-            <div className="w-full lg:w-[40%] flex flex-col gap-6 animate-fade-in-up [animation-delay:0.2s] pl-0 lg:pl-0">
-              <h2 className="w-[383px] max-w-full h-auto lg:w-full text-[36px] lg:text-[60px] font-semibold lg:font-bold text-black leading-[1.2] lg:leading-[1] tracking-[-0.04em] flex flex-col justify-start gap-1 lg:gap-0">
-                <div className="mb-0 lg:mb-6">Driving Digital</div>
-                <div className="mb-0 lg:mb-6">Innovation with</div>
-                <div className="mb-0 lg:mb-6">Smart Technology</div>
-              </h2>
-            </div>
-
-            {/* ZONE 2 (25%): Robot Mascot - hidden on mobile purely as requested */}
-            <div className="hidden lg:flex w-full lg:w-[25%] justify-center animate-float">
-              <div className="relative w-full aspect-[3/4] max-h-[60vh] flex flex-col items-center justify-end">
-                <Image
-                  src="/home/Bot.png"
-                  alt="Robot"
-                  fill
-                  className="object-contain drop-shadow-[0_45px_45px_rgba(0,0,0,0.1)] z-10"
-                  priority
-                />
-                <div className="absolute bottom-[-10px] w-[90%] aspect-[3/1] opacity-60">
-                  <Image
-                    src="/home/Ellipse 2730.png"
-                    alt="Mascot Shadow"
-                    fill
-                    className="object-contain scale-110"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* ZONE 3 (35%): Supporting Content */}
-            <div className="w-full lg:w-[35%] flex flex-col gap-3 lg:gap-10 animate-fade-in-up [animation-delay:0.4s] ml-0 lg:ml-6 mt-2 lg:mt-0 pl-0 lg:pl-0">
-              <div className="space-y-4 lg:space-y-6 flex flex-col">
-                <h3 className="w-[320px] max-w-full h-auto lg:w-[80%] text-[17px] lg:text-[24px] font-normal lg:font-[700] text-black opacity-90 leading-[1.4] lg:leading-snug pr-4 lg:pr-0">
-                  Empowering Your Vision with <br className="lg:hidden" />
-                  <span className="font-bold text-black lg:inline">Dilshaj Infotech</span>
-                </h3>
-                <ul className="space-y-4 hidden lg:block">
-                  {[
-                    { main: "High-performance digital", bold: "product development" },
-                    { main: "Intelligent platforms &", bold: "AI-driven solutions" },
-                    { main: "Scalable, secure, and future-", bold: "ready technology" }
-                  ].map((item, i) => (
-                    <li key={i} className="flex gap-4 items-center">
-                      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" className="w-2.5 h-2.5 text-black"><path d="M5 13l4 4L19 7" /></svg>
-                      </span>
-                      <span className="text-[15px] text-gray-600 leading-tight">
-                        {item.main} <span className="font-bold text-black">{item.bold}</span>
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit shining-btn">
-                {/* LEFT ICON CIRCLE */}
-                <div className="absolute left-0 w-12 h-12 rounded-full bg-[#F3F4F6] flex items-center justify-center shadow-[0_4px_10px_rgba(0,0,0,0.08)] z-20 transition-transform group-hover:scale-105">
-                  <svg
-                    className="w-4 h-4 text-gray-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={5}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-
-                {/* MAIN BUTTON BODY */}
-                <div className="pl-16 pr-10 h-full flex items-center rounded-full bg-gradient-to-r from-[#3799FA] to-[#9961FB] text-white font-semibold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all duration-300 group-hover:pr-12 active:scale-95 leading-none">
-                  Build Your Future Today
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-
+      <main className='w-full flex flex-col items-center pt-2 relative'>
         {/* DARK SECTION: Ticker + Impact Card with Overlap */}
-        <div className="w-full bg-black pt-10 lg:pt-20 pb-0 overflow-hidden flex flex-col items-center gap-8 lg:gap-20 mt-16 lg:mt-30 relative">
+        <HomeScrollAnimations />
+        <div data-section="stats" className="w-full bg-black pt-10 lg:pt-20 pb-0 overflow-hidden flex flex-col items-center gap-8 lg:gap-20 mt-16 lg:mt-30 relative">
           <div className="absolute inset-0 z-0 bg-cover bg-top lg:hidden opacity-100 mix-blend-screen" style={{ backgroundImage: "url('/public/home/mobile.png')" }} />
           {/* Animated Background Glows */}
           <div className="hidden lg:block absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -translate-y-1/2" />
@@ -812,7 +606,7 @@ export default function Home() {
             </div>
 
             {/* IMPACT SECTION - 4 column stats card */}
-            <div className="bg-white rounded-none lg:rounded-t-[40px] shadow-none lg:shadow-[0_20px_80px_-15px_rgba(255,255,255,0.05)] px-0 pt-10 pb-6 lg:p-16 flex flex-col gap-10 lg:gap-12 border-none lg:border lg:border-gray-100">
+            <div className="impact-card bg-white rounded-none lg:rounded-t-[40px] shadow-none lg:shadow-[0_20px_80px_-15px_rgba(255,255,255,0.05)] px-0 pt-10 pb-6 lg:p-16 flex flex-col gap-10 lg:gap-12 border-none lg:border lg:border-gray-100">
               {/* Top row with main headline and primary stat */}
               <div className="flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 px-4 lg:px-0">
                 <div className="w-full lg:w-auto flex flex-col items-start px-0 lg:px-0">
@@ -973,10 +767,10 @@ export default function Home() {
         </div>
 
         {/* SERVICES SECTION */}
-        <section className="w-full bg-[#F8F9FA] pb-12 pt-6 lg:py-12 flex flex-col items-center relative z-20">
+        <section data-section="services" className="w-full bg-[#F8F9FA] pb-12 pt-6 lg:py-12 flex flex-col items-center relative z-20">
           <div className="w-full flex justify-start mb-6 lg:mb-8 px-0">
             <div
-              className="relative flex items-center gap-2 lg:gap-4 pl-4 pr-10 lg:px-10 py-2.5 lg:py-3 w-fit"
+              className="ribbon-banner relative flex items-center gap-2 lg:gap-4 pl-4 pr-10 lg:px-10 py-2.5 lg:py-3 w-fit"
               style={{
                 background: 'linear-gradient(to right, #029EFA, #0E4E8B)',
                 clipPath: 'polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%)'
@@ -991,92 +785,112 @@ export default function Home() {
 
           <div className="w-full max-w-[1700px] lg:pl-[40px] lg:md:pl-[64px] px-0 lg:pr-0">
             {/* --- DESKTOP VIEW --- */}
-            <div className="hidden lg:flex flex-row gap-12 items-stretch lg:pr-[64px]">
-              <div className="flex flex-col gap-2 lg:w-[900px] shrink-0">
-                <h2 className="text-[24px] md:text-[32px] font-semibold text-[#1F2933] leading-[1.2]">
+            <div className="hidden lg:flex flex-row gap-10 items-stretch lg:pr-[64px] relative services-desktop-wrapper min-h-[580px]">
+              <div className="flex flex-col gap-8 lg:w-[800px] shrink-0">
+                <h2 className="text-[22px] md:text-[28px] font-semibold text-[#1F2933] leading-[1.2] lg:mb-2">
                   <span className="text-gray-500 font-semibold block whitespace-nowrap">We will bring the breathe of our</span>
                   <span className="text-gray-500 font-semibold">experience</span> <span className="text-black font-semibold">and industry</span><br className="hidden md:block" />
                   <span className="text-black font-semibold block whitespace-nowrap">knowledge to help you succeed</span>
                 </h2>
 
-                <div className="relative rounded-[32px] overflow-hidden group hover:shadow-2xl transition-all duration-500 flex-1 w-full bg-black">
-                  <div
-                    className="absolute inset-0 transition-transform duration-700 ease-in-out"
-                    style={{ transform: `translateY(${-activeServiceIdx * 100}%)` }}
-                  >
-                    {services.map((service, idx) => (
-                      <div key={idx} className="relative w-full h-full">
-                        <Image
-                          src={service.image}
-                          alt={service.name}
-                          fill
-                          className="object-cover opacity-60"
-                        />
-                        <div className="absolute inset-0 p-8 flex flex-col justify-end bg-gradient-to-t from-black/80 via-transparent to-transparent">
-                          <div className="bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full w-fit mb-3 text-white text-[12px]">
-                            {service.bannerTag}
-                          </div>
-                          <h3 className="text-[26px] md:text-[28px] font-bold text-white leading-tight mb-4">
-                            {service.bannerTitle}
-                          </h3>
-                          <button suppressHydrationWarning className="flex items-center relative group h-12 w-fit">
-                            {/* LEFT ICON CIRCLE */}
-                            <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg z-20 transition-all group-hover:scale-105">
-                              <svg className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                              </svg>
-                            </div>
+                <div className="relative w-full h-full rounded-[32px] overflow-hidden group shadow-2xl">
+                  <Image
+                    src={services[activeServiceIdx].image}
+                    alt={services[activeServiceIdx].name}
+                    fill
+                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  
+                  {/* Banner Tag */}
+                  <div className="absolute top-8 left-8">
+                    <div className="bg-black/30 backdrop-blur-md border border-white/20 px-5 py-2.5 rounded-xl">
+                      <span className="text-white text-[14px] font-semibold tracking-wide">
+                        {services[activeServiceIdx].bannerTag}
+                      </span>
+                    </div>
+                  </div>
 
-                            {/* MAIN BUTTON BODY */}
-                            <div
-                              className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all"
-                              style={{
-                                background: 'linear-gradient(to right, #3799FA, #9961FB)',
-                                borderRadius: '34px 34px 0px 34px'
-                              }}
-                            >
-                              Lets Build Together
-                            </div>
-                          </button>
-                        </div>
+                  {/* Banner Title */}
+                  <div className="absolute top-1/2 -translate-y-1/2 left-8 max-w-[450px]">
+                    <h3 className="text-white text-[38px] lg:text-[44px] font-bold leading-[1.1] mb-6 drop-shadow-lg">
+                      {services[activeServiceIdx].bannerTitle}
+                    </h3>
+                  </div>
+
+                  {/* Updated Bottom Button Desktop */}
+                  <div className="absolute bottom-10 left-8">
+                    <button 
+                      suppressHydrationWarning
+                      className="flex items-center group relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px] shadow-xl"
+                    >
+                      <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out group-hover:left-[calc(100%-48px)] group-hover:bg-gradient-to-r group-hover:from-[#3799FA] group-hover:to-[#9961FB] group-hover:scale-105">
+                        <FaChevronRight className="w-4 h-4 text-[#3799FA] transition-all duration-700 ease-in-out group-hover:text-white" />
                       </div>
-                    ))}
+                      <div className="pl-14 pr-8 h-full py-3 flex items-center text-white font-bold text-[15px] transition-all duration-700 ease-in-out bg-gradient-to-r from-[#3799FA] to-[#9961FB] group-hover:from-white group-hover:to-white group-hover:text-black group-hover:pl-6 group-hover:pr-14 rounded-[34px_34px_0px_34px] group-hover:rounded-[34px_34px_34px_0px]">
+                        Lets Build Together
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 flex-1">
-                {services.map((service, idx) => (
-                  <div
-                    key={idx}
-                    onClick={() => setActiveServiceIdx(idx)}
-                    className={`p-4 rounded-2xl transition-all border group shadow-sm cursor-pointer ${activeServiceIdx === idx
-                      ? "bg-white shadow-xl border-blue-500/20 scale-[1.01]"
-                      : "bg-white hover:bg-white/80 border-transparent"
-                      }`}
-                  >
-                    <div className="flex justify-between items-start">
-                      <div className="flex gap-4 items-start">
-                        <div className="flex flex-col gap-1">
-                          <h4 className={`text-[18px] font-bold transition-colors ${activeServiceIdx === idx ? "text-blue-600" : "text-[#1F2933]"}`}>
+              <div className="flex flex-col gap-3 flex-1 h-full py-1 min-w-[340px]">
+                {services.map((service, idx) => {
+                  const getIcon = (i: number) => {
+                    switch (i) {
+                      case 0: return <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" /></svg>;
+                      case 1: return <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>;
+                      case 2: return <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>;
+                      case 3: return <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" /></svg>;
+                      case 4: return <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10 10h.01M14 10h.01M10 14h.01" /></svg>;
+                      case 5: return <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>;
+                      default: return null;
+                    }
+                  };
+
+                  return (
+                    <div
+                      key={idx}
+                      onClick={() => setActiveServiceIdx(idx)}
+                      onMouseEnter={() => setHoveredServiceIdx(idx)}
+                      onMouseLeave={() => setHoveredServiceIdx(null)}
+                      className={`service-list-item relative p-6 rounded-2xl transition-all duration-500 border group cursor-pointer overflow-hidden ${activeServiceIdx === idx
+                        ? "bg-white border-[#CAD0FF]/50 scale-[1.02] z-10"
+                        : "bg-transparent border-transparent hover:bg-white/50 opacity-80 hover:opacity-100"
+                        }`}
+                    >
+                      <div className="flex gap-5 items-start">
+                        {/* Icon Square */}
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-500 shrink-0 border ${activeServiceIdx === idx ? "bg-white border-gray-100 text-black shadow-sm" : "bg-white border-gray-200 text-gray-400"}`}>
+                          {getIcon(idx)}
+                        </div>
+
+                        <div className="flex flex-col gap-1 flex-1 pr-10">
+                          <h4 className={`text-[18px] font-bold transition-all duration-500 ${activeServiceIdx === idx ? "text-black" : "text-gray-800"}`}>
                             {service.name}
                           </h4>
-                          <p className="text-[13px] text-gray-500 leading-relaxed max-w-[500px]">
+                          <p className={`text-[12.5px] leading-relaxed transition-all duration-500 ${activeServiceIdx === idx ? "text-gray-600" : "text-gray-500"}`}>
                             {service.desc}
                           </p>
                         </div>
-                      </div>
-                      {idx === activeServiceIdx && (
-                        <div className="w-9 h-9 rounded-full flex items-center justify-center transition-all shadow-md shrink-0"
-                          style={{ background: 'linear-gradient(135deg, #20B5F9 0%, #A851ED 100%)' }}>
-                          <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
-                          </svg>
+                        
+                        <div className={`absolute right-6 top-1/2 -translate-y-1/2 transition-all duration-500 ${
+                          (hoveredServiceIdx !== null && hoveredServiceIdx === idx) || (hoveredServiceIdx === null && activeServiceIdx === idx)
+                            ? "opacity-100 translate-x-0" 
+                            : "opacity-0 translate-x-4"
+                        }`}>
+                          <div className="w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md shrink-0"
+                            style={{ background: 'linear-gradient(135deg, #31B5FE 0%, #AC52F2 100%)' }}>
+                            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+                            </svg>
+                          </div>
                         </div>
-                      )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -1104,11 +918,11 @@ export default function Home() {
                     <div
                       key={idx}
                       onClick={() => setActiveServiceIdx(idx)}
-                      className={`flex justify-between items-start py-6 px-4 cursor-pointer ${idx !== services.length - 1 ? 'border-b border-gray-100' : ''}`}
+                      className={`flex group justify-between items-start py-6 px-4 cursor-pointer transition-all duration-300 ${activeServiceIdx === idx ? 'bg-blue-50/30' : ''} ${idx !== services.length - 1 ? 'border-b border-gray-100' : ''}`}
                     >
                       <div className="flex gap-4 items-start w-full">
                         {/* Left Icon Square */}
-                        <div className="w-[34px] h-[34px] mt-1 rounded-[4px] border border-gray-300 flex items-center justify-center shrink-0">
+                        <div className="w-[34px] h-[34px] mt-1 rounded-[4px] border border-gray-300 flex items-center justify-center shrink-0 bg-white">
                           {getIcon(idx)}
                         </div>
                         <div className="flex flex-col gap-1.5 flex-1 pr-6">
@@ -1119,57 +933,55 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Right active circular arrow (only for first item like Image 4 or active item) */}
-                      {idx === activeServiceIdx && (
-                        <div className="w-[28px] h-[28px] mt-1 rounded-full flex items-center justify-center transition-all shrink-0"
-                          style={{ background: 'linear-gradient(135deg, #31B5FE 0%, #AC52F2 100%)' }}>
-                          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
-                          </svg>
-                        </div>
-                      )}
+                      {/* Right active circular arrow (shows on active or hover) */}
+                      <div className={`w-[28px] h-[28px] mt-1 rounded-full flex items-center justify-center transition-all shrink-0 ${activeServiceIdx === idx ? "opacity-100 scale-100" : "opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100"}`}
+                        style={{ background: 'linear-gradient(135deg, #31B5FE 0%, #AC52F2 100%)' }}>
+                        <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg>
+                      </div>
                     </div>
                   );
                 })}
               </div>
 
-              {/* Mobile Banner Static Box at the bottom */}
-              <div className="flex w-full px-5 mt-8 mb-8">
-                <div className="relative rounded-[16px] overflow-hidden w-full min-h-[290px] py-10 px-4 shadow-lg flex flex-col items-center justify-center group bg-black">
+              {/* Mobile Banner: Replacing static box with 3D Carousel */}
+              <div className="flex w-full px-5 mt-6 mb-6 justify-center">
+                <div className="relative w-full h-[380px] rounded-[24px] overflow-hidden shadow-xl">
                   <Image
                     src={services[activeServiceIdx].image}
                     alt={services[activeServiceIdx].name}
                     fill
-                    className="object-cover opacity-50"
+                    className="object-cover"
                   />
-                  {/* Subtle dark overlay for better text readability */}
-                  <div className="absolute inset-0 bg-black/20"></div>
-
-                  <div className="relative z-10 flex flex-col items-center justify-center w-full">
-                    {/* Top Tag Outline */}
-                    <div className="bg-transparent border border-white/60 px-6 py-2.5 rounded-[6px] w-[92%] max-w-[320px] mb-6 text-white text-[12.5px] font-[600] font-poppins text-center">
-                      {services[activeServiceIdx].bannerTag}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  
+                  {/* Banner Tag Mobile */}
+                  <div className="absolute top-6 left-6">
+                    <div className="bg-black/30 backdrop-blur-md border border-white/20 px-4 py-2 rounded-lg">
+                      <span className="text-white text-[13px] font-medium">
+                        {services[activeServiceIdx].bannerTag}
+                      </span>
                     </div>
+                  </div>
 
-                    {/* Main Banner Title */}
-                    <h3 className="text-[25px] sm:text-[28px] font-[700] text-white leading-[1.3] mb-8 font-poppins text-center px-1">
+                  {/* Banner Title Mobile */}
+                  <div className="absolute top-1/2 -translate-y-1/2 left-6 pr-6">
+                    <h3 className="text-white text-[32px] font-bold leading-tight">
                       {services[activeServiceIdx].bannerTitle}
                     </h3>
+                  </div>
 
-                    {/* Gradient Button with Left Icon */}
-                    <button suppressHydrationWarning className="flex items-center relative group h-[46px] w-fit mx-auto">
-                      <div className="absolute left-0 w-[46px] h-[46px] rounded-full bg-white flex items-center justify-center shadow-lg z-20">
-                        <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
+                  {/* Updated Bottom Button Mobile */}
+                  <div className="absolute bottom-10 left-6">
+                    <button 
+                      suppressHydrationWarning
+                      className="flex items-center group relative h-10 w-fit cursor-pointer overflow-hidden rounded-[28px_28px_0px_28px] shadow-lg"
+                    >
+                      <div className="absolute left-0 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md z-20">
+                        <FaChevronRight className="w-3.5 h-3.5 text-[#3799FA]" />
                       </div>
-                      <div
-                        className="pl-[56px] pr-7 h-full flex items-center justify-center text-white font-[600] text-[13px] w-fit"
-                        style={{
-                          background: 'linear-gradient(to right, #519EFF, #9D68FF)',
-                          borderRadius: '23px'
-                        }}
-                      >
+                      <div className="pl-12 pr-6 h-full py-2.5 flex items-center text-white font-bold text-[13px] bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[28px_28px_0px_28px]">
                         Lets Build Together
                       </div>
                     </button>
@@ -1181,10 +993,10 @@ export default function Home() {
         </section>
 
         {/* PRODUCTS SECTION */}
-        <section className="w-full bg-white py-12 lg:py-24 flex flex-col items-center relative z-10">
+        <section data-section="products" className="w-full bg-white py-12 lg:py-24 flex flex-col items-center relative z-10">
           {/* --- DESKTOP HEADER --- */}
           <div className="hidden lg:flex flex-col items-center text-center mb-20 px-10">
-            <div className="flex items-center gap-6 mb-8">
+            <div className="products-badge-row flex items-center gap-6 mb-8">
               <div className="relative w-14 h-7">
                 <Image src="/Home/right_arrow.png" alt="Right Arrow" fill className="object-contain" />
               </div>
@@ -1201,22 +1013,27 @@ export default function Home() {
 
           <div className="w-full max-w-[1700px] px-0 lg:px-10 lg:md:px-20">
             {/* --- DESKTOP VIEW --- */}
-            <div className="hidden lg:grid grid-cols-[1fr_2.5fr] gap-12 items-start">
+            <div className="hidden lg:grid grid-cols-[1.2fr_2.8fr] gap-12 items-start w-full">
               {/* Product Sidebar */}
-              <div className="flex flex-col gap-6">
+              <div className="products-sidebar flex flex-col gap-8">
                 {products.map((product, idx) => (
                   <div
                     key={idx}
-                    onClick={() => setActiveProductIdx(idx)}
-                    className={`p-10 rounded-[24px] cursor-pointer transition-all duration-300 border ${activeProductIdx === idx
-                      ? "bg-white shadow-2xl border-blue-500/10 scale-[1.02]"
-                      : "bg-[#F8F9FA] border-transparent hover:bg-white hover:shadow-lg"
+                    id={`product-sidebar-${idx}`}
+                    onClick={() => {
+                      setActiveProductIdx(idx);
+                      const el = document.getElementById(`product-sidebar-${idx}`);
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }}
+                    className={`p-12 rounded-[32px] cursor-pointer transition-all duration-500 border ${activeProductIdx === idx
+                      ? "bg-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-blue-500/20 scale-[1.05] z-10"
+                      : "bg-[#F8F9FA] border-transparent opacity-60 hover:opacity-100"
                       }`}
                   >
-                    <h3 className={`text-[28px] font-bold mb-3 transition-colors ${activeProductIdx === idx ? "text-blue-600" : "text-black"}`}>
+                    <h3 className={`text-[32px] font-bold mb-4 transition-colors ${activeProductIdx === idx ? "text-blue-600" : "text-black"}`}>
                       {product.name}
                     </h3>
-                    <p className="text-[16px] text-gray-500 leading-relaxed font-medium">
+                    <p className="text-[18px] text-gray-500 leading-relaxed font-medium">
                       {product.desc}
                     </p>
                   </div>
@@ -1224,7 +1041,7 @@ export default function Home() {
 
                 {/* See All Products Button */}
                 <div className="mt-4 flex justify-start">
-                  <button suppressHydrationWarning className="flex items-center relative group h-12 w-fit">
+                  <Link href="/products" className="flex items-center relative group h-12 w-fit">
                     {/* LEFT ICON CIRCLE */}
                     <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg z-20 transition-transform group-hover:scale-105">
                       <svg className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
@@ -1242,12 +1059,12 @@ export default function Home() {
                     >
                       See All Products
                     </div>
-                  </button>
+                  </Link>
                 </div>
               </div>
 
               {/* Product Detail Card */}
-              <div className="bg-white rounded-[40px] shadow-[0_30px_100px_rgba(0,0,0,0.05)] border border-gray-100 relative overflow-hidden group min-h-[650px] sticky top-32 h-fit">
+              <div className="product-detail-card bg-white rounded-[40px] shadow-[0_30px_100px_rgba(0,0,0,0.05)] border border-gray-100 relative overflow-hidden group min-h-[650px] sticky top-32 h-fit">
                 {/* Slidable Content Wrapper */}
                 <div
                   className="absolute inset-0 transition-transform duration-700 ease-in-out"
@@ -1418,7 +1235,7 @@ export default function Home() {
         </section>
 
         {/* TECHNOLOGIES SECTION */}
-        <section className="w-full bg-black py-24 flex flex-col items-center relative z-20 overflow-hidden">
+        <section data-section="technologies" className="w-full bg-black py-24 flex flex-col items-center relative z-20 overflow-x-clip">
           {/* Animated Background Glows */}
           <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -translate-y-1/2" />
           <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] translate-y-1/2" />
@@ -1473,9 +1290,13 @@ export default function Home() {
                 {technologies.map((tech, idx) => (
                   <div
                     key={idx}
-                    onClick={() => setActiveTechIdx(idx)}
-                    onMouseEnter={() => setActiveTechIdx(idx)}
-                    className={`p-8 rounded-[24px] cursor-pointer transition-all duration-500 border backdrop-blur-md ${activeTechIdx === idx
+                    id={`tech-sidebar-${idx}`}
+                    onClick={() => {
+                      setActiveTechIdx(idx);
+                      const el = document.getElementById(`tech-sidebar-${idx}`);
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }}
+                    className={`tech-tab-item p-8 rounded-[24px] cursor-pointer transition-all duration-500 border backdrop-blur-md ${activeTechIdx === idx
                       ? "bg-white shadow-[0_20px_50px_rgba(255,255,255,0.1)] scale-[1.03] border-white"
                       : "bg-white/5 hover:bg-white/10 border-white/10 hover:border-white/20"
                       }`}
@@ -1491,7 +1312,7 @@ export default function Home() {
               </div>
 
               {/* slidable Content Detail Card */}
-              <div className="bg-white rounded-xl shadow-[0_30px_100px_rgba(0,0,0,0.3)] relative overflow-hidden min-h-[600px]">
+              <div className="tech-detail-card bg-white rounded-xl shadow-[0_30px_100px_rgba(0,0,0,0.3)] relative overflow-hidden min-h-[600px] sticky top-32 h-fit">
                 <div
                   className="absolute inset-0 transition-transform duration-700 ease-in-out"
                   style={{ transform: `translateY(${-activeTechIdx * 100}%)` }}
@@ -1520,18 +1341,14 @@ export default function Home() {
 
                         {/* Action Button: Custom Asymmetrical Design */}
                         <div className="mt-auto flex justify-start">
-                          <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit">
-                            <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg z-20 transition-all group-hover:scale-105">
-                              <svg className="w-5 h-5 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                          <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px]">
+                            <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg z-20 transition-all duration-700 ease-in-out group-hover:left-[calc(100%-48px)] group-hover:bg-gradient-to-r group-hover:from-[#3799FA] group-hover:to-[#9961FB] group-hover:scale-105">
+                              <svg className="w-5 h-5 text-[#3799FA] transition-all duration-700 ease-in-out group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
+                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                               </svg>
                             </div>
                             <div
-                              className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all"
-                              style={{
-                                background: 'linear-gradient(to right, #3799FA, #9961FB)',
-                                borderRadius: '34px 34px 0px 34px'
-                              }}
+                              className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all duration-700 ease-in-out bg-gradient-to-r from-[#3799FA] to-[#9961FB] group-hover:from-white group-hover:to-white group-hover:text-black group-hover:pl-6 group-hover:pr-14 rounded-[34px_34px_0px_34px] group-hover:rounded-[34px_34px_34px_0px]"
                             >
                               Learn More
                             </div>
@@ -1609,7 +1426,7 @@ export default function Home() {
         </section>
 
         {/* ACCELERATION SECTION (Why dilshaj Infotech) */}
-        <section className="w-full bg-[#FAFAFA] py-24 flex flex-col items-center">
+        <section data-section="acceleration" className="w-full bg-[#FAFAFA] py-24 flex flex-col items-center">
           <div className="w-full max-w-[1550px] px-6 md:px-12 flex flex-col items-center">
             {/* Section Header */}
             <div className="flex flex-col items-center text-center mb-14">
@@ -1738,10 +1555,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full bg-black pt-16 pb-20 flex flex-col items-center relative overflow-hidden">
+        <section data-section="careers" className="w-full bg-black pt-16 pb-20 flex flex-col items-center relative overflow-hidden">
           <style jsx>{`
-            .scrollbar-none::-webkit-scrollbar { display: none; }
-            .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
             .vertical-grid {
               background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px);
               background-size: 100px 100%;
@@ -1786,7 +1601,7 @@ export default function Home() {
               {/* Left Side Navigation Arrow */}
               <button
                 suppressHydrationWarning
-                onClick={() => document.getElementById('careers-scroll-area')?.scrollBy({ left: -338, behavior: 'smooth' })}
+                onClick={() => document.getElementById('careers-scroll-area')?.scrollBy({ left: -(document.getElementById('testimonial-scroll')?.clientWidth || 1352), behavior: 'smooth' })}
                 className="absolute left-[calc(50%-165px)] lg:-left-2 top-[55%] lg:top-1/2 -translate-y-1/2 z-30 flex w-9 h-9 lg:w-12 lg:h-12 rounded-full border border-white/20 lg:border-white/40 bg-[#161719]/90 lg:bg-transparent items-center justify-center text-white hover:bg-white/10 transition-all backdrop-blur-md shadow-lg"
               >
                 <IoMdArrowBack className="w-5 h-5 lg:w-6 lg:h-6" />
@@ -1796,7 +1611,7 @@ export default function Home() {
               <div id="careers-scroll-area" className="w-full lg:max-w-[1320px] overflow-x-auto scrollbar-none pb-12 pt-4 relative scroll-smooth snap-x snap-mandatory flex">
                 <div className="flex gap-4 lg:gap-8 px-[calc(50%-145px)] lg:px-0 w-max mx-auto lg:mx-0">
                   {careerJobs.map((job, idx) => (
-                    <div key={idx} className="bg-[#2B2D31] lg:bg-[#1a1c1e] bg-opacity-95 lg:bg-opacity-100 border border-white/10 lg:border-white/5 rounded-[16px] lg:rounded-[24px] p-6 lg:p-6 flex flex-col items-center lg:items-center group hover:bg-[#32353A] lg:hover:bg-[#222528] transition-all duration-500 lg:hover:-translate-y-2 shadow-[0_8px_30px_rgba(0,0,0,0.7)] lg:shadow-2xl w-[290px] lg:w-[306px] h-[420px] lg:h-[343px] flex-shrink-0 overflow-hidden snap-center lg:snap-start backdrop-blur-md">
+                    <div key={idx} className="bg-[#2B2D31] lg:bg-[#1a1c1e] bg-opacity-95 lg:bg-opacity-100 border border-white/10 lg:border-white/5 rounded-[16px] lg:rounded-[24px] p-6 lg:p-6 flex flex-col items-center lg:items-center group hover:bg-[#32353A] lg:hover:bg-[#222528] transition-all duration-500 lg:hover:-translate-y-2 shadow-[0_8px_30px_rgba(0,0,0,0.7)] lg:shadow-2xl w-[290px] lg:w-[306px] h-[420px] lg:h-[343px] flex-shrink-0 overflow-hidden snap-start lg:snap-start backdrop-blur-md">
 
                       {/* Icon */}
                       <div className="relative mb-5 lg:mb-4 transform group-hover:scale-105 transition-transform duration-500 flex-shrink-0 mx-auto w-[85px] h-[85px] lg:w-auto lg:h-auto [&>div]:!border-0 lg:[&>div]:!border-[4px] [&>div]:!p-0 lg:[&>div]:!p-2 [&>div]:w-[85px] [&>div]:h-[85px] lg:[&>div]:w-20 lg:[&>div]:h-20 [&>div>img]:scale-[1.25] lg:[&>div>img]:scale-100 flex items-center justify-center mt-6 lg:mt-0">
@@ -1842,7 +1657,7 @@ export default function Home() {
               {/* Right Side Navigation Arrow */}
               <button
                 suppressHydrationWarning
-                onClick={() => document.getElementById('careers-scroll-area')?.scrollBy({ left: 338, behavior: 'smooth' })}
+                onClick={() => document.getElementById('careers-scroll-area')?.scrollBy({ left: (document.getElementById('testimonial-scroll')?.clientWidth || 1352), behavior: 'smooth' })}
                 className="absolute right-[calc(50%-165px)] lg:-right-2 top-[55%] lg:top-1/2 -translate-y-1/2 z-30 flex w-9 h-9 lg:w-12 lg:h-12 rounded-full border border-white/20 lg:border-white/40 bg-[#161719]/90 lg:bg-transparent items-center justify-center text-white hover:bg-white/10 transition-all backdrop-blur-md shadow-lg"
               >
                 <IoMdArrowForward className="w-5 h-5 lg:w-6 lg:h-6" />
@@ -1851,7 +1666,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-full bg-[#f8fafc] py-14 md:py-24 flex flex-col items-center relative overflow-hidden">
+        <section data-section="blog" className="w-full bg-[#f8fafc] py-14 md:py-24 flex flex-col items-center relative overflow-hidden">
           <div className="w-full flex justify-start mb-6 px-4 md:px-[104px]">
             {/* Desktop Ribbon */}
             <div
@@ -1942,7 +1757,7 @@ export default function Home() {
             {/* Mobile Blog Carousel */}
             <div className="flex md:hidden overflow-x-auto scrollbar-none gap-5 pb-8 pt-2 snap-x snap-mandatory -mx-5 px-5" style={{ width: 'calc(100% + 40px)' }}>
               {blogPosts.map((post, idx) => (
-                <div key={idx} className="group cursor-pointer flex-shrink-0 w-[290px] snap-center">
+                <div key={idx} className="group cursor-pointer flex-shrink-0 w-[290px] snap-start">
                   <div className="relative w-full h-[190px] rounded-[24px] overflow-hidden mb-5 shadow-sm border border-black/5 bg-white">
                     <Image src={post.image} alt={post.title} fill className="object-cover" />
 
@@ -1968,7 +1783,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="testimonials" className="w-full bg-[#0a0a0a] flex flex-col items-center relative overflow-hidden h-[896px] py-20">
+        <section id="testimonials" data-section="testimonials" className="w-full bg-[#0a0a0a] flex flex-col items-center relative overflow-hidden h-[896px] py-20">
           {/* Cinematic Background Image */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -2018,7 +1833,7 @@ export default function Home() {
               {/* Desktop Scroll Controls */}
               <button
                 suppressHydrationWarning
-                onClick={() => document.getElementById('testimonial-scroll')?.scrollBy({ left: -338, behavior: 'smooth' })}
+                onClick={() => document.getElementById('testimonial-scroll')?.scrollBy({ left: -(document.getElementById('testimonial-scroll')?.clientWidth || 1352), behavior: 'smooth' })}
                 className="absolute -left-12 md:-left-24 lg:-left-36 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center backdrop-blur-md transition-all border border-white/20 hidden md:flex"
               >
                 <IoMdArrowBack className="w-6 h-6 text-white" />
@@ -2026,7 +1841,7 @@ export default function Home() {
 
               <button
                 suppressHydrationWarning
-                onClick={() => document.getElementById('testimonial-scroll')?.scrollBy({ left: 338, behavior: 'smooth' })}
+                onClick={() => document.getElementById('testimonial-scroll')?.scrollBy({ left: (document.getElementById('testimonial-scroll')?.clientWidth || 1352), behavior: 'smooth' })}
                 className="absolute -right-12 md:-right-24 lg:-right-36 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center backdrop-blur-md transition-all border border-white/20 hidden md:flex"
               >
                 <IoMdArrowForward className="w-6 h-6 text-white" />
@@ -2048,7 +1863,7 @@ export default function Home() {
               >
                 {(testimonials || []).map((t, idx) => (
                   t.type === 'video' ? (
-                    <div key={idx} className="flex-shrink-0 w-[280px] md:w-[306px] h-[400px] md:h-[401px] relative rounded-[20px] md:rounded-[24px] overflow-hidden snap-center shadow-2xl border border-white/20 group/card">
+                    <div key={idx} className="flex-shrink-0 w-[280px] md:w-[306px] h-[400px] md:h-[401px] relative rounded-[20px] md:rounded-[24px] overflow-hidden snap-start shadow-2xl border border-white/20 group/card">
                       <Image src={t.image} alt={t.name} fill className="object-cover transition-transform duration-700 group-hover/card:scale-105" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
@@ -2065,7 +1880,7 @@ export default function Home() {
                       </div>
                     </div>
                   ) : (
-                    <div key={idx} className="flex-shrink-0 w-[290px] md:w-[306px] h-[420px] md:h-[446px] bg-[#1a1c1e] md:bg-[#1a1c1e]/80 backdrop-blur-xl rounded-[20px] md:rounded-[24px] p-6 md:p-8 snap-center border-t md:border border-white/10 md:border-white/5 flex flex-col justify-between shadow-[0_10px_40px_rgba(0,0,0,0.8)] md:shadow-2xl">
+                    <div key={idx} className="flex-shrink-0 w-[290px] md:w-[306px] h-[420px] md:h-[446px] bg-[#1a1c1e] md:bg-[#1a1c1e]/80 backdrop-blur-xl rounded-[20px] md:rounded-[24px] p-6 md:p-8 snap-start border-t md:border border-white/10 md:border-white/5 flex flex-col justify-between shadow-[0_10px_40px_rgba(0,0,0,0.8)] md:shadow-2xl">
                       <div>
                         <div className="flex gap-1.5 mb-6 md:mb-8">
                           {[...Array(t.stars || 5)].map((_, i) => (
@@ -2119,7 +1934,7 @@ export default function Home() {
         </section>
 
         {/* FAQ Section */}
-        <section id="faq" className="w-full bg-[#f8fafc] py-14 md:py-24 flex flex-col items-center relative overflow-hidden">
+        <section id="faq" data-section="faq" className="w-full bg-[#f8fafc] py-14 md:py-24 flex flex-col items-center relative overflow-hidden">
           <div className="w-full flex justify-start mb-8 md:mb-10 px-0 md:px-[104px] relative z-10">
             {/* Desktop Ribbon */}
             <div

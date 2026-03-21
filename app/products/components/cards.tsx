@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -58,12 +57,12 @@ const cardsData = [
         buttonText: "View Details",
         buttonColor: "from-[#8fb2ff] to-[#604aff]",
         href: "/products/digital-news",
-        imageBg: "bg-[linear-gradient(135deg,#cce0ff_0%,#f0b6c2_45%,#ef3b45_100%)]",
+        imageBg: "bg-[linear-gradient(to_bottom,#A00000,#000063)]",
         computercard: "",
         mobilecard: "",
         plogocard: "",
         rightcard: "",
-        newscard: "/products-images/news.png",
+        newscard: "/products-images/digital-news.png",
         ridecard: "",
         bgText: "Media",
         reverse: true,
@@ -89,7 +88,7 @@ const cardsData = [
         plogocard: "",
         rightcard: "",
         newscard: "",
-        ridecard: "/products-images/ridecard3.png",
+        ridecard: "/products-images/B&C.png",
         ecommercecard: "",
         bgText: "",
         reverse: false,
@@ -135,7 +134,8 @@ const cardsData = [
         ],
         buttonText: "View Details",
         buttonColor: "from-[#8fb2ff] to-[#604aff]",
-        imageBg: "bg-[#baff4e]",
+        href: "/products/security",
+        imageBg: "bg-[#0a0f1d]",
         computercard: "",
         mobilecard: "",
         plogocard: "",
@@ -143,7 +143,7 @@ const cardsData = [
         newscard: "",
         ridecard: "",
         ecommercecard: "",
-        securitycard: "/products-images/security-card-5.png",
+        securitycard: "/products-images/S&N (2).png",
         architecturecard: "",
         doctorcard: "",
         bgText: "",
@@ -164,7 +164,7 @@ const cardsData = [
         buttonText: "View Details",
         buttonColor: "from-[#8fb2ff] to-[#604aff]",
         href: "/products/interior",
-        imageBg: "bg-[#0b172a]",
+        imageBg: "bg-[#040b16]",
         computercard: "",
         mobilecard: "",
         plogocard: "",
@@ -173,7 +173,7 @@ const cardsData = [
         ridecard: "",
         ecommercecard: "",
         securitycard: "",
-        architecturecard: "/products-images/architecture-card6.png",
+        architecturecard: "/products-images/architechture.png",
         doctorcard: "",
         bgText: "",
         reverse: true,
@@ -192,6 +192,7 @@ const cardsData = [
         ],
         buttonText: "View Details",
         buttonColor: "from-[#8fb2ff] to-[#604aff]",
+        href: "/products/doctor",
         imageBg: "bg-[#dbeafe]",
         computercard: "",
         mobilecard: "",
@@ -210,9 +211,9 @@ const cardsData = [
     {
         id: 8,
         tag: "On-Demand Services",
-        tagColor: "bg-[#8b5cf6]",
+        tagColor: "bg-gradient-to-r from-[#22d3ee] to-[#8b5cf6]",
         logoImage: "",
-        title: "UrbanClap-Style Service App",
+        title: "UrbanServe-Style Service App",
         quote: "All-in-One Home Services Platform",
         desc: "A service marketplace connecting users with verified professionals for home services like cleaning, repairs, and maintenance.",
         metrics: [
@@ -221,7 +222,8 @@ const cardsData = [
         ],
         buttonText: "View Details",
         buttonColor: "from-[#8fb2ff] to-[#604aff]",
-        imageBg: "bg-[#fdf4f9]",
+        href: "/products/urban-clap",
+        imageBg: "bg-[#040b16]",
         computercard: "",
         mobilecard: "",
         plogocard: "",
@@ -232,7 +234,7 @@ const cardsData = [
         securitycard: "",
         architecturecard: "",
         doctorcard: "",
-        urbancard: "/products-images/urbancard-8.png",
+        urbancard: "/products-images/urban-clap.png",
         foodcard: "",
         bgText: "",
         reverse: true,
@@ -251,6 +253,7 @@ const cardsData = [
         ],
         buttonText: "View Details",
         buttonColor: "from-[#8fb2ff] to-[#604aff]",
+        href: "/products/Food",
         imageBg: "bg-[#ffae00]",
         computercard: "",
         mobilecard: "",
@@ -317,7 +320,7 @@ const renderMetricValue = (val: string) => {
 // ─── Desktop TextBox ───────────────────────────────────────────────────────────
 function TextBox({ card }: { card: typeof cardsData[number] }) {
     return (
-        <div className="bg-white relative flex flex-col justify-center p-6 sm:p-8 lg:p-14 xl:p-[60px] z-20 w-full min-h-[480px] lg:h-[758px] rounded-[16px] overflow-hidden">
+        <div className="bg-white relative flex flex-col justify-center p-6 sm:p-8 lg:p-16 xl:p-[80px] z-20 w-full min-h-[480px] lg:h-[758px] rounded-[16px] overflow-hidden">
             <div className={`absolute top-0 right-0 ${card.tagColor} text-white text-[11px] sm:text-[13px] font-bold px-4 sm:px-6 py-2 rounded-bl-[16px] z-50`}>
                 {card.tag}
             </div>
@@ -338,9 +341,9 @@ function TextBox({ card }: { card: typeof cardsData[number] }) {
             <p className="w-full max-w-[676px] text-[#4B5563] text-[14px] sm:text-[16px] md:text-[18px] leading-[1.6] mb-6 font-[500] pr-2">
                 {card.desc}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-4 mt-auto">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mb-4 mt-6">
                 {card.metrics.map((m, idx) => (
-                    <div key={idx} className="flex flex-col w-full sm:w-[322px] min-h-[80px] justify-center">
+                    <div key={idx} className="flex flex-col w-full sm:w-[280px] min-h-fit justify-start mt-2">
                         {m.val !== "text-only" && (
                             <span className="text-[36px] sm:text-[48px] md:text-[56px] font-[700] text-black leading-none tracking-tight mb-1 flex items-center">
                                 {m.val.startsWith("icon-") ? renderMetricValue(m.val) : m.val}
@@ -433,7 +436,7 @@ function ImageBox({ card }: { card: typeof cardsData[number] }) {
             )}
             {(card as any).architecturecard && (
                 <div className="absolute inset-0 w-full h-full z-20 overflow-hidden rounded-[16px] transform group-hover:scale-[1.02] transition-all duration-[1000ms] ease-out">
-                    <Image src={(card as any).architecturecard} alt="Architecture Blueprint Interface" fill className="object-cover object-left-bottom" />
+                    <Image src={(card as any).architecturecard} alt="Architecture Blueprint Interface" fill className="object-cover object-left" />
                 </div>
             )}
             {(card as any).doctorcard && (
@@ -514,7 +517,7 @@ function MobileImageSection({ card }: { card: typeof cardsData[number] }) {
             )}
             {(card as any).architecturecard && (
                 <div className="absolute inset-0 z-20 overflow-hidden rounded-t-[20px]">
-                    <Image src={(card as any).architecturecard} alt="Architecture" fill className="object-cover object-left-bottom" />
+                    <Image src={(card as any).architecturecard} alt="Architecture" fill className="object-cover object-left" />
                 </div>
             )}
             {(card as any).doctorcard && (

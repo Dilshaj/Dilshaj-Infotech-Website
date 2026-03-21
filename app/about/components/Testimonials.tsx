@@ -1,8 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaCirclePlay, FaStar } from "react-icons/fa6";
 import { IoMdArrowForward, IoMdArrowBack } from "react-icons/io";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 const testimonials = [
     {
@@ -64,8 +72,44 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+    const container = useRef(null);
+
+    useGSAP(() => {
+        // Header animation
+        gsap.fromTo(".testimonial-header",
+            { y: 50, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 85%",
+                },
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power3.out"
+            }
+        );
+
+        // Testimonial cards animation
+        gsap.fromTo(".testimonial-card",
+            { scale: 0.9, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: container.current,
+                    start: "top 85%",
+                },
+                scale: 1,
+                opacity: 1,
+                stagger: 0.1,
+                duration: 0.8,
+                ease: "power2.out",
+                immediateRender: false
+            }
+        );
+    }, { scope: container });
+
     return (
-        <section id="testimonials" className="w-full bg-[#0a0a0a] flex flex-col items-center relative overflow-hidden h-[896px] py-20">
+        <section ref={container} id="testimonials" className="w-full bg-[#0a0a0a] flex flex-col items-center relative overflow-hidden h-[896px] py-20">
             {/* Cinematic Background Image */}
             <div className="absolute inset-0 z-0">
                 <Image
@@ -94,7 +138,7 @@ export default function Testimonials() {
             </div>
 
             <div className="w-full max-w-[1700px] px-8 md:px-[104px] flex flex-col relative z-20">
-                <h2 className="text-[32px] md:text-[44px] font-semibold text-white leading-tight mb-20 max-w-full lg:max-w-[1200px]">
+                <h2 className="testimonial-header text-[32px] md:text-[44px] font-semibold text-white leading-tight mb-20 max-w-full lg:max-w-[1200px]">
                     Real stories from clients who trust our technology <br className="hidden md:block" /> and expertise.
                 </h2>
 
@@ -123,7 +167,7 @@ export default function Testimonials() {
                     >
                         {(testimonials || []).map((t, idx) => (
                             t.type === 'video' ? (
-                                <div key={idx} className="flex-shrink-0 w-[306px] h-[401px] relative rounded-[24px] overflow-hidden snap-start shadow-2xl border border-white/10 group/card">
+                                <div key={idx} className="testimonial-card flex-shrink-0 w-[306px] h-[401px] relative rounded-[24px] overflow-hidden snap-start shadow-2xl border border-white/10 group/card">
                                     <Image src={t.image} alt={t.name} fill className="object-cover transition-transform duration-700 group-hover/card:scale-105" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
 
@@ -140,7 +184,7 @@ export default function Testimonials() {
                                     </div>
                                 </div>
                             ) : (
-                                <div key={idx} className="flex-shrink-0 w-[306px] h-[446px] bg-[#1a1c1e]/80 backdrop-blur-md rounded-[24px] p-8 snap-start border border-white/5 flex flex-col justify-between shadow-2xl">
+                                <div key={idx} className="testimonial-card flex-shrink-0 w-[306px] h-[446px] bg-[#1a1c1e]/80 backdrop-blur-md rounded-[24px] p-8 snap-start border border-white/5 flex flex-col justify-between shadow-2xl">
                                     <div>
                                         <div className="flex gap-1.5 mb-8">
                                             {[...Array(t.stars || 5)].map((_, i) => (

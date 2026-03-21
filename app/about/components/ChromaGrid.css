@@ -1,0 +1,121 @@
+/* ChromaGrid mechanics specific to AISolutions cards */
+.chroma-grid {
+    position: relative;
+    /* Centering offset variable managed by GSAP */
+    --x: 50%;
+    --y: 50%;
+    /* Size of the spotlight global gradient */
+    --r: 250px;
+}
+
+.chroma-card {
+    position: relative;
+    /* Local mouse tracking variables */
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+
+    /* Dynamically computed spotlight color using the assigned hex and color-mix */
+    --spotlight-color: color-mix(in srgb, var(--card-color) 20%, transparent);
+
+    /* Smooth transitions for moving elevation */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.chroma-card:hover {
+    transform: translateY(-8px);
+    border-color: color-mix(in srgb, var(--card-color) 60%, transparent);
+}
+
+/* Local spotlight effect on individual cards */
+.chroma-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 2;
+    border-radius: inherit;
+}
+
+.chroma-card:hover::before {
+    opacity: 1;
+}
+
+/* Unique Icon Coloring on Hover */
+.chroma-card:hover .icon-box {
+    border-color: color-mix(in srgb, var(--card-color) 50%, transparent);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--card-color) 20%, transparent);
+}
+
+.chroma-card:hover .icon-svg {
+    color: var(--card-color);
+}
+
+/* Global mask overlays that cover the entire grid */
+.chroma-overlay {
+    position: absolute;
+    inset: -20px;
+    /* Slight bleed to encompass outer edges */
+    pointer-events: none;
+    z-index: 3;
+    /* Darkening background for unfocused areas */
+    backdrop-filter: grayscale(0.5) brightness(0.9);
+    -webkit-backdrop-filter: grayscale(0.5) brightness(0.9);
+    background: rgba(0, 0, 0, 0.2);
+
+    /* Creates the spotlight cutout around the mouse pointer */
+    mask-image: radial-gradient(circle var(--r) at var(--x) var(--y),
+            transparent 0%,
+            transparent 15%,
+            rgba(0, 0, 0, 0.1) 30%,
+            rgba(0, 0, 0, 0.22) 45%,
+            rgba(0, 0, 0, 0.35) 60%,
+            rgba(0, 0, 0, 0.5) 75%,
+            rgba(0, 0, 0, 0.68) 88%,
+            white 100%);
+    -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y),
+            transparent 0%,
+            transparent 15%,
+            rgba(0, 0, 0, 0.1) 30%,
+            rgba(0, 0, 0, 0.22) 45%,
+            rgba(0, 0, 0, 0.35) 60%,
+            rgba(0, 0, 0, 0.5) 75%,
+            rgba(0, 0, 0, 0.68) 88%,
+            white 100%);
+}
+
+.chroma-fade {
+    position: absolute;
+    inset: -20px;
+    pointer-events: none;
+    z-index: 4;
+    /* The default dark state when the mouse leaves the grid */
+    backdrop-filter: grayscale(0.5) brightness(0.9);
+    -webkit-backdrop-filter: grayscale(0.5) brightness(0.9);
+    background: rgba(0, 0, 0, 0.2);
+
+    /* Inverse mask to fade IN the exact area that the overlay cuts OUT, creating a smooth transition */
+    mask-image: radial-gradient(circle var(--r) at var(--x) var(--y),
+            white 0%,
+            white 15%,
+            rgba(255, 255, 255, 0.9) 30%,
+            rgba(255, 255, 255, 0.78) 45%,
+            rgba(255, 255, 255, 0.65) 60%,
+            rgba(255, 255, 255, 0.5) 75%,
+            rgba(255, 255, 255, 0.32) 88%,
+            transparent 100%);
+    -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y),
+            white 0%,
+            white 15%,
+            rgba(255, 255, 255, 0.9) 30%,
+            rgba(255, 255, 255, 0.78) 45%,
+            rgba(255, 255, 255, 0.65) 60%,
+            rgba(255, 255, 255, 0.5) 75%,
+            rgba(255, 255, 255, 0.32) 88%,
+            transparent 100%);
+
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}

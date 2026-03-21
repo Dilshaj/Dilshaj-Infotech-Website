@@ -1,9 +1,12 @@
-import { useRef } from "react";
+"use client";
+
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, useAnimationFrame, useMotionValue, useTransform } from "framer-motion";
 
 if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
@@ -12,20 +15,56 @@ if (typeof window !== "undefined") {
 const industryCards = [
     {
         id: 1,
-        type: "image",
+        title: "Real Estate & Enterprise",
         image: "/industry-solutions/business.png",
-        alt: "Modern Business Architecture",
+        bullets: [
+            "Smart Lead Management",
+            "Predictive Market Insights",
+            "Workflow Automation",
+            "Data Visualization Dashboards",
+        ],
+        ctaText: "Partner With Us",
     },
     {
         id: 2,
-        type: "image",
+        title: "Finance & FinTech",
         image: "/industry-solutions/growth.png",
-        alt: "Financial Growth and Digital ROI",
+        bullets: [
+            "Fraud Detection Systems",
+            "Smart Risk Assessment",
+            "Automated Reporting",
+            "AI-Powered Customer Support",
+        ],
+        ctaText: "Partner With Us",
     },
     {
         id: 3,
-        type: "content",
+        title: "Healthcare",
+        image: "/industry-solutions/healthcare.png",
+        bullets: [
+            "Data-Driven Insights",
+            "Patient Workflow Automation",
+            "Predictive Analytics",
+            "Secure Cloud Infrastructure",
+        ],
+        ctaText: "Partner With Us",
+    },
+    {
+        id: 4,
+        title: "E-Commerce & Retail",
+        image: "/industry-solutions/ecommerce.png",
+        bullets: [
+            "Personalized Product Recommendations",
+            "Inventory Intelligence",
+            "Customer Behavior Analytics",
+            "Smart Chat & Support Bots",
+        ],
+        ctaText: "Partner With Us",
+    },
+    {
+        id: 5,
         title: "Food & Restaurant",
+        image: "/industry-solutions/food.png",
         bullets: [
             "Menu Optimization Intelligence",
             "Inventory & Supply Automation",
@@ -34,65 +73,45 @@ const industryCards = [
         ],
         ctaText: "Partner With Us",
     },
-    {
-        id: 4,
-        type: "image",
-        image: "/industry-solutions/ecommerce.png",
-        alt: "Digital Retail and E-commerce",
-    },
-    {
-        id: 5,
-        type: "image",
-        image: "/industry-solutions/healthcare.png",
-        alt: "Future of Healthcare Technology",
-    },
 ];
+
+const allCards = [...industryCards, ...industryCards];
+
+const CARD_WIDTH = 410;
+const CARD_HEIGHT = 516;
+const SPACING = 430; // Spacing horizontally
+const TRACK_WIDTH = allCards.length * SPACING;
 
 export default function IndustrySolutions() {
     const sectionRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [isHovered, setIsHovered] = useState(false);
+    const scrollX = useMotionValue(0);
 
     useGSAP(() => {
-        const cards = gsap.utils.toArray(".industry-card");
-
-        gsap.fromTo(cards,
-            {
-                y: 60,
-                opacity: 0,
-                immediateRender: false
+        // Heading animation
+        gsap.from(".industry-heading", {
+            scrollTrigger: {
+                trigger: ".industry-heading",
+                start: "top 85%",
             },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 85%",
-                    toggleActions: "play none none none",
-                    onEnter: () => ScrollTrigger.refresh()
-                }
-            }
-        );
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
     }, { scope: sectionRef });
+
+    useAnimationFrame((time, delta) => {
+        if (!isHovered) {
+            scrollX.set(scrollX.get() - (delta * 0.15));
+        }
+    });
 
     return (
         <section ref={sectionRef} className="bg-white py-24 px-6 md:px-12 lg:px-20 overflow-hidden relative">
-            <style dangerouslySetInnerHTML={{
-                __html: `
-                .no-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
-                .no-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            ` }} />
-
             <div className="max-w-[1920px] mx-auto">
-                <div className="text-center mb-16 space-y-4">
-                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight-4">
+                <div className="industry-heading text-center mb-16 space-y-4 relative z-20">
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
                         Transforming Industries with Intelligent <br className="hidden md:block " /> <span className="mt-6 block">Digital Solutions</span>
                     </h2>
                     <p className="text-gray-500 text-lg max-w-3xl mx-auto leading-relaxed">
@@ -100,61 +119,113 @@ export default function IndustrySolutions() {
                     </p>
                 </div>
 
-                {/* Desktop: Single Row | Tablet: 2 Cols | Mobile: 1 Col */}
-                <div ref={containerRef} className="flex flex-col md:grid md:grid-cols-2 lg:flex lg:flex-row justify-center gap-6 lg:gap-8 items-center overflow-x-auto pb-4 no-scrollbar">
-                    {industryCards.map((card) => (
-                        <div
-                            key={card.id}
-                            className="industry-card opacity-0 relative flex-shrink-0 w-full md:max-w-none lg:w-[371px] lg:h-[467px] aspect-[371/467] rounded-[32px] overflow-hidden shadow-xl group transition-transform duration-500 hover:shadow-2xl hover:-translate-y-2"
-                        >
-                            {card.type === "image" ? (
-                                <Image
-                                    src={card.image!}
-                                    alt={card.alt!}
-                                    fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                            ) : (
-                                <div className="relative w-full h-full">
-                                    {/* Background with Gradient instead of Image to be safer/cleaner for Card 3 */}
-                                    <div className="absolute inset-0 bg-[#0A0A0B]">
-                                        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_40%_40%,_#3b82f6_0%,_transparent_60%)]" />
-                                    </div>
-
-                                    {/* Card Content */}
-                                    <div className="relative h-full p-8 sm:p-10 flex flex-col justify-between z-10 text-left">
-                                        <div>
-                                            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8">
-                                                {card.title}
-                                            </h3>
-                                            <ul className="space-y-4">
-                                                {card.bullets?.map((bullet, i) => (
-                                                    <li key={i} className="flex items-center gap-3 text-gray-300 text-sm sm:text-base">
-                                                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                                                        {bullet}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-
-                                        <button suppressHydrationWarning className="group/btn flex items-center relative h-12 w-fit cursor-pointer">
-                                            {/* LEFT ICON CIRCLE */}
-                                            <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
-                                                <ChevronRight className="w-4 h-4 text-[#3799FA]" />
-                                            </div>
-
-                                            {/* MAIN BUTTON BODY */}
-                                            <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
-                                                {card.ctaText}
-                                            </div>
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                {/* 3D Convex Carousel Container */}
+                <div
+                    className="relative w-full h-[600px] flex items-center justify-center pointer-events-auto transform-gpu"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    {allCards.map((card, index) => (
+                        <CarouselCard
+                            key={`${card.id}-${index}`}
+                            card={card}
+                            index={index}
+                            scrollX={scrollX}
+                        />
                     ))}
                 </div>
             </div>
         </section>
+    );
+}
+
+function CarouselCard({ card, index, scrollX }: { card: any, index: number, scrollX: any }) {
+    const [isHovered, setIsHovered] = useState(false);
+    const baseX = index * SPACING;
+
+    const xOffset = useTransform(scrollX, (latest: number) => {
+        const globalX = ((baseX + latest) % TRACK_WIDTH + TRACK_WIDTH) % TRACK_WIDTH;
+        return globalX > TRACK_WIDTH / 2 ? globalX - TRACK_WIDTH : globalX;
+    });
+
+    const halfTrack = TRACK_WIDTH / 2;
+
+    const inRange = [-halfTrack, 0, halfTrack];
+
+    // Scale mapping - slight scale up for center card
+    const scale = useTransform(xOffset, inRange, [0.95, 1, 0.95]);
+
+    // Opacity mapping for seamless loop fade-out at edges
+    const opacity = useTransform(xOffset,
+        [-halfTrack, -halfTrack + 400, 0, halfTrack - 400, halfTrack],
+        [0, 1, 1, 1, 0]
+    );
+
+    return (
+        <motion.div
+            className="absolute top-1/2 left-1/2 rounded-[32px] overflow-hidden shadow-2xl border border-gray-100 bg-black cursor-pointer"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{
+                width: CARD_WIDTH,
+                height: CARD_HEIGHT,
+                marginLeft: -CARD_WIDTH / 2,
+                marginTop: -CARD_HEIGHT / 2,
+                x: xOffset,
+                scale,
+                opacity,
+            }}
+            whileHover={{ y: -10 }}
+            transition={{ duration: 0.3 }}
+        >
+            {/* Base Image */}
+            <Image
+                src={card.image}
+                alt={card.title}
+                fill
+                className={`object-cover transition-transform duration-700 opacity-90 ${isHovered ? "scale-110 opacity-100" : "scale-100"}`}
+            />
+
+            {/* Overlay for Content on Hover */}
+            <div className={`absolute inset-0 bg-black/85 transition-opacity duration-300 z-20 ${isHovered ? "opacity-100" : "opacity-0"}`} />
+
+            {/* Dark Gradient from bottom (hidden on hover) */}
+            <div className={`absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent z-10 p-8 flex flex-col justify-end transition-all duration-300 ${isHovered ? "opacity-0 invisible" : "opacity-100 visible"}`}>
+                <h3 className="text-2xl font-bold text-white mb-2 shadow-sm drop-shadow-md">
+                    {card.title}
+                </h3>
+            </div>
+
+            {/* Detailed Content (Shown on Hover) */}
+            <div className={`absolute inset-0 z-30 p-8 flex flex-col justify-between transition-all duration-300 ease-out ${isHovered ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
+                <div>
+                    <h3 className="text-2xl font-bold text-white mb-6 drop-shadow-xl">
+                        {card.title}
+                    </h3>
+                    <ul className="space-y-4">
+                        {card.bullets.map((bullet: string, i: number) => (
+                            <li key={i} className="flex items-center gap-3 text-white text-sm sm:text-base font-semibold">
+                                <span className="drop-shadow-lg">{bullet}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <button suppressHydrationWarning className="group/btn flex items-center relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px]">
+                    {/* LEFT ICON CIRCLE */}
+                    <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out group-hover/btn:left-[calc(100%-48px)] group-hover/btn:bg-gradient-to-r group-hover/btn:from-[#3799FA] group-hover/btn:to-[#9961FB] group-hover/btn:scale-105">
+                        <ChevronRight className="w-4 h-4 text-[#3799FA] transition-all duration-700 ease-in-out group-hover/btn:text-white" />
+                    </div>
+
+                    {/* MAIN BUTTON BODY */}
+                    <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all duration-700 ease-in-out bg-gradient-to-r from-[#3799FA] to-[#9961FB] group-hover/btn:from-white group-hover/btn:to-white group-hover/btn:text-black group-hover/btn:pl-6 group-hover/btn:pr-14 rounded-[34px_34px_0px_34px] group-hover/btn:rounded-[34px_34px_34px_0px]">
+                        {card.ctaText}
+                    </div>
+                </button>
+            </div>
+
+            {/* Subtle glow/shadow on hover */}
+            <div className={`absolute inset-0 rounded-[32px] ring-1 ring-inset transition-all duration-500 ${isHovered ? "ring-blue-500/30" : "ring-transparent"}`} />
+        </motion.div>
     );
 }

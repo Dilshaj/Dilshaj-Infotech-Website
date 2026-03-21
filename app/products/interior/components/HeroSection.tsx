@@ -2,7 +2,6 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import backgroundImage from "../images/hero-bg.png";
 
 export default function HeroSection() {
     const ref = useRef(null);
@@ -63,7 +62,7 @@ export default function HeroSection() {
                 <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
                 <motion.div style={{ y, willChange: "transform" }} className="absolute inset-0 w-full h-[120%]">
                     <Image
-                        src={backgroundImage}
+                        src="/products-images/architechture.png"
                         alt="Architecture Background"
                         fill
                         className="object-cover object-bottom md:object-center"
