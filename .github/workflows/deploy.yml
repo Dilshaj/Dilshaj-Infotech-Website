@@ -25,4 +25,5 @@ jobs:
           git pull origin master
           npm install
           npm run build
-          pm2 restart all
+          pm2 restart Dilshaj-Infotech-Website --update-env || pm2 start npm --name Dilshaj-Infotech-Website -- start
+          pm2 save
