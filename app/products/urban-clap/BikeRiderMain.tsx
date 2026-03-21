@@ -3,6 +3,8 @@ import HeroSection from "./components/HeroSection";
 import ServicePlatformSection from "./components/ServicePlatformSection";
 import SpecialSection from "./components/SpecialSection";
 import CtaSection from "./components/CtaSection";
+import ContactSection from "../../components/ContactSection";
+import Footer from "../../components/Footer";
 
 const poppins = Poppins({
     weight: ["400", "500", "600", "700"],
@@ -24,6 +26,8 @@ export default function Products2Main() {
 
             {/* ====== CTA SECTION ====== */}
             <CtaSection />
+            <ContactSection />
+            <Footer />
         </div>
     );
 }

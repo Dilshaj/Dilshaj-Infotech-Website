@@ -3,6 +3,8 @@ import HeroSection from "./components/HeroSection";
 import SpecialSection from "./components/SpecialSection";
 import AboutSection from "./components/AboutSection";
 import CtaSection from "./components/CtaSection";
+import ContactSection from "../../components/ContactSection";
+import Footer from "../../components/Footer";
 
 const poppins = Poppins({
     weight: ["400", "500", "600", "700"],
@@ -17,6 +19,8 @@ export default function DigitalNewsMain() {
             <AboutSection />
             <CtaSection />
             <SpecialSection />
+            <ContactSection />
+            <Footer />
         </div>
     );
 }

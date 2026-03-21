@@ -2,7 +2,8 @@ import React from "react";
 import Hero from "./components/hero";
 import About from "./components/about";
 import Special from "./components/special";
-import Launch from "./components/launch";
+import ContactSection from "../../components/ContactSection";
+import Footer from "../../components/Footer";
 
 export default function Page() {
     return (
@@ -10,7 +11,8 @@ export default function Page() {
             <Hero />
             <About />
             <Special />
-            <Launch />
+            <ContactSection />
+            <Footer />
         </React.Fragment>
     );
 }

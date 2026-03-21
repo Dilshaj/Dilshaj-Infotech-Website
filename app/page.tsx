@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaReact, FaNodeJs, FaAws, FaFigma, FaFlutter, FaChartBar, FaJava, FaPython, FaDocker, FaHtml5, FaCss3Alt, FaGraduationCap, FaBriefcase, FaUsers, FaMobileScreenButton, FaAward, FaChalkboardUser, FaLightbulb, FaShieldHalved, FaClock, FaCirclePlay, FaStar, FaPhone, FaWhatsapp, FaPlus, FaMinus, FaCar, FaMotorcycle, FaMapLocationDot, FaCreditCard, FaStore, FaBox, FaCartShopping, FaUserDoctor, FaFileMedical, FaVideo, FaNewspaper, FaBell, FaGear, FaMagnifyingGlassChart, FaChevronRight } from "react-icons/fa6";
+import { FaReact, FaNodeJs, FaAws, FaFigma, FaFlutter, FaChartBar, FaJava, FaPython, FaDocker, FaHtml5, FaCss3Alt, FaGraduationCap, FaBriefcase, FaUsers, FaMobileScreenButton, FaAward, FaChalkboardUser, FaLightbulb, FaShieldHalved, FaClock, FaCirclePlay, FaStar, FaPhone, FaWhatsapp, FaPlus, FaMinus, FaCar, FaMotorcycle, FaMapLocationDot, FaCreditCard, FaStore, FaBox, FaCartShopping, FaNewspaper, FaBell, FaGear, FaMagnifyingGlassChart, FaChevronRight } from "react-icons/fa6";
 import { SiMongodb, SiNextdotjs } from "react-icons/si";
 import { IoMdArrowForward, IoMdArrowBack } from "react-icons/io";
 import ContactSection from "./components/ContactSection";
@@ -67,21 +67,21 @@ const products = [
     ]
   },
   {
-    name: "Doctor On Click",
-    desc: "Smart digital healthcare solutions that connect patients with doctors instantly and securely.",
-    title: "Doctor On Click Healthcare",
-    subtitle: "Delivering smart digital healthcare solutions that connect patients with doctors instantly, improving accessibility, convenience, and modern medical support through secure online platforms.",
+    name: "Food Delivery App",
+    desc: "Smart food delivery solutions built to connect foodies with their favorite restaurants seamlessly.",
+    title: "Food Delivery Application",
+    subtitle: "Delivering a fast, reliable, and smart food delivery platform designed to connect foodies with their favorite restaurants seamlessly, targetting 15min delivery.",
     highlights: [
-      { label: "Online Doctor Consultation", icon: <FaUserDoctor className="w-5 h-5 text-blue-500" /> },
-      { label: "Patient Management & Health Records", icon: <FaFileMedical className="w-5 h-5 text-blue-500" /> },
-      { label: "Seamless Telehealth Experience", icon: <FaVideo className="w-5 h-5 text-blue-500" /> }
+      { label: "15min Delivery Target", icon: <FaClock className="w-5 h-5 text-blue-500" /> },
+      { label: "Live Order Tracking", icon: <FaMapLocationDot className="w-5 h-5 text-blue-500" /> },
+      { label: "Seamless Ordering", icon: <FaCartShopping className="w-5 h-5 text-blue-500" /> }
     ],
     features: [
-      { name: "Doctor Appointment & Scheduling System", icon: <FaClock className="w-6 h-6 text-blue-500" /> },
-      { name: "Video & Chat Consultation Features", icon: <FaVideo className="w-6 h-6 text-blue-500" /> },
-      { name: "Mobile-Friendly Healthcare Platform", icon: <FaMobileScreenButton className="w-6 h-6 text-blue-500" /> },
-      { name: "Secure Patient Data Management", icon: <FaShieldHalved className="w-6 h-6 text-blue-500" /> },
-      { name: "Healthcare Analytics & Reports", icon: <FaMagnifyingGlassChart className="w-6 h-6 text-blue-500" /> }
+      { name: "Real-Time Order Tracking", icon: <FaMapLocationDot className="w-6 h-6 text-blue-500" /> },
+      { name: "Multiple Payment Options", icon: <FaCreditCard className="w-6 h-6 text-blue-500" /> },
+      { name: "Restaurant Partner Dashboard", icon: <FaStore className="w-6 h-6 text-blue-500" /> },
+      { name: "Exclusive Offers & Discounts", icon: <FaBox className="w-6 h-6 text-blue-500" /> },
+      { name: "Smart Delivery Allocation", icon: <FaMotorcycle className="w-6 h-6 text-blue-500" /> }
     ]
   },
   {
@@ -1041,22 +1041,13 @@ export default function Home() {
 
                 {/* See All Products Button */}
                 <div className="mt-4 flex justify-start">
-                  <Link href="/products" className="flex items-center relative group h-12 w-fit">
+                  <Link href="/products" className="flex items-center group relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px]">
                     {/* LEFT ICON CIRCLE */}
-                    <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg z-20 transition-transform group-hover:scale-105">
-                      <svg className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
+                    <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out group-hover:left-[calc(100%-48px)] group-hover:bg-gradient-to-r group-hover:from-[#3799FA] group-hover:to-[#9961FB] group-hover:scale-105">
+                      <FaChevronRight className="w-4 h-4 text-[#3799FA] transition-all duration-700 ease-in-out group-hover:text-white" />
                     </div>
-
                     {/* MAIN BUTTON BODY */}
-                    <div
-                      className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all"
-                      style={{
-                        background: 'linear-gradient(to right, #3799FA, #9961FB)',
-                        borderRadius: '34px 34px 0px 34px'
-                      }}
-                    >
+                    <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all duration-700 ease-in-out bg-gradient-to-r from-[#3799FA] to-[#9961FB] group-hover:from-white group-hover:to-white group-hover:text-black group-hover:pl-6 group-hover:pr-14 rounded-[34px_34px_0px_34px] group-hover:rounded-[34px_34px_34px_0px]">
                       See All Products
                     </div>
                   </Link>

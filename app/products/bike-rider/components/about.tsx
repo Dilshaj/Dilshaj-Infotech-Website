@@ -3,43 +3,28 @@
 import { Poppins } from 'next/font/google';
 
 const poppins = Poppins({
-    weight: ['400', '500', '600', '700'],
+    weight: ['400', '500', '600', '700', '800'],
     subsets: ['latin'],
     display: 'swap',
 });
 
 export default function About() {
     return (
-        <section className="w-full bg-white relative font-sans overflow-hidden py-16 md:py-24">
+        <section className="w-full bg-white relative font-sans overflow-hidden pt-16 md:pt-24 pb-16 md:pb-24">
 
             {/* Top Ribbon - About */}
             <div
-                className="absolute max-md:left-0 md:right-0 top-6 md:top-12 z-10 max-md:w-[115px] w-[180px] md:w-[240px]"
+                className="absolute left-0 top-6 md:top-12 z-10 w-[115px] md:w-[190px]"
                 style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))' }}
             >
-                {/* Outer wrapper for the bright cyan border effect */}
                 <div
-                    className="w-full md:p-[2px] md:pr-0 max-md:bg-transparent bg-[#00B4FF] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_100%,25px_50%)]"
+                    className="w-full text-white py-2 md:py-4 pl-3 md:pl-10 pr-6 md:pr-14 text-[13px] md:text-[22px] font-bold flex items-center gap-1 md:gap-2 [clip-path:polygon(0_0,100%_0,calc(100%-12px)_50%,100%_100%,0_100%)] md:[clip-path:polygon(0_0,100%_0,calc(100%-24px)_50%,100%_100%,0_100%)]"
+                    style={{
+                        background: 'linear-gradient(to right, #00A3FF, #005A99)'
+                    }}
                 >
-                    {/* Inner content with darker gradient */}
-                    <div
-                        className="w-full text-white max-md:py-1.5 md:py-4 max-md:pl-3 max-md:pr-5 md:pl-10 md:pr-12 max-md:text-[13px] text-[18px] md:text-[22px] font-bold flex items-center justify-start md:justify-end gap-1 md:gap-2 max-md:[clip-path:polygon(0_0,100%_0,calc(100%-12px)_50%,100%_100%,0_100%)] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_100%,24px_50%)]"
-                        style={{
-                            background: 'linear-gradient(to right, #005A99, #0094F0)'
-                        }}
-                    >
-                        {/* Hollow double arrow icon for desktop */}
-                        <div className="hidden md:flex gap-[2px] text-[18px] md:text-[20px] mr-1 mt-[2px]">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="ml-[-8px]"><path d="m9 18 6-6-6-6" /></svg>
-                        </div>
-                        {/* Hollow double arrow icon for mobile */}
-                        <div className="flex md:hidden gap-[1px] mt-[1px]">
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="ml-[-6px]"><path d="m9 18 6-6-6-6" /></svg>
-                        </div>
-                        <span className="mb-[-2px] max-md:mb-[0px] max-md:-ml-0.5">About</span>
-                    </div>
+                    <img src="/Home/arrow.png" alt="arrow" className="w-[12px] md:w-[22px] h-auto object-contain mr-1 md:mr-2" />
+                    <span className="mb-[-2px]">About</span>
                 </div>
             </div>
 
@@ -51,7 +36,7 @@ export default function About() {
                     <div className="w-full md:w-1/2 flex justify-center max-md:-mt-4 md:mt-0 relative z-10">
                         <div className="relative w-full aspect-[16/11] rounded-tr-[40px] md:rounded-tr-[60px] overflow-hidden shadow-none bg-[#f1f1f1]">
                             <img
-                                src="/pro-det/bikecar.png"
+                                src="/products/bike-rider-images/bike-rider-images/bikecar.png"
                                 alt="Bike and Car App"
                                 className="w-full h-full object-cover"
                                 onError={(e) => {
@@ -74,7 +59,7 @@ export default function About() {
                         {/* Stats Row */}
                         <div className="flex items-center gap-12 md:gap-20 mb-12">
                             <div className="flex flex-col">
-                                <span className={`${poppins.className} text-[32px] md:text-[56px] max-md:font-medium md:font-semibold text-[#111111] leading-none mb-3`}>
+                                <span className={`${poppins.className} text-[32px] md:text-[56px] font-bold text-[#111111] leading-none mb-3`}>
                                     50%
                                 </span>
                                 <span className="text-[#333] max-md:whitespace-nowrap max-md:text-[11px] text-[15px] md:text-[16px] font-medium">
@@ -83,7 +68,7 @@ export default function About() {
                             </div>
 
                             <div className="flex flex-col">
-                                <span className={`${poppins.className} text-[32px] md:text-[56px] max-md:font-medium md:font-semibold text-[#111111] leading-none mb-3`}>
+                                <span className={`${poppins.className} text-[32px] md:text-[56px] font-bold text-[#111111] leading-none mb-3`}>
                                     GPS
                                 </span>
                                 <span className="text-[#333] max-md:whitespace-nowrap max-md:text-[11px] text-[15px] md:text-[16px] font-medium">
@@ -92,13 +77,13 @@ export default function About() {
                             </div>
                         </div>
 
-                        {/* Button */}
-                        <div className="mt-2 flex max-md:justify-center w-full md:justify-start">
-                            <button className="flex items-center group relative h-12 w-fit cursor-pointer">
-                                <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                        {/* CTA Button */}
+                        <div className="mt-8 flex justify-center md:justify-start w-full">
+                            <button className="flex items-center group relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px]">
+                                <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out group-hover:left-[calc(100%-48px)] group-hover:bg-gradient-to-r group-hover:from-[#3799FA] group-hover:to-[#9961FB] group-hover:scale-105">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-700 ease-in-out group-hover:stroke-white"><path d="m9 18 6-6-6-6" /></svg>
                                 </div>
-                                <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
+                                <div className="pl-14 pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all duration-700 ease-in-out bg-gradient-to-r from-[#3799FA] to-[#9961FB] group-hover:from-white group-hover:to-white group-hover:text-black group-hover:pl-6 group-hover:pr-14 rounded-[34px_34px_0px_34px] group-hover:rounded-[34px_34px_34px_0px]">
                                     Get Early Access
                                 </div>
                             </button>
@@ -109,25 +94,18 @@ export default function About() {
             </div>
 
             {/* Bottom Ribbon - Key Features */}
-            {/* Positioned on the left side, slightly overlapping the next section visually, or just at the bottom of this section */}
             <div
-                className="absolute left-0 max-md:bottom-0 md:bottom-0 z-10 max-md:w-[130px] w-[220px] md:w-[280px]"
+                className="absolute left-0 bottom-2 md:bottom-4 z-10 w-[160px] md:w-[260px]"
                 style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))' }}
             >
                 <div
-                    className="w-full text-white max-md:py-1.5 md:py-4 max-md:pl-3 md:pl-12 max-md:pr-5 md:pr-10 max-md:text-[13px] text-[18px] md:text-[22px] font-bold flex items-center max-md:gap-1 gap-2 max-md:[clip-path:polygon(0_0,100%_0,calc(100%-12px)_50%,100%_100%,0_100%)] md:[clip-path:polygon(0_0,calc(100%-20px)_0,100%_50%,calc(100%-20px)_100%,0_100%)]"
+                    className="w-full text-white py-2 md:py-4 pl-3 md:pl-10 pr-6 md:pr-14 text-[13px] md:text-[22px] font-bold flex items-center gap-1 md:gap-2 [clip-path:polygon(0_0,100%_0,calc(100%-12px)_50%,100%_100%,0_100%)] md:[clip-path:polygon(0_0,100%_0,calc(100%-24px)_50%,100%_100%,0_100%)]"
                     style={{
-                        background: 'linear-gradient(to right, #006DB1, #0094F0)'
+                        background: 'linear-gradient(to right, #00A3FF, #005A99)'
                     }}
                 >
-                    {/* Hollow double arrow for mobile */}
-                    <div className="flex md:hidden gap-[1px] mt-[1px] shrink-0">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="ml-[-6px]"><path d="m9 18 6-6-6-6" /></svg>
-                    </div>
-                    {/* Default arrow for desktop */}
-                    <span className="hidden md:inline text-xl md:text-2xl mt-[-2px]">»</span>
-                    <span className="max-md:mt-[1px] max-md:whitespace-nowrap">Key Features</span>
+                    <img src="/Home/arrow.png" alt="arrow" className="w-[12px] md:w-[22px] h-auto object-contain mr-1 md:mr-2" />
+                    <span className="mb-[-2px] whitespace-nowrap">Key Features</span>
                 </div>
             </div>
 

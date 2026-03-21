@@ -3,6 +3,8 @@ import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import FeaturesSection from "./components/FeaturesSection";
 import CtaSection from "./components/CtaSection";
+import ContactSection from "../../components/ContactSection";
+import Footer from "../../components/Footer";
 
 const poppins = Poppins({
     weight: ["400", "500", "600", "700"],
@@ -17,6 +19,8 @@ export default function InteriorMain() {
             <AboutSection />
             <FeaturesSection />
             <CtaSection />
+            <ContactSection />
+            <Footer />
         </div>
     );
 }
