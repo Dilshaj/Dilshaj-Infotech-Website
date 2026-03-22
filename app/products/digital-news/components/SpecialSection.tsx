@@ -1,10 +1,45 @@
 "use client";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import bgImage from "../images/whatspecialback.png";
 
 export default function SpecialSection() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".special-header", {
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".special-header",
+                    start: "top 85%",
+                }
+            });
+
+            gsap.from(".special-card", {
+                y: 60,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".special-card",
+                    start: "top 90%",
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="relative w-full bg-black py-16 md:py-24 px-6 md:px-12 xl:px-24 overflow-hidden">
+        <section ref={sectionRef} className="relative w-full bg-black py-16 md:py-24 px-6 md:px-12 xl:px-24 overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0 w-full h-full z-0 opacity-50 xl:opacity-40 pointer-events-none">
                 <Image
@@ -19,7 +54,7 @@ export default function SpecialSection() {
 
             <div className="max-w-[1240px] mx-auto relative z-10 w-full">
                 {/* Header Area */}
-                <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-8 mb-12 md:mb-16">
+                <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-8 mb-12 md:mb-16 special-header">
                     <div className="w-full xl:w-1/2 flex flex-col items-start text-left">
                         <h3
                             className="font-semibold uppercase mb-4"
@@ -65,7 +100,7 @@ export default function SpecialSection() {
                 {/* Cards Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-6 xl:gap-8 p-2">
                     {/* Card 01 */}
-                    <div className="bg-[#202022] rounded-[24px] p-8 md:p-10 flex flex-col h-full border border-white/5 relative group shadow-2xl transition-all">
+                    <div className="bg-[#202022] rounded-[24px] p-8 md:p-10 flex flex-col h-full border border-white/5 relative group shadow-2xl transition-all special-card">
                         <div className="flex justify-between items-start mb-8 md:mb-12 w-full">
                             <div className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center shrink-0 bg-gradient-to-br from-[#20B5F9] to-[#A851ED]">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -105,7 +140,7 @@ export default function SpecialSection() {
                     </div>
 
                     {/* Card 02 */}
-                    <div className="bg-[#202022] rounded-[24px] p-8 md:p-10 flex flex-col h-full border border-white/5 relative group shadow-2xl transition-all">
+                    <div className="bg-[#202022] rounded-[24px] p-8 md:p-10 flex flex-col h-full border border-white/5 relative group shadow-2xl transition-all special-card">
                         <div className="flex justify-between items-start mb-8 md:mb-12 w-full">
                             <div className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center shrink-0 bg-gradient-to-br from-[#20B5F9] to-[#A851ED]">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -148,7 +183,7 @@ export default function SpecialSection() {
                     </div>
 
                     {/* Card 03 */}
-                    <div className="bg-[#202022] rounded-[24px] p-8 md:p-10 flex flex-col h-full border border-white/5 relative group shadow-2xl transition-all">
+                    <div className="bg-[#202022] rounded-[24px] p-8 md:p-10 flex flex-col h-full border border-white/5 relative group shadow-2xl transition-all special-card">
                         <div className="flex justify-between items-start mb-8 md:mb-12 w-full">
                             <div className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center shrink-0 bg-gradient-to-br from-[#20B5F9] to-[#A851ED]">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

@@ -297,11 +297,8 @@ export default function HeroSection() {
                                     className="object-contain drop-shadow-[0_45px_45px_rgba(0,0,0,0.1)] z-10 animate-float"
                                     priority
                                 />
-                                <div className="absolute bottom-[-10px] w-[90%] aspect-[3/1] opacity-60">
-                                    <Image src="/home/Ellipse 2730.png" alt="Mascot Shadow" fill className="object-contain scale-110" />
                                 </div>
                             </div>
-                        </div>
 
                         {/* ZONE 3: Supporting Content */}
                         <div className="w-full lg:w-[35%] flex flex-col gap-3 lg:gap-10 ml-0 lg:ml-6 mt-2 lg:mt-0 pl-0 lg:pl-0">

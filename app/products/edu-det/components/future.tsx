@@ -1,11 +1,57 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronRight, GraduationCap, Briefcase, Bot, Users, Rocket } from "lucide-react";
 import { Poppins } from "next/font/google";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
 
 export default function Future() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".future-img-block", {
+                x: -50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".future-img-block",
+                    start: "top 85%",
+                }
+            });
+
+            gsap.from(".future-text-content", {
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".future-text-content",
+                    start: "top 90%",
+                }
+            });
+
+            gsap.from(".future-list-item", {
+                x: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".future-list-item",
+                    start: "top 95%",
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     const points = [
         "Personalized AI-driven learning paths",
         "Verified career & earning opportunities",
@@ -14,7 +60,7 @@ export default function Future() {
     ];
 
     return (
-        <section className={`${poppins.className} future-clip w-full relative text-white overflow-hidden bg-no-repeat`}
+        <section ref={sectionRef} className={`${poppins.className} future-clip w-full relative text-white overflow-hidden bg-no-repeat`}
             style={{
                 marginTop: "-80px",
                 paddingTop: "200px",
@@ -36,7 +82,7 @@ export default function Future() {
             `}</style>            <div className="max-w-[1300px] w-full mx-auto flex flex-col-reverse lg:flex-row items-center justify-between z-10 relative px-5 lg:px-6">
 
                 {/* Left Side: Tilted Tablet Image */}
-                <div className="w-full max-w-[450px] mx-auto lg:w-[1303px] lg:max-w-[55%] relative flex-shrink-0 scale-[1.15] lg:scale-[1.10] origin-center lg:translate-x-12 mt-12 md:mt-16 lg:mt-0 translate-y-6 lg:translate-y-[60px] aspect-[1.18]">
+                <div className="w-full max-w-[450px] mx-auto lg:w-[1303px] lg:max-w-[55%] relative flex-shrink-0 scale-[1.15] lg:scale-[1.10] origin-center lg:translate-x-12 mt-12 md:mt-16 lg:mt-0 translate-y-6 lg:translate-y-[60px] aspect-[1.18] future-img-block">
                     <Image
                         src="/products/edu-det/futuremobile.png"
                         alt="EduProva Future AI Platform"
@@ -47,7 +93,7 @@ export default function Future() {
                 </div>
 
                 {/* Right Side: Text & Features */}
-                <div className="max-w-full lg:max-w-[650px] w-full flex-shrink-0 ml-0 lg:ml-20 mt-0 lg:mt-0 z-20">
+                <div className="max-w-full lg:max-w-[650px] w-full flex-shrink-0 ml-0 lg:ml-20 mt-0 lg:mt-0 z-20 future-text-content">
                     <h2 className="text-[32px] sm:text-[36px] md:text-[52px] lg:text-[56px] leading-[1.15] font-normal mb-5 lg:mb-8 tracking-wide text-white uppercase text-left lg:text-left drop-shadow-md lg:drop-shadow-none">
                         GENERATE YOUR <br className="hidden md:block" />
                         FUTURE WITH AI
@@ -60,7 +106,7 @@ export default function Future() {
                     </p>
 
                     <div className="flex flex-row items-center justify-start lg:justify-between mb-10 lg:mb-16 w-full lg:w-[90%] gap-4 lg:gap-0 px-0">
-                        <button className="flex items-center group relative h-12 w-fit cursor-pointer">
+                        <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit cursor-pointer">
                             <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-0.5"><polyline points="9 18 15 12 9 6" /></svg>
                             </div>
@@ -82,7 +128,7 @@ export default function Future() {
                     {/* List items with connected line */}
                     <div className="relative border-l-[1.5px] border-indigo-900/40 pl-6 lg:pl-10 ml-4 lg:ml-[160px] space-y-[26px] lg:space-y-[32px] mt-8 lg:mt-0">
                         {points.map((pt, i) => (
-                            <div key={i} className="relative flex items-center min-h-[26px]">
+                            <div key={i} className="relative flex items-center min-h-[26px] future-list-item">
                                 {/* Outer purple/blue ring, inner cyan dot */}
                                 <div className="absolute -left-[36.5px] lg:-left-[51.5px] top-[2px] lg:top-0 w-[22px] h-[22px] rounded-full border-[2px] border-[#6366f1] bg-[#050505] flex items-center justify-center shadow-[0_0_12px_rgba(99,102,241,0.5)] z-10 transition-transform duration-300 hover:scale-110">
                                     <div className="w-[8px] h-[8px] rounded-full bg-[#0ea5e9] shadow-[0_0_6px_rgba(14,165,233,0.8)]" />

@@ -1,29 +1,43 @@
 "use client";
-import { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function HeroSection() {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start start", "end start"]
-    });
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".hero-text-content", {
+                x: -50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.2
+            });
+
+            gsap.from(".hero-image-block", {
+                scale: 0.9,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power2.out",
+                delay: 0.4
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
 
     return (
-        <section ref={ref} className="relative w-full min-h-screen flex flex-col lg:flex-row shrink-0 lg:items-center overflow-hidden" style={{ background: "linear-gradient(to bottom, #A00000 0%, #000063 100%)" }}>
+        <section ref={sectionRef} className="relative w-full min-h-screen flex flex-col lg:flex-row shrink-0 lg:items-center overflow-hidden" style={{ background: "linear-gradient(to bottom, #A00000 0%, #000063 100%)" }}>
 
             {/* ====== CONTENT ====== */}
-            <motion.div
-                initial={{ opacity: 0, x: -60 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            <div
                 style={{ willChange: "transform, opacity" }}
-                className="w-full lg:w-1/2 flex flex-col justify-center px-10 md:px-16 lg:pl-20 xl:pl-32 2xl:pl-40 lg:pr-6 pt-28 md:pt-24 lg:pt-0 z-10 pb-0 lg:pb-0 h-full max-w-[800px] mx-auto lg:mx-0"
+                className="w-full lg:w-1/2 flex flex-col justify-center px-10 md:px-16 lg:pl-20 xl:pl-32 2xl:pl-40 lg:pr-6 pt-28 md:pt-24 lg:pt-0 z-10 pb-0 lg:pb-0 h-full max-w-[800px] mx-auto lg:mx-0 hero-text-content"
             >
-
-
                 {/* #upcoming Pill */}
                 <div
                     className="inline-flex items-center justify-center px-4 py-1.5 rounded-full self-start mb-6 md:mb-8 border border-transparent"
@@ -99,7 +113,7 @@ export default function HeroSection() {
                 </p>
 
                 {/* CTA Button */}
-                <button className="mt-8 md:mt-10 mb-4 md:mb-0 flex items-center group relative h-12 w-fit cursor-pointer self-start">
+                <button suppressHydrationWarning className="mt-8 md:mt-10 mb-4 md:mb-0 flex items-center group relative h-12 w-fit cursor-pointer self-start">
                     <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-0.5"><polyline points="9 18 15 12 9 6" /></svg>
                     </div>
@@ -107,12 +121,11 @@ export default function HeroSection() {
                         Notify Me at Launch
                     </div>
                 </button>
-            </motion.div>
+            </div>
 
             {/* ====== IMAGE ====== */}
-            <motion.div
-                style={{ y, willChange: "transform" }}
-                className="w-full lg:absolute lg:right-24 xl:right-48 lg:top-0 lg:h-screen lg:w-[50%] flex items-center justify-center lg:justify-end relative px-4 md:px-0 order-last mt-8 md:mt-8 lg:mt-0 z-0 pointer-events-none scale-[0.85] md:scale-90 lg:scale-[0.85] transform origin-top lg:origin-right"
+            <div
+                className="w-full lg:absolute lg:right-24 xl:right-48 lg:top-0 lg:h-screen lg:w-[50%] flex items-center justify-center lg:justify-end relative px-4 md:px-0 order-last mt-8 md:mt-8 lg:mt-0 z-0 pointer-events-none scale-[0.85] md:scale-90 lg:scale-[0.85] transform origin-top lg:origin-right hero-image-block"
             >
                 <div className="relative w-full h-[45vh] min-h-[350px] md:min-h-[500px] lg:min-h-0 lg:h-[80%] lg:w-full lg:mt-[10vh]">
                     <Image
@@ -123,7 +136,7 @@ export default function HeroSection() {
                         priority
                     />
                 </div>
-            </motion.div>
+            </div>
 
             {/* Optional gradient to blend right edge if needed */}
             <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent pointer-events-none w-1/2 z-0"></div>

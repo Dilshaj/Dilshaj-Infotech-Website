@@ -1,9 +1,9 @@
 "use client";
-
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { ChevronRight } from "lucide-react";
 import { Poppins } from "next/font/google";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -11,15 +11,39 @@ const poppins = Poppins({
 });
 
 export default function Hero() {
-    return (
-        <section className={`${poppins.className} relative w-full min-h-[500px] bg-[#000000] overflow-hidden`}>
+    const sectionRef = useRef<HTMLDivElement>(null);
 
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".hero-text-reveal", {
+                x: -50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.2
+            });
+
+            gsap.from(".hero-image-reveal", {
+                scale: 0.95,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power2.out",
+                delay: 0.4
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <section ref={sectionRef} className={`${poppins.className} relative w-full min-h-[500px] bg-[#000000] overflow-hidden`}>
 
             {/* Two-column grid: left text | right image */}
             <div className="w-full grid grid-cols-1 lg:grid-cols-[1fr_1fr] min-h-[500px] lg:min-h-[700px]">
 
                 {/* ── Left: Text Content ── */}
-                <div className="flex flex-col justify-center px-6 sm:px-10 lg:pl-[100px] xl:pl-[140px] 2xl:pl-[160px] lg:pr-6 pt-[100px] pb-10 lg:py-[120px] z-10">
+                <div className="flex flex-col justify-center px-6 sm:px-10 lg:pl-[100px] xl:pl-[140px] 2xl:pl-[160px] lg:pr-6 pt-[100px] pb-10 lg:py-[120px] z-10 hero-text-reveal">
 
                     {/* Pill */}
                     <div className="border border-[#a855f7]/50 rounded-full w-fit px-4 py-[5px] mb-7">
@@ -44,7 +68,7 @@ export default function Hero() {
                     </p>
 
                     {/* Button */}
-                    <button className="flex items-center group relative h-12 w-fit cursor-pointer">
+                    <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit cursor-pointer">
                         <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-0.5"><polyline points="9 18 15 12 9 6" /></svg>
                         </div>
@@ -55,7 +79,7 @@ export default function Hero() {
                 </div>
 
                 {/* ── Right: Image ── */}
-                <div className="relative w-full h-[260px] sm:h-[360px] lg:h-auto lg:min-h-[700px] lg:-ml-[80px] xl:-ml-[60px]">
+                <div className="relative w-full h-[260px] sm:h-[360px] lg:h-auto lg:min-h-[700px] lg:-ml-[80px] xl:-ml-[60px] hero-image-reveal">
                     <Image
                         src="/products/commerce/hero.png"
                         alt="Smart Online Shopping — products showcase"

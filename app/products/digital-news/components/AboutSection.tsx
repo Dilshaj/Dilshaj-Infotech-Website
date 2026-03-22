@@ -1,22 +1,50 @@
 "use client";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import aboutImage from "../images/about.png";
 
 export default function AboutSection() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".about-image-block", {
+                x: -50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".about-image-block",
+                    start: "top 85%",
+                }
+            });
+
+            gsap.from(".about-content-block", {
+                x: 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".about-content-block",
+                    start: "top 85%",
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="w-full bg-white py-16 md:py-24 px-6 md:px-12 xl:px-24">
+        <section ref={sectionRef} className="w-full bg-white py-16 md:py-24 px-6 md:px-12 xl:px-24">
             <div className="max-w-[1500px] mx-auto flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
 
                 {/* Image Side (Bottom on mobile, Left on desktop) */}
-                {/* Image Side (Bottom on mobile, Left on desktop) */}
-                <motion.div
-                    initial={{ opacity: 0, x: -80 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                <div
                     style={{ willChange: "transform, opacity" }}
-                    className="w-full lg:w-1/2 flex justify-center mt-6 lg:mt-0"
+                    className="w-full lg:w-1/2 flex justify-center mt-6 lg:mt-0 about-image-block"
                 >
                     <div className="relative w-full aspect-[4/3] max-w-[550px] lg:max-w-none rounded-[24px] md:rounded-[32px] overflow-hidden shadow-lg">
                         <Image
@@ -26,16 +54,12 @@ export default function AboutSection() {
                             className="object-cover"
                         />
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Content Side (Top on mobile, Right on desktop) */}
-                <motion.div
-                    initial={{ opacity: 0, x: 80 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                <div
                     style={{ willChange: "transform, opacity" }}
-                    className="w-full lg:w-1/2 flex flex-col items-center text-center lg:items-start lg:text-left"
+                    className="w-full lg:w-1/2 flex flex-col items-center text-center lg:items-start lg:text-left about-content-block"
                 >
 
                     {/* Subtitle */}
@@ -80,7 +104,7 @@ export default function AboutSection() {
                     </p>
 
                     {/* Button */}
-                    <button className="flex items-center group relative h-12 w-fit cursor-pointer">
+                    <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit cursor-pointer">
                         <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105 border border-gray-100">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-0.5"><polyline points="9 18 15 12 9 6" /></svg>
                         </div>
@@ -88,7 +112,7 @@ export default function AboutSection() {
                             Stay Tuned
                         </div>
                     </button>
-                </motion.div>
+                </div>
             </div>
         </section>
     );

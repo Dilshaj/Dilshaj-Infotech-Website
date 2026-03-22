@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
 import { ChevronRight, ArrowRight, ChevronsRight } from "lucide-react";
+import { FaChevronRight } from "react-icons/fa6";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -235,14 +236,13 @@ export default function ServicesSection() {
                     <button
                         suppressHydrationWarning
                         onClick={() => setShowAll(!showAll)}
-                        className="flex items-center border border-[#111] rounded-full py-[6px] px-5
-                                   hover:bg-[#111] hover:text-white transition-all duration-300 group bg-transparent">
-                        <span className="text-[13px] font-medium tracking-wide mr-3 text-[#111] group-hover:text-white">
+                        className="group relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px] shadow-xl"
+                    >
+                        <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out group-hover:left-[calc(100%-48px)] group-hover:bg-gradient-to-r group-hover:from-[#3799FA] group-hover:to-[#9961FB] group-hover:scale-105">
+                            <ArrowRight className={`w-4 h-4 text-[#3799FA] transition-all duration-700 ease-in-out group-hover:text-white ${showAll ? '-rotate-90' : 'rotate-90'}`} />
+                        </div>
+                        <div className="pl-14 pr-8 h-full py-3 flex items-center text-white font-bold text-[15px] transition-all duration-700 ease-in-out bg-gradient-to-r from-[#3799FA] to-[#9961FB] group-hover:from-white group-hover:to-white group-hover:text-black group-hover:pl-6 group-hover:pr-14 rounded-[34px_34px_0px_34px] group-hover:rounded-[34px_34px_34px_0px]">
                             {showAll ? "View Less" : "View All"}
-                        </span>
-                        <div className="w-[22px] h-[22px] rounded-full bg-[#111] group-hover:bg-white
-                                        flex items-center justify-center transition-colors">
-                            <ArrowRight className={`w-3 h-3 text-white group-hover:text-[#111] stroke-[2.5] transition-transform duration-300 ${showAll ? '-rotate-90' : 'rotate-90'}`} />
                         </div>
                     </button>
                 </div>
@@ -279,14 +279,16 @@ function ContentBlock({ number, title, description }: { number: string; title: s
                 {description}
             </p>
 
-            <button suppressHydrationWarning className="flex items-center bg-gradient-to-r from-[#5b8af8] to-[#9c63f9]
-                               rounded-full p-[3px] pr-5 hover:shadow-[0_4px_18px_rgba(140,82,234,0.35)]
-                               active:scale-95 transition-all duration-300 w-fit">
-                <div className="bg-white rounded-full w-[40px] h-[40px] mr-3
-                                flex items-center justify-center shrink-0">
-                    <ChevronRight className="w-[18px] h-[18px] text-[#2c2b33] stroke-[3]" />
+            <button
+                suppressHydrationWarning
+                className="group relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px] shadow-xl"
+            >
+                <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out group-hover:left-[calc(100%-48px)] group-hover:bg-gradient-to-r group-hover:from-[#3799FA] group-hover:to-[#9961FB] group-hover:scale-105">
+                    <FaChevronRight className="w-4 h-4 text-[#3799FA] transition-all duration-700 ease-in-out group-hover:text-white" />
                 </div>
-                <span className="text-white text-[13.5px] font-semibold tracking-wide">Know More</span>
+                <div className="pl-14 pr-8 h-full py-3 flex items-center text-white font-bold text-[15px] transition-all duration-700 ease-in-out bg-gradient-to-r from-[#3799FA] to-[#9961FB] group-hover:from-white group-hover:to-white group-hover:text-black group-hover:pl-6 group-hover:pr-14 rounded-[34px_34px_0px_34px] group-hover:rounded-[34px_34px_34px_0px]">
+                    Know More
+                </div>
             </button>
         </div>
     );

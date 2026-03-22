@@ -1,6 +1,9 @@
 "use client";
-
+import React, { useEffect, useRef } from 'react';
 import { Poppins } from 'next/font/google';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 const foodImg1 = '/products/food-images/food.png';
 
 const poppins = Poppins({
@@ -10,12 +13,43 @@ const poppins = Poppins({
 });
 
 export default function About() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".about-image-reveal", {
+                x: -50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".about-image-reveal",
+                    start: "top 85%",
+                }
+            });
+
+            gsap.from(".about-content-reveal", {
+                x: 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".about-content-reveal",
+                    start: "top 85%",
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="w-full bg-white relative py-20 lg:py-28 px-4 md:px-8 font-sans overflow-hidden">
+        <section ref={sectionRef} className="w-full bg-white relative py-20 lg:py-28 px-4 md:px-8 font-sans overflow-hidden">
             <div className="max-w-[1250px] mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-8 xl:gap-14">
 
                 {/* Left side Image */}
-                <div className="w-full lg:w-[45%] max-md:order-2 max-md:mt-6">
+                <div className="w-full lg:w-[45%] max-md:order-2 max-md:mt-6 about-image-reveal">
                     <div className="rounded-[24px] overflow-hidden shadow-2xl relative w-full aspect-[4/3] lg:aspect-[4/3.5] bg-gray-100">
                         <img
                             src={foodImg1}
@@ -26,7 +60,7 @@ export default function About() {
                 </div>
 
                 {/* Right side Content */}
-                <div className="w-full lg:w-[55%] flex flex-col justify-center max-md:items-start max-md:text-left max-md:order-1">
+                <div className="w-full lg:w-[55%] flex flex-col justify-center max-md:items-start max-md:text-left max-md:order-1 about-content-reveal">
                     <div className="mb-4">
                         <span className="bg-gradient-to-r from-[#4DA5FF] to-[#9458F6] text-transparent bg-clip-text font-bold text-[13px] md:text-[14px] tracking-wide uppercase">
                             ABOUT THE UPCOMING APP
@@ -51,7 +85,7 @@ export default function About() {
                     </p>
 
                     <div>
-                        <button className="bg-black text-white px-10 py-3.5 rounded-[12px] font-bold text-[15px] hover:bg-[#111] transition-all shadow-xl">
+                        <button suppressHydrationWarning className="bg-black text-white px-10 py-3.5 rounded-[12px] font-bold text-[15px] hover:bg-[#111] transition-all shadow-xl">
                             Stay Tuned
                         </button>
                     </div>

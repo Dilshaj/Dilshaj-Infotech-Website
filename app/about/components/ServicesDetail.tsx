@@ -205,8 +205,8 @@ export default function ServicesDetail() {
             </div>
 
             {/* Main Content */}
-            <div className="w-full max-w-[1440px] mx-auto lg:ml-0">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-24 items-start">
+            <div className="w-full max-w-[1600px] mx-auto lg:ml-0">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-12 sm:gap-16 lg:gap-24 items-start">
 
                     {/* LEFT: Service List */}
                     <div className="space-y-4 px-2 sm:px-0">
@@ -245,23 +245,23 @@ export default function ServicesDetail() {
                     <div className="service-detail-card flex flex-col">
 
                         {/* Gradient Dark Card */}
-                        <div className="relative overflow-hidden rounded-[27px] bg-[#1a1c2e] p-8 sm:p-12 text-white shadow-2xl w-[923px] max-w-[1923px] min-h-[418px] md:h-auto lg:h-[418px] flex flex-col justify-between">
+                        <div className="relative overflow-hidden rounded-[27px] bg-[#1a1c2e] p-6 sm:p-10 lg:p-12 text-white shadow-2xl w-full max-w-[1200px] min-h-auto lg:min-h-[460px] flex flex-col justify-between">
 
                             {/* Top Section */}
-                            <div className="flex flex-col md:flex-row justify-between items-start gap-10 md:gap-12 relative z-10">
+                            <div className="flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 relative z-10">
 
                                 {/* Left: Tag + Title */}
-                                <div className="max-w-xl text-left">
-                                    <span className="inline-block bg-transparent px-5 py-1.5 rounded-full text-sm border border-white/20 mb-8 sm:mb-10">
+                                <div className="w-full lg:max-w-xl text-left">
+                                    <span className="inline-block bg-transparent px-4 py-1 rounded-full text-xs sm:text-sm border border-white/20 mb-6 sm:mb-8">
                                         {active.tag}
                                     </span>
-                                    <h3 className="text-3xl sm:text-4xl font-semibold leading-[1.2]">
+                                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-[1.2]">
                                         {active.cardTitle}
                                     </h3>
                                 </div>
 
                                 {/* Right: Bullet Points */}
-                                <div className="space-y-6 lg:mt-16 w-full md:w-auto">
+                                <div className="space-y-4 sm:space-y-6 lg:mt-16 w-full lg:w-auto">
                                     {active.bullets.map((item, i) => (
                                         <div key={i} className="flex items-center gap-4 text-sm text-gray-200">
                                             <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0">

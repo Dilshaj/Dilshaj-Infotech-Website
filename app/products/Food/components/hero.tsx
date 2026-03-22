@@ -1,7 +1,10 @@
 "use client";
-
+import React, { useEffect, useRef } from 'react';
 import { Poppins } from 'next/font/google';
 import { FaChevronRight } from 'react-icons/fa6';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 const foodBgImg = '/products/food-images/food-bg.png';
 
 const poppins = Poppins({
@@ -11,12 +14,30 @@ const poppins = Poppins({
 });
 
 export default function Hero() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".hero-reveal", {
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.2
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
         <section
+            ref={sectionRef}
             className="w-full relative min-h-[90vh] md:min-h-screen flex items-center justify-center font-sans overflow-hidden bg-[#0A0A0A] bg-no-repeat md:bg-center bg-cover"
             style={{ backgroundImage: `url(${foodBgImg})` }}
         >
-            <div className="max-w-[850px] w-full px-4 max-md:px-6 mx-auto flex flex-col max-md:items-start max-md:text-left items-center text-center justify-center relative z-10 pt-24 pb-32">
+            <div className="max-w-[850px] w-full px-4 max-md:px-6 mx-auto flex flex-col max-md:items-start max-md:text-left items-center text-center justify-center relative z-10 pt-24 pb-32 hero-reveal">
 
                 {/* Badge */}
                 <div className="mb-6 rounded-full px-5 py-1.5 border border-[#3b82f6]/50 md:border-[#3b82f6]/30 flex items-center justify-center bg-[#050505]/40 backdrop-blur-sm">
@@ -42,7 +63,7 @@ export default function Hero() {
                 </p>
 
                 {/* Button */}
-                <button className="flex items-center group relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px]">
+                <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px]">
                     <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out group-hover:left-[calc(100%-48px)] group-hover:bg-gradient-to-r group-hover:from-[#3799FA] group-hover:to-[#9961FB] group-hover:scale-105">
                         <FaChevronRight className="w-4 h-4 text-[#3799FA] transition-all duration-700 ease-in-out group-hover:text-white" />
                     </div>

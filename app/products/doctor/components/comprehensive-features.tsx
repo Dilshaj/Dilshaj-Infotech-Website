@@ -1,6 +1,8 @@
 "use client";
-
+import React, { useEffect, useRef } from 'react';
 import { Poppins } from 'next/font/google';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import hospitalImg from '../images/hos.png';
 import daIcon from '../images/da.png';
 import ic2Icon from '../images/ic2.png';
@@ -67,8 +69,62 @@ const featuresList = [
 ];
 
 export default function ComprehensiveFeatures() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".comprehensive-header", {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".comprehensive-header",
+                    start: "top 85%",
+                }
+            });
+
+            gsap.from(".comprehensive-image-block", {
+                scale: 0.95,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".comprehensive-image-block",
+                    start: "top 85%",
+                }
+            });
+
+            gsap.from(".feature-list-item", {
+                x: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".feature-list-item",
+                    start: "top 95%",
+                }
+            });
+
+            gsap.from(".cta-banner-reveal", {
+                y: 40,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".cta-banner-reveal",
+                    start: "top 95%",
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="w-full bg-white relative py-20 px-4 md:px-8 font-sans overflow-hidden">
+        <section ref={sectionRef} className="w-full bg-white relative py-20 px-4 md:px-8 font-sans overflow-hidden">
 
             {/* Top Left Features Badge */}
             <div className="absolute top-10 left-0 z-20" style={{ filter: 'drop-shadow(3px 4px 5px rgba(0,0,0,0.25))' }}>
@@ -93,7 +149,7 @@ export default function ComprehensiveFeatures() {
                     <div className="w-full lg:w-1/2 flex flex-col max-lg:contents">
 
                         {/* Header Section */}
-                        <div className="mb-10 max-lg:order-1 max-lg:mb-6">
+                        <div className="mb-10 max-lg:order-1 max-lg:mb-6 comprehensive-header">
                             <h2 className={`${poppins.className} text-[25px] md:text-[38px] lg:text-[42px] font-semibold text-black leading-[1.3] tracking-tight`}>
                                 Comprehensive Features<br />
                                 for <span className="text-[#888888]">Smarter Digital</span><br />
@@ -102,7 +158,7 @@ export default function ComprehensiveFeatures() {
                         </div>
 
                         {/* Image Section */}
-                        <div className="w-full flex-grow min-h-[400px] md:min-h-[500px] rounded-[32px] overflow-hidden shadow-lg relative max-lg:order-3 max-lg:mt-4">
+                        <div className="w-full flex-grow min-h-[400px] md:min-h-[500px] rounded-[32px] overflow-hidden shadow-lg relative max-lg:order-3 max-lg:mt-4 comprehensive-image-block">
                             <img
                                 src={hospitalImg.src}
                                 alt="Hospital Reception"
@@ -116,7 +172,7 @@ export default function ComprehensiveFeatures() {
                         {featuresList.map((feature, index) => (
                             <div
                                 key={index}
-                                className={`flex items-start gap-5 p-6 transition-colors border-l ${index === 0 ? 'bg-[#F9F9F9] border-gray-200' : 'border-[#F2F2F4]'} hover:bg-[#F9F9F9] border-b last:border-b-0`}
+                                className={`flex items-start gap-5 p-6 transition-colors border-l ${index === 0 ? 'bg-[#F9F9F9] border-gray-200' : 'border-[#F2F2F4]'} hover:bg-[#F9F9F9] border-b last:border-b-0 feature-list-item`}
                             >
                                 <div className="mt-1 w-12 h-12 flex-shrink-0 border border-gray-200 rounded-lg flex items-center justify-center bg-white shadow-sm">
                                     {feature.icon}
@@ -136,7 +192,7 @@ export default function ComprehensiveFeatures() {
                 </div>
 
                 {/* Bottom CTA Banner */}
-                <div className="max-md:mt-8 md:mt-20 mt-20 w-full max-w-[1200px] mx-auto rounded-3xl overflow-hidden relative shadow-2xl">
+                <div className="max-md:mt-8 md:mt-20 mt-20 w-full max-w-[1200px] mx-auto rounded-3xl overflow-hidden relative shadow-2xl cta-banner-reveal">
                     {/* Gradient Background matches image EXACTLY */}
                     <div className="absolute inset-0 bg-[#0F1023] z-0 flex">
                         <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#446CE4] to-transparent mix-blend-screen opacity-60"></div>

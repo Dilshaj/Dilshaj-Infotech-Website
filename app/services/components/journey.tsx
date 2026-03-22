@@ -16,16 +16,18 @@ export default function Journey() {
     const sectionRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
         const ctx = gsap.context(() => {
             gsap.from(".gsap-journey-content", {
                 y: 40,
                 opacity: 0,
                 duration: 1,
-                stagger: 0.2,
+                stagger: 0.15,
                 ease: "power3.out",
                 scrollTrigger: {
                     trigger: sectionRef.current,
-                    start: "top 80%",
+                    start: "top 92%",
+                    onEnter: () => ScrollTrigger.refresh()
                 }
             });
         }, sectionRef);
@@ -34,16 +36,16 @@ export default function Journey() {
     }, []);
 
     return (
-        <section ref={sectionRef} className={`${poppins.className} w-full bg-white relative overflow-hidden py-20 pb-32`}>
+        <section ref={sectionRef} className={`${poppins.className} w-full bg-white relative overflow-hidden py-16 md:py-20 pb-24 md:pb-32`}>
             <div className="w-full px-[5%] xl:px-[8%] mx-auto">
 
                 {/* ── BANNER CARD ────────────────────────────────────────── */}
                 <div
-                    className="relative w-full rounded-2xl md:rounded-[36px] min-h-[520px] md:min-h-[380px] lg:min-h-[440px] flex flex-col md:flex-row items-center justify-end md:justify-start shadow-xl mx-auto overflow-visible"
+                    className="relative w-full rounded-2xl md:rounded-[36px] min-h-[520px] md:min-h-[380px] lg:min-h-[440px] flex flex-col md:flex-row items-center justify-end md:justify-start shadow-xl mx-auto overflow-hidden bg-[#0B1120]"
                 >
-                    {/* Background layers wrapper (pure image without any color overlay) */}
-                    <div className="absolute inset-0 rounded-2xl md:rounded-[36px] overflow-hidden pointer-events-none bg-[position:right_top] md:bg-center bg-[length:190%_auto] sm:bg-[length:140%_auto] md:bg-cover bg-[#0B1120] md:bg-transparent bg-no-repeat z-0"
-                        style={{ backgroundImage: "url('/services/start.png')" }}>
+                    {/* Background layers wrapper */}
+                    <div className="absolute inset-0 pointer-events-none bg-center bg-cover bg-no-repeat z-0 opacity-60"
+                        style={{ backgroundImage: "url('/about/innovation.png')" }}>
                     </div>
 
                     {/* Content Component */}

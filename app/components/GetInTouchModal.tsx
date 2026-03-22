@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FaChevronRight } from "react-icons/fa6";
 
 interface GetInTouchModalProps {
     isOpen: boolean;
@@ -12,8 +13,17 @@ interface GetInTouchModalProps {
 
 export default function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProps) {
     useEffect(() => {
-        document.body.style.overflow = isOpen ? "hidden" : "unset";
-        return () => { document.body.style.overflow = "unset"; };
+        if (isOpen) {
+            document.documentElement.style.overflow = "hidden";
+            document.body.style.overflow = "hidden";
+        } else {
+            document.documentElement.style.overflow = "unset";
+            document.body.style.overflow = "unset";
+        }
+        return () => {
+            document.documentElement.style.overflow = "unset";
+            document.body.style.overflow = "unset";
+        };
     }, [isOpen]);
 
     return (
@@ -32,23 +42,24 @@ export default function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProp
 
                     {/* Modal Card */}
                     <motion.div
+                        data-lenis-prevent
                         initial={{ opacity: 0, scale: 0.92, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.92, y: 20 }}
                         transition={{ type: "spring", damping: 28, stiffness: 350 }}
-                        className="relative w-full max-w-[1050px] bg-white rounded-[28px] overflow-hidden shadow-2xl flex flex-col md:flex-row md:h-[700px]"
+                        className="relative w-full max-w-[1050px] bg-white rounded-[28px] lg:overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] md:h-[700px] overflow-y-auto"
                     >
                         {/* Close Button */}
                         <button
                             suppressHydrationWarning
                             onClick={onClose}
-                            className="absolute top-4 right-4 z-50 p-2 bg-[#1aa4ff] text-white rounded-md hover:bg-blue-600 transition-colors"
+                            className="absolute top-4 right-4 z-50 p-2 bg-[#1aa4ff] text-white rounded-md hover:bg-blue-600 transition-colors shadow-lg"
                         >
                             <X className="w-5 h-5" />
                         </button>
 
-                        {/* LEFT SIDE: Image — no curve, just fills full height */}
-                        <div className="relative w-full md:w-1/2 h-[260px] md:h-full shrink-0">
+                        {/* LEFT SIDE: Image — no curve, just fills full height on desktop, fixed height on mobile */}
+                        <div className="relative w-full md:w-1/2 h-[220px] md:h-full shrink-0">
                             <Image
                                 src="/Home/modal_meeting.png"
                                 alt="Business Meeting"
@@ -59,17 +70,17 @@ export default function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProp
                         </div>
 
                         {/* RIGHT SIDE: Form */}
-                        <div className="flex-1 bg-[#f3f4f6] p-8 md:p-12 lg:p-14 flex flex-col justify-center">
-                            <div className="mb-8 md:mb-10">
-                                <h2 className="text-[22px] md:text-[30px] leading-tight text-gray-700 font-normal">
+                        <div className="flex-1 bg-[#f3f4f6] p-6 sm:p-8 md:p-12 lg:p-14 pb-16 flex flex-col justify-start md:justify-center">
+                            <div className="mb-6 md:mb-10">
+                                <h2 className="text-[20px] sm:text-[22px] md:text-[30px] leading-tight text-gray-700 font-normal">
                                     Let&apos;s Build Digital Success For
                                 </h2>
-                                <h3 className="text-[28px] md:text-[38px] font-bold text-black leading-tight mt-1">
+                                <h3 className="text-[26px] sm:text-[28px] md:text-[38px] font-bold text-black leading-tight mt-1">
                                     Your Business !!
                                 </h3>
                             </div>
 
-                            <form className="space-y-6 md:space-y-7">
+                            <form className="space-y-5 md:space-y-7">
                                 {/* Name */}
                                 <input
                                     suppressHydrationWarning
@@ -119,14 +130,24 @@ export default function GetInTouchModal({ isOpen, onClose }: GetInTouchModalProp
                                     }}
                                 />
 
-                                {/* Submit */}
+                                {/* Submit Button — Asymmetrical design */}
                                 <div className="pt-1 flex justify-center md:justify-start">
                                     <button
                                         suppressHydrationWarning
                                         type="submit"
-                                        className="px-10 py-3 rounded-xl bg-gradient-to-r from-[#3799FA] to-[#9961FB] text-white font-bold text-lg md:text-xl shadow-lg hover:brightness-110 active:scale-95 transition-all"
+                                        className="blog-cta flex items-center relative group h-12 w-fit"
                                     >
-                                        Submit
+                                        <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
+                                            <FaChevronRight className="w-4 h-4 text-[#3799FA]" />
+                                        </div>
+                                        <div
+                                            className="pl-14 pr-10 h-full flex items-center text-white font-bold text-[17px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all duration-300 rounded-[34px_34px_0_34px]"
+                                            style={{
+                                                background: 'linear-gradient(to right, #3799FA, #9961FB)',
+                                            }}
+                                        >
+                                            Submit
+                                        </div>
                                     </button>
                                 </div>
 

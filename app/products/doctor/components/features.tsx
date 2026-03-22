@@ -1,6 +1,8 @@
 "use client";
-
+import React, { useEffect, useRef } from 'react';
 import { Poppins } from 'next/font/google';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const poppins = Poppins({
     weight: ['400', '500', '600', '700'],
@@ -9,8 +11,40 @@ const poppins = Poppins({
 });
 
 export default function Features() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".features-header", {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".features-header",
+                    start: "top 85%",
+                }
+            });
+
+            gsap.from(".feature-card", {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".feature-card",
+                    start: "top 90%",
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="relative w-full bg-[#04090E] py-20 pb-28 min-h-[500px] flex flex-col items-center justify-center font-sans overflow-hidden">
+        <section ref={sectionRef} className="relative w-full bg-[#04090E] py-20 pb-28 min-h-[500px] flex flex-col items-center justify-center font-sans overflow-hidden">
 
             {/* Top faded gradient for the header boundary */}
             <div className="absolute top-0 left-0 w-full h-[150px] bg-gradient-to-b from-[#07131C] to-transparent pointer-events-none"></div>
@@ -27,7 +61,7 @@ export default function Features() {
             ></div>
 
             {/* Heading */}
-            <div className="relative z-10 flex flex-col items-center mb-16 max-md:-mt-20">
+            <div className="relative z-10 flex flex-col items-center mb-16 max-md:-mt-20 features-header">
                 <h2 className={`${poppins.className} max-md:whitespace-nowrap max-md:text-[20px] text-[32px] md:text-[40px] font-bold text-white mb-2 text-center`}>
                     Healthcare Made Simple
                 </h2>
@@ -39,7 +73,7 @@ export default function Features() {
             <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
 
                 {/* Card 1 */}
-                <div className="bg-[#1C1C1E] border border-white/[0.05] rounded-[16px] p-8 md:p-10 flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-[0_10px_30px_0_rgba(0,0,0,0.5)]">
+                <div className="bg-[#1C1C1E] border border-white/[0.05] rounded-[16px] p-8 md:p-10 flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-[0_10px_30px_0_rgba(0,0,0,0.5)] feature-card">
                     <div className="flex items-start justify-between mb-8">
                         <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#459CFF] to-[#A26DFF] flex items-center justify-center shadow-[0_0_15px_rgba(69,156,255,0.4)]">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -62,7 +96,7 @@ export default function Features() {
                 </div>
 
                 {/* Card 2 */}
-                <div className="bg-[#1C1C1E] border border-white/[0.05] rounded-[16px] p-8 md:p-10 flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-[0_10px_30px_0_rgba(0,0,0,0.5)]">
+                <div className="bg-[#1C1C1E] border border-white/[0.05] rounded-[16px] p-8 md:p-10 flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-[0_10px_30px_0_rgba(0,0,0,0.5)] feature-card">
                     <div className="flex items-start justify-between mb-8">
                         <div className="w-12 h-12 rounded-full bg-[#459CFF] flex items-center justify-center shadow-[0_0_15px_rgba(69,156,255,0.4)]">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -87,7 +121,7 @@ export default function Features() {
                 </div>
 
                 {/* Card 3 */}
-                <div className="bg-[#1C1C1E] border border-white/[0.05] rounded-[16px] p-8 md:p-10 flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-[0_10px_30px_0_rgba(0,0,0,0.5)]">
+                <div className="bg-[#1C1C1E] border border-white/[0.05] rounded-[16px] p-8 md:p-10 flex flex-col hover:-translate-y-2 transition-transform duration-300 shadow-[0_10px_30px_0_rgba(0,0,0,0.5)] feature-card">
                     <div className="flex items-start justify-between mb-8">
                         <div className="w-12 h-12 rounded-full bg-[#459CFF] flex items-center justify-center shadow-[0_0_15px_rgba(69,156,255,0.4)]">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -132,7 +132,7 @@ export default function ContactSection() {
                     {/* LEFT SIDE CONTENT */}
                     <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
                         {/* Ribbon Badge */}
-                        <div className="gsap-contact-left-item mb-10 w-full flex justify-center lg:justify-start">
+                        <div className="gsap-contact-left-item mb-10 w-full flex justify-start">
                             <div
                                 className="relative flex items-center gap-2 lg:gap-4 pl-4 pr-10 lg:px-10 py-2.5 lg:py-3 w-fit ml-[-24px] md:ml-[-48px] lg:ml-[-105px]"
                                 style={{

@@ -210,7 +210,7 @@ const accelerationFeatures = [
   {
     title: "Innovative Digital Solutions for Modern Businesses",
     desc: "We leverage cutting-edge technology to build tailored digital products that solve complex business challenges.",
-    image: "/Home/WHD/Digital Solution.png",
+    image: "/Home/WHD/digital-solution.png",
     type: "large",
     icon: (
       <div className="w-12 h-12 relative">
@@ -245,7 +245,7 @@ const accelerationFeatures = [
   {
     title: "End-to-End Development & Support Services",
     desc: "From ideation to deployment and beyond, we provide comprehensive support for your digital journey.",
-    image: "/Home/WHD/support-sevice.png",
+    image: "/Home/WHD/support-service.png",
     type: "large",
     icon: (
       <div className="w-12 h-12 relative">
@@ -490,10 +490,11 @@ export default function Home() {
         {/* DARK SECTION: Ticker + Impact Card with Overlap */}
         <HomeScrollAnimations />
         <div data-section="stats" className="w-full bg-black pt-10 lg:pt-20 pb-0 overflow-hidden flex flex-col items-center gap-8 lg:gap-20 mt-16 lg:mt-30 relative">
-          <div className="absolute inset-0 z-0 bg-cover bg-top lg:hidden opacity-100 mix-blend-screen" style={{ backgroundImage: "url('/public/home/mobile.png')" }} />
+          <div className="absolute inset-0 z-0 bg-cover bg-top lg:hidden opacity-100 mix-blend-screen" style={{ backgroundImage: "url('/Home/technologies/mobile.png')" }} />
           {/* Animated Background Glows */}
           <div className="hidden lg:block absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -translate-y-1/2" />
           <div className="hidden lg:block absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] translate-y-1/2" />
+
 
           <div className="w-full max-w-[1700px] px-0 lg:px-20 relative z-10">
             {/* MOBILE TECHNOLOGY GRID (Consolidated into 2 Scrolling Rows) */}
@@ -610,7 +611,7 @@ export default function Home() {
               {/* Top row with main headline and primary stat */}
               <div className="flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 px-4 lg:px-0">
                 <div className="w-full lg:w-auto flex flex-col items-start px-0 lg:px-0">
-                  <h2 className="text-[30px] sm:text-[36px] lg:text-[52px] font-semibold text-[#63666A] leading-[1.15] lg:leading-[1.1] mb-6 font-poppins text-left max-w-[1000px]">
+                  <h2 className="section-label text-[30px] sm:text-[36px] lg:text-[52px] font-semibold text-[#63666A] leading-[1.15] lg:leading-[1.1] mb-6 font-poppins text-left max-w-[1000px]">
                     Building the Future of Technology<br />
                     <span className="text-slate-500">With </span>
                     <span className="text-[#31B5FE]">Vision, </span>
@@ -618,7 +619,7 @@ export default function Home() {
                   </h2>
                 </div>
 
-                <div className="hidden lg:flex flex-col gap-4 max-w-[300px] lg:pl-16 lg:border-l border-gray-100 h-full">
+                <div className="stat-number-item hidden lg:flex flex-col gap-4 max-w-[300px] lg:pl-16 lg:border-l border-gray-100 h-full">
                   <span className="text-[72px] font-semibold text-black leading-none mb-2">15+</span>
                   <div className="flex gap-3 items-start">
                     <div className="w-10 h-10 rounded-full bg-[#31B5FE] flex items-center justify-center flex-shrink-0 animate-pulse-slow">
@@ -634,7 +635,7 @@ export default function Home() {
               {/* DESKTOP Bottom Row - 4 columns separated by vertical bars */}
               <div className="hidden lg:grid grid-cols-4 gap-12 pt-10 border-t border-gray-100">
                 {/* 100% Stat */}
-                <div className="flex flex-col gap-4">
+                <div className="stat-number-item flex flex-col gap-4">
                   <span className="text-[72px] font-semibold text-black leading-none mb-2">100%</span>
                   <div className="flex gap-4 items-start">
                     <div className="w-10 h-10 rounded-full bg-[#31B5FE] flex items-center justify-center flex-shrink-0">
@@ -647,7 +648,7 @@ export default function Home() {
                 </div>
 
                 {/* 10+ Techs Stat */}
-                <div className="flex flex-col gap-4 lg:pl-8 lg:border-l border-gray-100">
+                <div className="stat-number-item flex flex-col gap-4 lg:pl-8 lg:border-l border-gray-100">
                   <span className="text-[72px] font-semibold text-black leading-none mb-2">10+</span>
                   <div className="flex gap-4 items-start">
                     <div className="w-10 h-10 rounded-full bg-[#31B5FE] flex items-center justify-center flex-shrink-0">
@@ -660,7 +661,7 @@ export default function Home() {
                 </div>
 
                 {/* 5+ Industries Stat */}
-                <div className="flex flex-col gap-4 lg:pl-8 lg:border-l border-gray-100">
+                <div className="stat-number-item flex flex-col gap-4 lg:pl-8 lg:border-l border-gray-100">
                   <span className="text-[72px] font-semibold text-black leading-none mb-2">5+</span>
                   <div className="flex gap-4 items-start">
                     <div className="w-10 h-10 rounded-full bg-[#31B5FE] flex items-center justify-center flex-shrink-0">
@@ -673,7 +674,7 @@ export default function Home() {
                 </div>
 
                 {/* 24/7 Stat */}
-                <div className="flex flex-col gap-4 lg:pl-8 lg:border-l border-gray-100">
+                <div className="stat-number-item flex flex-col gap-4 lg:pl-8 lg:border-l border-gray-100">
                   <span className="text-[72px] font-semibold text-black leading-none mb-2">24/7</span>
                   <div className="flex gap-4 items-start">
                     <div className="w-10 h-10 rounded-full bg-[#31B5FE] flex items-center justify-center flex-shrink-0">
@@ -687,10 +688,10 @@ export default function Home() {
               </div>
 
               {/* MOBILE GRID SECTION */}
-              <div className="flex lg:hidden flex-col w-full mt-[-105px] sm:mt-[-115px] relative z-10">
+              <div className="impact-card flex lg:hidden flex-col w-full mt-[-105px] sm:mt-[-115px] relative z-10">
                 {/* 2x2 Grid */}
                 <div className="grid grid-cols-2 border-t border-b border-gray-100">
-                  <div className="pl-4 pr-1 py-10 border-r border-gray-100 flex flex-col gap-5 bg-white">
+                  <div className="stat-number-item pl-4 pr-1 py-10 border-r border-gray-100 flex flex-col gap-5 bg-white">
                     <span className="text-[52px] font-semibold text-black leading-none mb-1 font-poppins">15+</span>
                     <div className="flex flex-row items-center gap-2">
                       <div className="w-[42px] h-[42px] rounded-full bg-[#31B5FE] flex items-center justify-center flex-shrink-0">
@@ -702,7 +703,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="pl-4 pr-1 py-10 flex flex-col gap-5 bg-white">
+                  <div className="stat-number-item pl-4 pr-1 py-10 flex flex-col gap-5 bg-white">
                     <span className="text-[52px] font-semibold text-black leading-none mb-1 font-poppins tracking-[-1px]">100%</span>
                     <div className="flex flex-row items-center gap-2">
                       <div className="w-[42px] h-[42px] rounded-full bg-[#31B5FE] flex items-center justify-center flex-shrink-0">
@@ -714,7 +715,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="pl-4 pr-1 py-10 border-r border-t border-gray-100 flex flex-col gap-5 bg-white">
+                  <div className="stat-number-item pl-4 pr-1 py-10 border-r border-t border-gray-100 flex flex-col gap-5 bg-white">
                     <span className="text-[52px] font-semibold text-black leading-none mb-1 font-poppins tracking-tight">10+</span>
                     <div className="flex flex-row items-center gap-2">
                       <div className="w-[42px] h-[42px] rounded-full bg-[#31B5FE] flex items-center justify-center flex-shrink-0">
@@ -726,7 +727,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="pl-4 pr-1 py-10 border-t border-gray-100 flex flex-col gap-5 bg-white">
+                  <div className="stat-number-item pl-4 pr-1 py-10 border-t border-gray-100 flex flex-col gap-5 bg-white">
                     <span className="text-[52px] font-semibold text-black leading-none mb-1 font-poppins tracking-tight">5+</span>
                     <div className="flex flex-row items-center gap-2">
                       <div className="w-[42px] h-[42px] rounded-full bg-[#31B5FE] flex items-center justify-center flex-shrink-0">
@@ -741,7 +742,7 @@ export default function Home() {
 
                 {/* 24/7 Dark Block */}
                 <div
-                  className="bg-[#2D333A] flex flex-col justify-center items-start pl-8 mt-5 mx-4 sm:mx-6 mb-6 rounded-[12px]"
+                  className="stat-number-item bg-[#2D333A] flex flex-col justify-center items-start pl-8 mt-5 mx-4 sm:mx-6 mb-6 rounded-[12px]"
                   style={{ height: '168px' }}
                 >
                   <span className="text-[54px] font-[500] text-white leading-none tracking-tight font-poppins mb-4">24/7</span>
@@ -793,7 +794,7 @@ export default function Home() {
                   <span className="text-black font-semibold block whitespace-nowrap">knowledge to help you succeed</span>
                 </h2>
 
-                <div className="relative w-full h-full rounded-[32px] overflow-hidden group shadow-2xl">
+                <div className="services-image-card relative w-full h-full rounded-[32px] overflow-hidden group shadow-2xl">
                   <Image
                     src={services[activeServiceIdx].image}
                     alt={services[activeServiceIdx].name}
@@ -918,7 +919,7 @@ export default function Home() {
                     <div
                       key={idx}
                       onClick={() => setActiveServiceIdx(idx)}
-                      className={`flex group justify-between items-start py-6 px-4 cursor-pointer transition-all duration-300 ${activeServiceIdx === idx ? 'bg-blue-50/30' : ''} ${idx !== services.length - 1 ? 'border-b border-gray-100' : ''}`}
+                      className={`service-list-item flex group justify-between items-start py-6 px-4 cursor-pointer transition-all duration-300 ${activeServiceIdx === idx ? 'bg-blue-50/30' : ''} ${idx !== services.length - 1 ? 'border-b border-gray-100' : ''}`}
                     >
                       <div className="flex gap-4 items-start w-full">
                         {/* Left Icon Square */}
@@ -947,7 +948,7 @@ export default function Home() {
 
               {/* Mobile Banner: Replacing static box with 3D Carousel */}
               <div className="flex w-full px-5 mt-6 mb-6 justify-center">
-                <div className="relative w-full h-[380px] rounded-[24px] overflow-hidden shadow-xl">
+                <div className="services-image-card relative w-full h-[380px] rounded-[24px] overflow-hidden shadow-xl">
                   <Image
                     src={services[activeServiceIdx].image}
                     alt={services[activeServiceIdx].name}
@@ -994,6 +995,22 @@ export default function Home() {
 
         {/* PRODUCTS SECTION */}
         <section data-section="products" className="w-full bg-white py-12 lg:py-24 flex flex-col items-center relative z-10">
+          {/* Products Ribbon */}
+          <div className="w-full flex justify-start mb-12 lg:mb-16 px-0 relative z-20">
+            <div
+              className="ribbon-banner relative flex items-center gap-2 lg:gap-4 pl-4 pr-10 lg:px-10 py-2.5 lg:py-3 w-fit"
+              style={{
+                background: 'linear-gradient(to right, #029EFA, #0E4E8B)',
+                clipPath: 'polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%)'
+              }}
+            >
+              <div className="relative w-7 h-7 lg:w-12 lg:h-12 flex items-center justify-center">
+                <Image src="/Home/arrow.png" alt="Arrow" fill className="object-contain" />
+              </div>
+              <span className="text-white font-[600] lg:font-bold text-[18px] lg:text-[24px] tracking-wider pr-2">Products</span>
+            </div>
+          </div>
+
           {/* --- DESKTOP HEADER --- */}
           <div className="hidden lg:flex flex-col items-center text-center mb-20 px-10">
             <div className="products-badge-row flex items-center gap-6 mb-8">
@@ -1254,7 +1271,7 @@ export default function Home() {
           {/* Section Banner Header */}
           <div className="w-full flex justify-start mb-6 lg:mb-8 px-0">
             <div
-              className="relative flex items-center gap-2 lg:gap-4 pl-4 pr-10 lg:px-10 py-2.5 lg:py-3 w-fit"
+              className="ribbon-banner relative flex items-center gap-2 lg:gap-4 pl-4 pr-10 lg:px-10 py-2.5 lg:py-3 w-fit"
               style={{
                 background: 'linear-gradient(to right, #029EFA, #0E4E8B)',
                 clipPath: 'polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%)'
@@ -1421,7 +1438,7 @@ export default function Home() {
           <div className="w-full max-w-[1550px] px-6 md:px-12 flex flex-col items-center">
             {/* Section Header */}
             <div className="flex flex-col items-center text-center mb-14">
-              <div className="flex items-center gap-3 text-gray-400 mb-6 font-semibold tracking-wide uppercase text-[20px]">
+              <div className="section-label flex items-center gap-3 text-gray-400 mb-6 font-semibold tracking-wide uppercase text-[20px]">
                 <span className="text-[18px]">»</span>
                 <span>Why dilshaj Infotech</span>
                 <span className="text-[18px]">«</span>
@@ -1435,7 +1452,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
               {/* Card 1: Large (Innovative Digital Solutions) */}
               <div
-                className="md:col-span-2 group relative h-[310px] rounded-[32px] overflow-hidden shadow-lg flex flex-col justify-between p-10 pb-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                className="accel-card md:col-span-2 group relative h-[310px] rounded-[32px] overflow-hidden shadow-lg flex flex-col justify-between p-10 pb-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
                 style={{ background: accelerationFeatures[0].image ? 'transparent' : accelerationFeatures[0].gradient }}
               >
                 {accelerationFeatures[0].image && (
@@ -1461,7 +1478,7 @@ export default function Home() {
 
               {/* Card 2: Small (Built to Scale) */}
               <div
-                className="group relative h-[310px] rounded-[32px] overflow-hidden shadow-lg flex flex-col justify-between p-10 pb-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-white/10"
+                className="accel-card group relative h-[310px] rounded-[32px] overflow-hidden shadow-lg flex flex-col justify-between p-10 pb-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-white/10"
                 style={{ background: accelerationFeatures[1].gradient }}
               >
                 {/* Mesh Gradient Effect Layer */}
@@ -1490,7 +1507,7 @@ export default function Home() {
 
               {/* Card 3: Small (User-Focused Design) */}
               <div
-                className="group relative h-[310px] rounded-[32px] overflow-hidden shadow-lg flex flex-col justify-between p-10 pb-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-white/10"
+                className="accel-card group relative h-[310px] rounded-[32px] overflow-hidden shadow-lg flex flex-col justify-between p-10 pb-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-white/10"
                 style={{ background: accelerationFeatures[2].gradient }}
               >
                 {/* Mesh Gradient Effect Layer */}
@@ -1519,7 +1536,7 @@ export default function Home() {
 
               {/* Card 4: Large (End-to-End Development) */}
               <div
-                className="md:col-span-2 group relative h-[310px] rounded-[32px] overflow-hidden shadow-lg flex flex-col justify-between p-10 pb-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                className="accel-card md:col-span-2 group relative h-[310px] rounded-[32px] overflow-hidden shadow-lg flex flex-col justify-between p-10 pb-12 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
                 style={{ background: accelerationFeatures[3].image ? 'transparent' : accelerationFeatures[3].gradient }}
               >
                 {accelerationFeatures[3].image && (
@@ -1565,7 +1582,7 @@ export default function Home() {
           <div className="w-full max-w-[1550px] px-8 md:px-12 flex flex-col items-center relative z-10">
             {/* Section Header */}
             <div className="flex flex-col items-center text-center mb-10 px-4 lg:px-0">
-              <div className="flex items-center justify-center gap-3 lg:gap-4 mb-4 lg:mb-0 text-white font-semibold tracking-wide text-[16px]">
+              <div className="section-label flex items-center justify-center gap-3 lg:gap-4 mb-4 lg:mb-0 text-white font-semibold tracking-wide text-[16px]">
                 {/* Desktop: left_arrow.png, Mobile: text >> */}
                 <span className="block lg:hidden text-[#9A9A9A] font-bold tracking-[-2px] text-[18px]">&gt;&gt;</span>
                 <div className="relative w-8 h-8 opacity-60 hidden lg:block">
@@ -1602,7 +1619,7 @@ export default function Home() {
               <div id="careers-scroll-area" className="w-full lg:max-w-[1320px] overflow-x-auto scrollbar-none pb-12 pt-4 relative scroll-smooth snap-x snap-mandatory flex">
                 <div className="flex gap-4 lg:gap-8 px-[calc(50%-145px)] lg:px-0 w-max mx-auto lg:mx-0">
                   {careerJobs.map((job, idx) => (
-                    <div key={idx} className="bg-[#2B2D31] lg:bg-[#1a1c1e] bg-opacity-95 lg:bg-opacity-100 border border-white/10 lg:border-white/5 rounded-[16px] lg:rounded-[24px] p-6 lg:p-6 flex flex-col items-center lg:items-center group hover:bg-[#32353A] lg:hover:bg-[#222528] transition-all duration-500 lg:hover:-translate-y-2 shadow-[0_8px_30px_rgba(0,0,0,0.7)] lg:shadow-2xl w-[290px] lg:w-[306px] h-[420px] lg:h-[343px] flex-shrink-0 overflow-hidden snap-start lg:snap-start backdrop-blur-md">
+                    <div key={idx} className="career-card bg-[#2B2D31] lg:bg-[#1a1c1e] bg-opacity-95 lg:bg-opacity-100 border border-white/10 lg:border-white/5 rounded-[16px] lg:rounded-[24px] p-6 lg:p-6 flex flex-col items-center lg:items-center group hover:bg-[#32353A] lg:hover:bg-[#222528] transition-all duration-500 lg:hover:-translate-y-2 shadow-[0_8px_30px_rgba(0,0,0,0.7)] lg:shadow-2xl w-[290px] lg:w-[306px] h-[420px] lg:h-[343px] flex-shrink-0 overflow-hidden snap-start lg:snap-start backdrop-blur-md">
 
                       {/* Icon */}
                       <div className="relative mb-5 lg:mb-4 transform group-hover:scale-105 transition-transform duration-500 flex-shrink-0 mx-auto w-[85px] h-[85px] lg:w-auto lg:h-auto [&>div]:!border-0 lg:[&>div]:!border-[4px] [&>div]:!p-0 lg:[&>div]:!p-2 [&>div]:w-[85px] [&>div]:h-[85px] lg:[&>div]:w-20 lg:[&>div]:h-20 [&>div>img]:scale-[1.25] lg:[&>div>img]:scale-100 flex items-center justify-center mt-6 lg:mt-0">
@@ -1675,7 +1692,7 @@ export default function Home() {
 
             {/* Mobile Ribbon */}
             <div
-              className="relative flex md:hidden items-center justify-center gap-2 py-3.5 w-[65%] ml-[-16px]"
+              className="ribbon-banner relative flex md:hidden items-center justify-center gap-2 py-3.5 w-[65%] ml-[-16px]"
               style={{
                 background: '#0484D1',
                 clipPath: 'polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%)'
@@ -1697,9 +1714,9 @@ export default function Home() {
 
               {/* More Blogs Button */}
               <div className="flex-shrink-0 mt-2 md:mt-0">
-                <button suppressHydrationWarning className="flex items-center relative group h-[52px] md:h-12 w-fit">
+                <button suppressHydrationWarning className="blog-cta flex items-center relative group h-[52px] md:h-12 w-fit">
                   {/* LEFT ICON CIRCLE */}
-                  <div className="absolute left-0 w-[52px] h-[52px] md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105 border border-black/5 md:border-none">
+                  <div className="absolute left-0 w-[52px] h-[52px] md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                     <svg className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
@@ -1707,7 +1724,7 @@ export default function Home() {
 
                   {/* MAIN BUTTON BODY */}
                   <div
-                    className="pl-[68px] md:pl-14 pr-7 md:pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all duration-300 rounded-[34px] md:rounded-[34px_34px_0_34px]"
+                    className="pl-[68px] md:pl-14 pr-7 md:pr-8 h-full flex items-center text-white font-bold text-[15px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all duration-300 rounded-[34px_34px_0_34px]"
                     style={{
                       background: 'linear-gradient(to right, #3799FA, #9961FB)',
                     }}
@@ -1721,7 +1738,7 @@ export default function Home() {
             {/* Desktop Blog Grid */}
             <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {blogPosts.map((post, idx) => (
-                <div key={idx} className="group cursor-pointer">
+                <div key={idx} className="blog-card group cursor-pointer">
                   <div className="relative w-full max-w-[484px] h-[260px] rounded-[24px] overflow-hidden mb-6 shadow-xl border border-black/5">
                     <Image src={post.image} alt={post.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
 
@@ -1748,7 +1765,7 @@ export default function Home() {
             {/* Mobile Blog Carousel */}
             <div className="flex md:hidden overflow-x-auto scrollbar-none gap-5 pb-8 pt-2 snap-x snap-mandatory -mx-5 px-5" style={{ width: 'calc(100% + 40px)' }}>
               {blogPosts.map((post, idx) => (
-                <div key={idx} className="group cursor-pointer flex-shrink-0 w-[290px] snap-start">
+                <div key={idx} className="blog-card group cursor-pointer flex-shrink-0 w-[290px] snap-start">
                   <div className="relative w-full h-[190px] rounded-[24px] overflow-hidden mb-5 shadow-sm border border-black/5 bg-white">
                     <Image src={post.image} alt={post.title} fill className="object-cover" />
 
@@ -1804,7 +1821,7 @@ export default function Home() {
 
             {/* Mobile Ribbon */}
             <div
-              className="relative flex md:hidden items-center justify-center gap-2 py-3.5 w-[85%]"
+              className="ribbon-banner relative flex md:hidden items-center justify-center gap-2 py-3.5 w-[85%]"
               style={{
                 background: '#0484D1',
                 clipPath: 'polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%)'
@@ -1854,7 +1871,7 @@ export default function Home() {
               >
                 {(testimonials || []).map((t, idx) => (
                   t.type === 'video' ? (
-                    <div key={idx} className="flex-shrink-0 w-[280px] md:w-[306px] h-[400px] md:h-[401px] relative rounded-[20px] md:rounded-[24px] overflow-hidden snap-start shadow-2xl border border-white/20 group/card">
+                    <div key={idx} className="testimonial-card flex-shrink-0 w-[280px] md:w-[306px] h-[400px] md:h-[401px] relative rounded-[20px] md:rounded-[24px] overflow-hidden snap-start shadow-2xl border border-white/20 group/card">
                       <Image src={t.image} alt={t.name} fill className="object-cover transition-transform duration-700 group-hover/card:scale-105" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
@@ -1871,7 +1888,7 @@ export default function Home() {
                       </div>
                     </div>
                   ) : (
-                    <div key={idx} className="flex-shrink-0 w-[290px] md:w-[306px] h-[420px] md:h-[446px] bg-[#1a1c1e] md:bg-[#1a1c1e]/80 backdrop-blur-xl rounded-[20px] md:rounded-[24px] p-6 md:p-8 snap-start border-t md:border border-white/10 md:border-white/5 flex flex-col justify-between shadow-[0_10px_40px_rgba(0,0,0,0.8)] md:shadow-2xl">
+                    <div key={idx} className="testimonial-card flex-shrink-0 w-[290px] md:w-[306px] h-[420px] md:h-[446px] bg-[#1a1c1e] md:bg-[#1a1c1e]/80 backdrop-blur-xl rounded-[20px] md:rounded-[24px] p-6 md:p-8 snap-start border-t md:border border-white/10 md:border-white/5 flex flex-col justify-between shadow-[0_10px_40px_rgba(0,0,0,0.8)] md:shadow-2xl">
                       <div>
                         <div className="flex gap-1.5 mb-6 md:mb-8">
                           {[...Array(t.stars || 5)].map((_, i) => (
@@ -1943,7 +1960,7 @@ export default function Home() {
 
             {/* Mobile Ribbon - small, left-edge hugging */}
             <div
-              className="relative flex md:hidden items-center gap-2 py-2.5 px-5 w-fit"
+              className="ribbon-banner relative flex md:hidden items-center gap-2 py-2.5 px-5 w-fit"
               style={{
                 background: '#0484D1',
                 clipPath: 'polygon(0% 0%, 100% 0%, 85% 50%, 100% 100%, 0% 100%)',
@@ -1966,7 +1983,7 @@ export default function Home() {
                 {faqData.map((faq, idx) => (
                   <div
                     key={idx}
-                    className={`bg-white rounded-[14px] md:rounded-[20px] transition-all duration-300 border ${activeFaqIdx === idx ? 'border-blue-500/40 shadow-md md:shadow-xl' : 'border-black/5'}`}
+                    className={`faq-item bg-white rounded-[14px] md:rounded-[20px] transition-all duration-300 border ${activeFaqIdx === idx ? 'border-blue-500/40 shadow-md md:shadow-xl' : 'border-black/5'}`}
                   >
                     <button
                       suppressHydrationWarning

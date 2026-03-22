@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronRight, CheckCircle2 } from "lucide-react";
 import { Poppins } from "next/font/google";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -17,8 +19,58 @@ const stats = [
 ];
 
 export default function Hero() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            // Giant Title animation
+            gsap.from(".hero-giant-title", {
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.2
+            });
+
+            // Mockup image animation
+            gsap.from(".hero-mockup-img", {
+                scale: 0.95,
+                y: 60,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power2.out",
+                delay: 0.5
+            });
+
+            // Content revelation on scroll
+            const t2 = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".hero-bottom-content",
+                    start: "top 95%",
+                }
+            });
+
+            t2.from(".hero-text-block", {
+                x: -30,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            }).from(".hero-stats-block", {
+                x: 30,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            }, "-=0.7");
+
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
         <section
+            ref={sectionRef}
             className={`${poppins.className} relative w-full min-h-screen bg-[#000000] overflow-hidden flex flex-col`}
         >
 
@@ -41,7 +93,7 @@ export default function Hero() {
                         backgroundImage: "linear-gradient(to bottom, #20B5F9 15%, #A851ED 50%, #000000 95%)",
                         margin: 0,
                     }}
-                    className="uppercase"
+                    className="uppercase hero-giant-title"
                 >
                     EDUPROVA
                 </h1>
@@ -55,9 +107,8 @@ export default function Hero() {
                 />
             </div>
 
-            {/* ── Device Mockups Image ── */}
             <div
-                className="relative w-full flex items-center justify-center z-10 mt-[-45px] sm:mt-[-80px] md:mt-[-120px] lg:mt-[-170px]"
+                className="relative w-full flex items-center justify-center z-10 mt-[-45px] sm:mt-[-80px] md:mt-[-120px] lg:mt-[-170px] hero-mockup-img"
             >
                 <div
                     className="relative w-full max-w-[1156px] mx-auto aspect-[1.96]"
@@ -89,10 +140,10 @@ export default function Hero() {
 
             {/* ── Bottom content: text left + stats right ── */}
             <div
-                className="relative z-10 w-full lg:w-[1156px] max-w-full mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between px-10 sm:px-12 lg:px-0 lg:pr-5 pb-[60px] pt-4 lg:pt-0 lg:mt-5 mt-[25px] sm:mt-[0px] gap-6 lg:gap-10"
+                className="relative z-10 w-full lg:w-[1156px] max-w-full mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between px-10 sm:px-12 lg:px-0 lg:pr-5 pb-[60px] pt-4 lg:pt-0 lg:mt-5 mt-[25px] sm:mt-[0px] gap-6 lg:gap-10 hero-bottom-content"
             >
                 {/* Left: Heading + description + button */}
-                <div className="flex-none w-full max-w-[582px] ml-0 lg:ml-[-250px] flex flex-col items-start lg:items-start text-left lg:text-left">
+                <div className="flex-none w-full max-w-[582px] ml-0 lg:ml-[-250px] flex flex-col items-start lg:items-start text-left lg:text-left hero-text-block">
                     {/* Main Heading */}
                     <h2
                         style={{
@@ -139,7 +190,7 @@ export default function Hero() {
 
                 {/* Right: Stats with green checkmarks */}
                 <div
-                    className="flex flex-col gap-5 flex-shrink-0 items-start lg:items-start mt-4 lg:mt-0"
+                    className="flex flex-col gap-5 flex-shrink-0 items-start lg:items-start mt-4 lg:mt-0 hero-stats-block"
                 >
                     {stats.map((stat, idx) => (
                         <div key={idx} style={{ display: "flex", alignItems: "center", gap: "14px" }}>
@@ -178,7 +229,7 @@ export default function Hero() {
 
                     {/* Get Start Button */}
                     <div className="mt-4 lg:mt-3">
-                        <button className="flex items-center group relative h-12 w-fit cursor-pointer">
+                        <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit cursor-pointer">
                             <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-0.5"><polyline points="9 18 15 12 9 6" /></svg>
                             </div>

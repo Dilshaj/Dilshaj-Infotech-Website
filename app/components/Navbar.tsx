@@ -167,10 +167,14 @@ export default function Navbar() {
                                         setIsMenuOpen(false);
                                         setIsGetInTouchOpen(true);
                                     }}
-                                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#31B5FE] to-[#AC52F2] text-white font-bold flex items-center justify-center gap-3 shadow-lg"
+                                    className="group relative h-14 w-full cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px]"
                                 >
-                                    Get in Touch
-                                    <FaChevronRight className="w-4 h-4" />
+                                    <div className="absolute left-0 w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out">
+                                        <FaChevronRight className="w-4 h-4 text-[#3799FA]" />
+                                    </div>
+                                    <div className="pl-16 pr-8 h-full flex items-center justify-center text-white font-bold text-[17px] shadow-[0_8px_18px_rgba(55,153,250,0.25)] transition-all duration-700 ease-in-out bg-gradient-to-r from-[#3799FA] to-[#9961FB] rounded-[34px_34px_0px_34px]">
+                                        Get in Touch
+                                    </div>
                                 </button>
                             </div>
                         </motion.div>

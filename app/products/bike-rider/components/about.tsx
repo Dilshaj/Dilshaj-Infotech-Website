@@ -1,6 +1,8 @@
 "use client";
-
+import React, { useEffect, useRef } from 'react';
 import { Poppins } from 'next/font/google';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const poppins = Poppins({
     weight: ['400', '500', '600', '700', '800'],
@@ -9,8 +11,39 @@ const poppins = Poppins({
 });
 
 export default function About() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".about-image-reveal", {
+                x: -50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".about-image-reveal",
+                    start: "top 85%",
+                }
+            });
+
+            gsap.from(".about-content-reveal", {
+                x: 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".about-content-reveal",
+                    start: "top 85%",
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="w-full bg-white relative font-sans overflow-hidden pt-16 md:pt-24 pb-16 md:pb-24">
+        <section ref={sectionRef} className="w-full bg-white relative font-sans overflow-hidden pt-16 md:pt-24 pb-16 md:pb-24">
 
             {/* Top Ribbon - About */}
             <div
@@ -33,7 +66,7 @@ export default function About() {
                 <div className="flex flex-col md:flex-row items-center w-full gap-12 lg:gap-20">
 
                     {/* Left Column (Image) */}
-                    <div className="w-full md:w-1/2 flex justify-center max-md:-mt-4 md:mt-0 relative z-10">
+                    <div className="w-full md:w-1/2 flex justify-center max-md:-mt-4 md:mt-0 relative z-10 about-image-reveal">
                         <div className="relative w-full aspect-[16/11] rounded-tr-[40px] md:rounded-tr-[60px] overflow-hidden shadow-none bg-[#f1f1f1]">
                             <img
                                 src="/products/bike-rider-images/bike-rider-images/bikecar.png"
@@ -47,7 +80,7 @@ export default function About() {
                     </div>
 
                     {/* Right Column (Content) */}
-                    <div className="w-full md:w-1/2 flex flex-col max-md:pt-0 max-md:-mt-8 md:pt-4">
+                    <div className="w-full md:w-1/2 flex flex-col max-md:pt-0 max-md:-mt-8 md:pt-4 about-content-reveal">
                         <h2 className={`${poppins.className} max-md:text-center max-md:whitespace-nowrap text-[22px] sm:text-[24px] md:text-[38px] lg:text-[42px] font-bold text-[#1A1A1A] mb-4 md:mb-6 leading-tight`}>
                             Bike & Car Rider App
                         </h2>
@@ -79,7 +112,7 @@ export default function About() {
 
                         {/* CTA Button */}
                         <div className="mt-8 flex justify-center md:justify-start w-full">
-                            <button className="flex items-center group relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px]">
+                            <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit cursor-pointer overflow-hidden transition-all duration-700 rounded-[34px_34px_0px_34px] hover:rounded-[34px_34px_34px_0px]">
                                 <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-all duration-700 ease-in-out group-hover:left-[calc(100%-48px)] group-hover:bg-gradient-to-r group-hover:from-[#3799FA] group-hover:to-[#9961FB] group-hover:scale-105">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-700 ease-in-out group-hover:stroke-white"><path d="m9 18 6-6-6-6" /></svg>
                                 </div>

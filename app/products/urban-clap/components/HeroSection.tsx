@@ -1,23 +1,51 @@
 "use client";
-import { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function HeroSection() {
-    const ref = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: ref,
-        offset: ["start start", "end start"]
-    });
-    // Move the image slightly down as user scrolls down
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            // Mobile entrance
+            gsap.from(".hero-mobile-reveal", {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power3.out",
+                delay: 0.2
+            });
+
+            // Desktop entrance
+            gsap.from(".hero-desktop-reveal", {
+                x: -50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                delay: 0.3
+            });
+
+            // Background reveal
+            gsap.from(".hero-image-reveal", {
+                scale: 1.05,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power2.out"
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
 
     return (
-        <div ref={ref} className="relative w-full overflow-hidden">
+        <div ref={sectionRef} className="relative w-full overflow-hidden">
 
             {/* ====== MOBILE VIEW ====== */}
             {/* Mobile Image (Top) - Hidden on desktop */}
-            <div className="relative w-full h-[45vh] md:hidden shrink-0">
+            <div className="relative w-full h-[45vh] md:hidden shrink-0 hero-image-reveal">
                 <Image
                     src="/products-images/urban-clap.png"
                     alt="Home Services App"
@@ -32,11 +60,9 @@ export default function HeroSection() {
             </div>
 
             {/* Mobile Content (Bottom) */}
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="flex-1 flex flex-col items-center justify-start px-4 pt-0 md:hidden z-20 w-full relative bg-black text-center pb-12 -mt-4"
+            <div
+                style={{ willChange: "transform, opacity" }}
+                className="flex-1 flex flex-col items-center justify-start px-4 pt-0 md:hidden z-20 w-full relative bg-black text-center pb-12 -mt-4 hero-mobile-reveal"
             >
                 <h1
                     className="font-bold text-white whitespace-pre-wrap"
@@ -62,7 +88,7 @@ export default function HeroSection() {
                     Dilshaj Infotech is building a next-generation on-demand service platform that connects customers with verified service professionals in just a few taps.
                 </p>
 
-                <button className="mt-10 flex items-center group relative h-12 w-fit cursor-pointer">
+                <button suppressHydrationWarning className="mt-10 flex items-center group relative h-12 w-fit cursor-pointer">
                     <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-0.5"><polyline points="9 18 15 12 9 6" /></svg>
                     </div>
@@ -70,16 +96,13 @@ export default function HeroSection() {
                         Coming Soon
                     </div>
                 </button>
-            </motion.div>
+            </div>
 
 
             {/* ====== DESKTOP VIEW ====== */}
             <div className="hidden md:flex relative w-full items-center bg-black overflow-hidden z-0 h-[80vh] min-h-[600px]">
-                {/* Image placed with Parallax Effect */}
-                <motion.div
-                    style={{ y }}
-                    className="absolute inset-0 w-full h-[120%]"
-                >
+                {/* Image reveal */}
+                <div className="absolute inset-0 w-full h-full hero-image-reveal">
                     <Image
                         src="/products-images/urban-clap.png"
                         alt="Home Services App Background"
@@ -87,7 +110,7 @@ export default function HeroSection() {
                         className="object-cover object-center"
                         priority
                     />
-                </motion.div>
+                </div>
 
                 {/* Dark gradient on the left to ensure text readability */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent z-10 pointer-events-none"></div>
@@ -95,11 +118,9 @@ export default function HeroSection() {
                 {/* Desktop Content (Left side absolute overlay, vertically centered) */}
                 <div className="absolute inset-0 w-full pl-10 md:pl-16 lg:pl-20 xl:pl-[8%] flex items-center z-20">
                     {/* Further constrained max width so the text stays strictly on the left side and doesn't overlap the phone image */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="w-full max-w-[280px] lg:max-w-[340px] xl:max-w-[400px] 2xl:max-w-[460px] flex flex-col items-start text-left"
+                    <div
+                        style={{ willChange: "transform, opacity" }}
+                        className="w-full max-w-[280px] lg:max-w-[340px] xl:max-w-[400px] 2xl:max-w-[460px] flex flex-col items-start text-left hero-desktop-reveal"
                     >
                         <h1
                             className="font-bold text-white whitespace-pre-wrap"
@@ -124,7 +145,7 @@ export default function HeroSection() {
                             Dilshaj Infotech is building a next-generation on-demand service platform that connects customers with verified service professionals in just a few taps.
                         </p>
 
-                        <button className="mt-12 flex items-center group relative h-12 w-fit cursor-pointer">
+                        <button suppressHydrationWarning className="mt-12 flex items-center group relative h-12 w-fit cursor-pointer">
                             <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3799FA" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 ml-0.5"><polyline points="9 18 15 12 9 6" /></svg>
                             </div>
@@ -132,7 +153,7 @@ export default function HeroSection() {
                                 Coming Soon
                             </div>
                         </button>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,8 @@
 "use client";
-
+import React, { useEffect, useRef } from 'react';
 import { Poppins } from 'next/font/google';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import dcbg from '../images/dcbg.png';
 import doctorimg from '../images/doctorimg.png';
 
@@ -11,8 +13,33 @@ const poppins = Poppins({
 });
 
 export default function Hero() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".hero-text-content", {
+                x: -50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.2
+            });
+
+            gsap.from(".hero-image-reveal", {
+                scale: 0.95,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power2.out",
+                delay: 0.4
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="relative w-full min-h-screen flex items-center bg-[#07131C] overflow-hidden font-sans pt-20 pb-16">
+        <section ref={sectionRef} className="relative w-full min-h-screen flex items-center bg-[#07131C] overflow-hidden font-sans pt-20 pb-16">
             {/* Background Image */}
             <div
                 className="absolute top-0 left-0 w-full h-[90%] z-0 bg-cover bg-center bg-no-repeat"
@@ -23,7 +50,7 @@ export default function Hero() {
             <div className="relative z-10 w-full max-w-[1300px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col lg:flex-row items-center justify-between -mt-10 lg:-mt-24">
 
                 {/* Left Side: Text Content */}
-                <div className="w-full lg:w-1/2 flex flex-col items-start mt-8 lg:mt-0 z-20">
+                <div className="w-full lg:w-1/2 flex flex-col items-start mt-8 lg:mt-0 z-20 hero-text-content">
 
                     {/* #upcoming pill */}
                     <div className="inline-block max-md:p-[1.5px] max-md:bg-gradient-to-r max-md:from-[#00B4FF] max-md:to-[#A26DFF] rounded-full mb-6">
@@ -54,7 +81,7 @@ export default function Hero() {
                     </p>
 
                     {/* Button */}
-                    <button className="flex items-center group relative h-12 w-fit cursor-pointer">
+                    <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit cursor-pointer">
                         <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                         </div>
@@ -65,7 +92,7 @@ export default function Hero() {
                 </div>
 
                 {/* Right Side: Image */}
-                <div className="w-full lg:w-1/2 flex justify-center lg:justify-end max-md:-mt-20 md:mt-12 lg:mt-0 relative z-10 pointer-events-none">
+                <div className="w-full lg:w-1/2 flex justify-center lg:justify-end max-md:-mt-20 md:mt-12 lg:mt-0 relative z-10 pointer-events-none hero-image-reveal">
                     <div className="relative w-full max-w-[500px] lg:max-w-[650px] aspect-[4/5] lg:aspect-auto lg:h-[700px]">
                         <img
                             src={doctorimg.src}

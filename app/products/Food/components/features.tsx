@@ -1,5 +1,9 @@
+"use client";
+import React, { useEffect, useRef } from 'react';
 import { Poppins } from 'next/font/google';
 import { FaClock, FaCreditCard, FaStore, FaTag, FaMotorcycle, FaStar } from 'react-icons/fa6';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const poppins = Poppins({
     weight: ['400', '500', '600', '700'],
@@ -41,8 +45,40 @@ const featuresData = [
 ];
 
 export default function Features() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".features-header", {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".features-header",
+                    start: "top 85%",
+                }
+            });
+
+            gsap.from(".feature-card", {
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".feature-card",
+                    start: "top 90%",
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <section className="w-full bg-[#0A0A0A] relative py-20 px-4 md:px-8 font-sans overflow-hidden">
+        <section ref={sectionRef} className="w-full bg-[#0A0A0A] relative py-20 px-4 md:px-8 font-sans overflow-hidden">
             
             {/* Top Left Features Badge - EXACT MATCH TO SCREENSHOT */}
             <div className="absolute top-10 left-0 z-20" style={{ filter: 'drop-shadow(3px 4px 5px rgba(0,0,0,0.5))' }}>
@@ -57,7 +93,7 @@ export default function Features() {
 
             <div className="max-w-[1250px] mx-auto mt-20 md:mt-24">
                 {/* Heading */}
-                <div className="text-center mb-16 px-2 md:px-0 flex flex-col items-center">
+                <div className="text-center mb-16 px-2 md:px-0 flex flex-col items-center features-header">
                     <h2 className={`${poppins.className} text-[32px] md:text-[42px] font-bold text-white leading-[1.25] max-w-[800px]`}>
                         Everything You Need for a Better Food Delivery Experience
                     </h2>
@@ -68,7 +104,7 @@ export default function Features() {
                     {featuresData.map((feature, idx) => (
                         <div 
                             key={idx} 
-                            className="bg-[#151515] p-8 md:p-10 rounded-[20px] border border-white/5 hover:border-[#3799FA]/30 transition-all duration-300 flex flex-col"
+                            className="bg-[#151515] p-8 md:p-10 rounded-[20px] border border-white/5 hover:border-[#3799FA]/30 transition-all duration-300 flex flex-col feature-card"
                         >
                             <div className="w-10 h-10 bg-[#262626] rounded-[8px] flex items-center justify-center mb-8 border border-white/10">
                                 {feature.icon}

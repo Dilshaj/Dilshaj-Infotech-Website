@@ -1,10 +1,9 @@
 "use client";
-
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-
-import { ChevronRight } from "lucide-react";
 import { Poppins } from "next/font/google";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -12,8 +11,33 @@ const poppins = Poppins({
 });
 
 export default function Hero() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+            gsap.from(".hero-content-reveal", {
+                x: -50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                delay: 0.2
+            });
+
+            gsap.from(".hero-bg-reveal", {
+                scale: 1.05,
+                opacity: 0,
+                duration: 1.5,
+                ease: "power2.out"
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     return (
         <section
+            ref={sectionRef}
             className={`${poppins.className} relative w-full overflow-hidden bg-[#060d1f] mt-24 md:mt-0`}
         >
             {/*
@@ -25,17 +49,19 @@ export default function Hero() {
             <div className="relative w-full aspect-[16/7] max-h-[500px] lg:max-h-[650px]">
 
                 {/* ── Background image ── */}
-                <Image
-                    src="/products-images/S&N (2).png"
-                    alt="Security Hero Background"
-                    fill
-                    /*
-                     * object-center keeps the phone perfectly centered/right
-                     * on all screen sizes so it shows the full device
-                     */
-                    className="object-cover object-right"
-                    priority
-                />
+                <div className="hero-bg-reveal absolute inset-0">
+                    <Image
+                        src="/products-images/security-navigation.png"
+                        alt="Security Hero Background"
+                        fill
+                        /*
+                         * object-center keeps the phone perfectly centered/right
+                         * on all screen sizes so it shows the full device
+                         */
+                        className="object-cover object-right"
+                        priority
+                    />
+                </div>
 
                 {/* ── Overlays ── */}
                 {/* Left-to-transparent gradient so text is readable on all sizes */}
@@ -48,6 +74,7 @@ export default function Hero() {
                 {/* ── Text Content ── */}
                 <div
                     className="
+                        hero-content-reveal
                         absolute inset-0 z-10 flex flex-col justify-center
                         pl-3 pr-0 pt-4 pb-4 max-w-[44%]
                         lg:pt-[clamp(32px,5vw,72px)] lg:pb-[clamp(24px,3vw,48px)]
@@ -84,7 +111,7 @@ export default function Hero() {
                     </p>
 
                     {/* ── CTA Button ── */}
-                    <button className="flex items-center group relative h-12 w-fit cursor-pointer mt-4">
+                    <button suppressHydrationWarning className="flex items-center group relative h-12 w-fit cursor-pointer mt-4">
                         <div className="absolute left-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-md z-20 transition-transform group-hover:scale-105">
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#3799FA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                         </div>
