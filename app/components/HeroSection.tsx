@@ -198,7 +198,7 @@ export default function HeroSection() {
                                         {badge.labelPos === "top" && (
                                             <div className="relative mb-3">
                                                 <div className="absolute -left-10 -top-4 w-7 h-7 z-30 drop-shadow-md">
-                                                    <Image src="/home/arrow.svg" alt="cursor" width={28} height={28} className="object-contain" />
+                                                    <Image src="/Home/arrow.svg" alt="cursor" width={28} height={28} className="object-contain" />
                                                 </div>
                                                 <div className={`px-5 py-2 rounded-[8px] border flex items-center justify-center transition-all duration-500 shadow-lg ${isActive ? "bg-gradient-to-r from-[#31B5FE] to-[#AC52F2] text-white border-transparent" : "bg-white text-gray-800 border-black/[0.03]"}`}>
                                                     <span className="text-[16px] font-medium tracking-tight">{badge.role}</span>
@@ -213,7 +213,7 @@ export default function HeroSection() {
                                         {badge.labelPos === "bottom" && (
                                             <div className="relative mt-3">
                                                 <div className="absolute -left-10 -top-4 w-7 h-7 z-30 drop-shadow-md">
-                                                    <Image src="/home/arrow.svg" alt="cursor" width={28} height={28} className="object-contain" />
+                                                    <Image src="/Home/arrow.svg" alt="cursor" width={28} height={28} className="object-contain" />
                                                 </div>
                                                 <div className={`px-5 py-2 rounded-[8px] shadow-lg border-0 flex items-center justify-center transition-all duration-500 ${isActive ? "bg-gradient-to-r from-[#31B5FE] to-[#AC52F2] text-white" : "bg-white text-gray-800 border-black/[0.03]"}`}>
                                                     <span className="text-[16px] font-medium tracking-tight">{badge.role}</span>
@@ -262,7 +262,7 @@ export default function HeroSection() {
                                             </div>
                                             <div className="relative flex justify-center w-full">
                                                 <div className="absolute -left-1 sm:-left-0 -top-[8px] w-[14px] h-[14px] z-30 drop-shadow-md">
-                                                    <Image src="/home/arrow.svg" alt="cursor" width={14} height={14} className="object-contain" />
+                                                    <Image src="/Home/arrow.svg" alt="cursor" width={14} height={14} className="object-contain" />
                                                 </div>
                                                 <div className={`px-2 py-[4px] sm:py-[5px] rounded-[4px] text-[10px] sm:text-[11px] font-bold text-center whitespace-nowrap shadow-md transition-all duration-500 border ${isActive ? 'bg-gradient-to-r from-[#31B5FE] to-[#AC52F2] text-white border-transparent' : 'bg-white text-gray-800 border-gray-100'}`}>
                                                     {badge.role}

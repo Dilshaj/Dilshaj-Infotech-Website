@@ -490,7 +490,6 @@ export default function Home() {
         {/* DARK SECTION: Ticker + Impact Card with Overlap */}
         <HomeScrollAnimations />
         <div data-section="stats" className="w-full bg-black pt-10 lg:pt-20 pb-0 overflow-hidden flex flex-col items-center gap-8 lg:gap-20 mt-16 lg:mt-30 relative">
-          <div className="absolute inset-0 z-0 bg-cover bg-top lg:hidden opacity-100 mix-blend-screen" style={{ backgroundImage: "url('/Home/technologies/mobile.png')" }} />
           {/* Animated Background Glows */}
           <div className="hidden lg:block absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -translate-y-1/2" />
           <div className="hidden lg:block absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] translate-y-1/2" />
@@ -516,7 +515,7 @@ export default function Home() {
                         { name: "AWS", icon: <FaAws className="w-[38px] h-[28px] text-white mt-1" /> },
                         { name: "React", icon: <FaReact className="w-[28px] h-[28px] text-white" /> },
                         { name: "MongoDB", icon: <SiMongodb className="w-[20px] h-[28px] text-white" /> },
-                        { name: "Next.js", icon: <div className="bg-white rounded-full p-[3px]"><SiNextdotjs className="w-[22px] h-[22px] text-black" /></div> },
+                        { name: "Next.js", icon: <SiNextdotjs className="w-[28px] h-[28px] text-white" /> },
                         { name: "Flutter", icon: <FaFlutter className="w-[28px] h-[28px] text-white" /> },
                         { name: "Figma", icon: <FaFigma className="w-[20px] h-[28px] text-white" /> }
                       ].map((tech, j) => (
