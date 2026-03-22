@@ -35,11 +35,12 @@ const cardsData = [
         href: "/products/edu-det",
         imageBg: "bg-gradient-to-br from-[#b4d2ff] via-[#dcdbfc] to-[#f4b6fa]",
         computercard: "",
-        mobilecard: "/products-images/mobilecard-1.png",
-        plogocard: "/products-images/plogocard-1.png",
-        rightcard: "/products-images/right-card-1.png",
+        mobilecard: "",
+        plogocard: "",
+        rightcard: "",
         newscard: "",
         bgText: "",
+        eduprovacard: "/products-images/eduprova.png",
         reverse: false,
     },
     {
@@ -454,6 +455,11 @@ function ImageBox({ card }: { card: typeof cardsData[number] }) {
                     <Image src={(card as any).foodcard} alt="Food Delivery App Interface" fill className="object-cover object-center" />
                 </div>
             )}
+            {(card as any).eduprovacard && (
+                <div className="absolute inset-0 w-full h-full z-20 overflow-hidden rounded-[16px] transform group-hover:scale-[1.03] transition-all duration-[1000ms] ease-out">
+                    <Image src={(card as any).eduprovacard} alt="EduProva Platform Mockup" fill className="object-contain object-center" />
+                </div>
+            )}
         </div>
     );
 }
@@ -533,6 +539,11 @@ function MobileImageSection({ card }: { card: typeof cardsData[number] }) {
             {(card as any).foodcard && (
                 <div className="absolute inset-0 z-20 overflow-hidden rounded-t-[20px]">
                     <Image src={(card as any).foodcard} alt="Food" fill className="object-cover object-center" />
+                </div>
+            )}
+            {(card as any).eduprovacard && (
+                <div className="absolute inset-0 z-20 overflow-hidden rounded-t-[20px]">
+                    <Image src={(card as any).eduprovacard} alt="EduProva Platform Mockup" fill className="object-contain object-center" />
                 </div>
             )}
         </div>
