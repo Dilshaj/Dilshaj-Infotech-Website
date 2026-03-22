@@ -41,31 +41,31 @@ const allCards = [
         num: "05",
         title: "Graphic Design",
         desc: "We craft visually captivating designs that communicate your brand's unique identity. From corporate branding to digital assets, we ensure consistency, clarity, and impact across all visual communications.",
-        img: "/career/image copy.png"
+        img: "/services/graphic.png"
     },
     {
         num: "06",
         title: "3D Design",
         desc: "From conceptualization to 3D modeling and visualization, we bring your ideas to life with high-quality 3D solutions. Our 3D solutions help product visualization, architectural models, and interactive designs.",
-        img: "/career/image copy 2.png"
+        img: "/services/design-3d.png"
     },
     {
         num: "07",
         title: "PR & Digital Marketing Agency",
         desc: "Our data-driven digital marketing solutions help expand your reach, and drive conversions. We ensure your brand connects with the right audience through strategic SEO, social media marketing, content strategy, and targeted advertising.",
-        img: "/career/image copy 3.png"
+        img: "/services/digital.png"
     },
     {
         num: "08",
         title: "Interior Design & Visualization",
         desc: "Our smart and scalable interior design solutions leverage advanced 3D & VR visualization tools. We help businesses and individuals bring spaces to life before they are built.",
-        img: "/career/image copy 4.png"
+        img: "/services/interior.png"
     },
     {
         num: "09",
         title: "Construction & Design Support",
         desc: "We offer end-to-end construction support services integrating design, planning, and execution. We ensure that structural designs are implemented with efficiency and precision.",
-        img: "/career/image copy 5.png"
+        img: "/services/construction.png"
     }
 ];
 
