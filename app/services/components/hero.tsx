@@ -69,7 +69,7 @@ export default function Hero() {
             {/* Background Image (User specified 2,3 images mapped to /services/bg.png and /services/hero.png) */}
             <div className="absolute top-0 right-0 w-full lg:w-[65%] h-full z-0 opacity-90 pointer-events-none">
                 <Image
-                    src="/services/Rectanglebg.png"
+                    src="/pro-det/hero-bg.png"
                     alt="Abstract Background"
                     layout="fill"
                     objectFit="cover"
@@ -122,7 +122,7 @@ export default function Hero() {
                 <div className="relative h-[500px] md:h-[650px] lg:h-[800px] w-full flex items-center justify-center lg:justify-end mt-[-20px] md:mt-12 lg:mt-0">
                     <div className="relative w-[115%] max-w-[700px] lg:max-w-[950px] h-[120%] -right-4 lg:-right-[80px] top-[-30px] md:top-10 lg:top-[60px]">
                         <Image
-                            src="/services/Home-bg-image.png"
+                            src="/Home/Bot.png"
                             alt="Robot holding tablet"
                             layout="fill"
                             objectFit="contain"

@@ -17,55 +17,55 @@ const allCards = [
         num: "01",
         title: "AI & Machine Learning",
         desc: "We design and deploy intelligent AI and ML solutions that automate processes, enhance decision-making, and unlock valuable insights from data. From predictive analytics to smart automation, our solutions help businesses innovate and scale faster.",
-        img: "/services/aiml.png"
+        img: "/Home/technologies/aiml.png"
     },
     {
         num: "02",
         title: "Web & App Development",
         desc: "We build high-performance, scalable web and mobile applications tailored to your business needs. Our solutions focus on speed, security, and user experience, ensuring reliable digital products that grow with your business.",
-        img: "/services/webdev.png"
+        img: "/Home/technologies/web.png"
     },
     {
         num: "03",
         title: "UI/UX Designing",
         desc: "Our UI/UX design services focus on creating intuitive, engaging, and user-centric experiences. We combine research, creativity, and usability principles to design interfaces that enhance user satisfaction and drive engagement.",
-        img: "/services/uiux.png"
+        img: "/services/UI/UX.png"
     },
     {
         num: "04",
         title: "Cloud & Digital Solutions",
         desc: "We deliver cloud-based and digital transformation solutions that improve agility, scalability, and operational efficiency. From cloud migration to system optimization, we help businesses embrace modern digital infrastructure.",
-        img: "/services/aws.png"
+        img: "/Home/technologies/devops.png"
     },
     {
         num: "05",
         title: "Graphic Design",
         desc: "We craft visually captivating designs that communicate your brand's unique identity. From corporate branding to digital assets, we ensure consistency, clarity, and impact across all visual communications.",
-        img: "/services/graphic.png"
+        img: "/career/image copy.png"
     },
     {
         num: "06",
         title: "3D Design",
         desc: "From conceptualization to 3D modeling and visualization, we bring your ideas to life with high-quality 3D solutions. Our 3D solutions help product visualization, architectural models, and interactive designs.",
-        img: "/services/design.png"
+        img: "/career/image copy 2.png"
     },
     {
         num: "07",
         title: "PR & Digital Marketing Agency",
         desc: "Our data-driven digital marketing solutions help expand your reach, and drive conversions. We ensure your brand connects with the right audience through strategic SEO, social media marketing, content strategy, and targeted advertising.",
-        img: "/services/digital.png"
+        img: "/career/image copy 3.png"
     },
     {
         num: "08",
         title: "Interior Design & Visualization",
         desc: "Our smart and scalable interior design solutions leverage advanced 3D & VR visualization tools. We help businesses and individuals bring spaces to life before they are built.",
-        img: "/services/interior.png"
+        img: "/career/image copy 4.png"
     },
     {
         num: "09",
         title: "Construction & Design Support",
         desc: "We offer end-to-end construction support services integrating design, planning, and execution. We ensure that structural designs are implemented with efficiency and precision.",
-        img: "/services/construction.png"
+        img: "/career/image copy 5.png"
     }
 ];
 

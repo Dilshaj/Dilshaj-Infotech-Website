@@ -214,7 +214,7 @@ const accelerationFeatures = [
     type: "large",
     icon: (
       <div className="w-12 h-12 relative">
-        <Image src="/home/Vector.png" alt="Innovation Icon" fill className="object-contain" />
+        <Image src="/Home/Vector.png" alt="Innovation Icon" fill className="object-contain" />
       </div>
     )
   },
@@ -225,7 +225,7 @@ const accelerationFeatures = [
     gradient: "radial-gradient(circle at 20% 20%, #03A3FF 0%, #054F91 100%)",
     icon: (
       <div className="w-14 h-14 relative">
-        <Image src="/home/mask_group.png" alt="Scale Icon" fill className="object-contain" />
+        <Image src="/Home/mask_group.png" alt="Scale Icon" fill className="object-contain" />
       </div>
     )
   },
@@ -237,7 +237,7 @@ const accelerationFeatures = [
     icon: (
       <div className="w-12 h-12 rounded-full border-2 border-dashed border-white/40 flex items-center justify-center">
         <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-lg">
-          <Image src="/home/user.png" alt="User Icon" width={24} height={24} className="object-contain" />
+          <Image src="/Home/user.png" alt="User Icon" width={24} height={24} className="object-contain" />
         </div>
       </div>
     )
@@ -249,7 +249,7 @@ const accelerationFeatures = [
     type: "large",
     icon: (
       <div className="w-12 h-12 relative">
-        <Image src="/home/group_dev_icon.png" alt="Dev Icon" fill className="object-contain" />
+        <Image src="/Home/group_dev_icon.png" alt="Dev Icon" fill className="object-contain" />
       </div>
     )
   }

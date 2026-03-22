@@ -180,7 +180,7 @@ export default function HeroSection() {
                     {/* DOMINANT HEADLINE ZONE */}
                     <div className="relative w-full h-auto lg:h-[40vh] flex flex-col items-center justify-center mt-12 sm:mt-16 lg:mt-25 order-last lg:order-1 pt-0 lg:pt-0 py-4 lg:py-0">
 
-                        <h1 className="text-[100px] sm:text-[110px] lg:text-[12vw] 2xl:text-[220px] font-bold lg:font-semibold text-[rgb(191,191,191)] lg:text-black tracking-[-0.05em] z-10 text-center lg:opacity-100 w-[430px] lg:w-full max-w-[100vw] lg:h-auto whitespace-normal lg:whitespace-nowrap drop-shadow-none lg:drop-shadow-sm flex flex-col lg:flex-row justify-center lg:items-center gap-[65px] sm:gap-[75px] lg:gap-[3vw] select-none" style={{ perspective: "1000px" }}>
+                        <h1 className="text-[100px] sm:text-[110px] lg:text-[12vw] 2xl:text-[220px] font-bold lg:font-semibold text-gray-400 lg:text-black tracking-[-0.05em] z-10 text-center lg:opacity-100 w-[430px] lg:w-full max-w-[100vw] lg:h-auto whitespace-normal lg:whitespace-nowrap drop-shadow-none lg:drop-shadow-sm flex flex-col lg:flex-row justify-center lg:items-center gap-[65px] sm:gap-[75px] lg:gap-[3vw] select-none" style={{ perspective: "1000px" }}>
                             <span className="hero-word block lg:inline leading-[0.75] lg:leading-none opacity-0 will-change-transform">Dilshaj</span>
                             <span className="hero-word block lg:inline leading-[0.75] lg:leading-none opacity-0 will-change-transform">Infotech</span>
                         </h1>
@@ -237,7 +237,7 @@ export default function HeroSection() {
                                             </div>
                                             <div className="relative flex justify-center w-full">
                                                 <div className="absolute -left-1 sm:-left-0 -top-[8px] w-[14px] h-[14px] z-30 drop-shadow-md">
-                                                    <Image src="/home/arrow.svg" alt="cursor" width={14} height={14} className="object-contain" />
+                                                    <Image src="/Home/arrow.svg" alt="cursor" width={14} height={14} className="object-contain" />
                                                 </div>
                                                 <div className={`px-2 py-[4px] sm:py-[5px] rounded-[4px] text-[10px] sm:text-[11px] font-bold text-center whitespace-nowrap shadow-md transition-all duration-500 border ${isActive ? 'bg-gradient-to-r from-[#31B5FE] to-[#AC52F2] text-white border-transparent' : 'bg-white text-gray-800 border-gray-100'}`}>
                                                     {badge.role}
@@ -291,7 +291,7 @@ export default function HeroSection() {
                         <div className="hidden lg:flex w-full lg:w-[25%] justify-center">
                             <div className="hero-bot relative w-full aspect-[3/4] max-h-[60vh] flex flex-col items-center justify-end">
                                 <Image
-                                    src="/home/Bot.png"
+                                    src="/Home/Bot.png"
                                     alt="Robot"
                                     fill
                                     className="object-contain drop-shadow-[0_45px_45px_rgba(0,0,0,0.1)] z-10 animate-float"

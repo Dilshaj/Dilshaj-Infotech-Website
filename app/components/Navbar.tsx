@@ -133,7 +133,7 @@ export default function Navbar() {
                             {/* Drawer Header */}
                             <div className="p-6 flex items-center justify-between border-b border-gray-200">
                                 <Link href="/" onClick={() => setIsMenuOpen(false)}>
-                                    <Image src="/company_logo.png" alt="Logo" width={40} height={40} className="object-contain" />
+                                    <Image src="/company_logo.png" alt="Logo" width={110} height={40} className="object-contain" />
                                 </Link>
                                 <button
                                     suppressHydrationWarning
